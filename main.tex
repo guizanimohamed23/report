@@ -1,0 +1,89 @@
+\documentclass[12pt,a4paper]{report}
+
+\input{config/packages}
+\input{config/settings}
+
+\begin{document}
+
+% -------------------- COVER PAGE --------------------
+\input{pages/pagedegarde}
+
+% -------------------- FRONT MATTER --------------------
+\clearpage
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+% -------- Dedication --------
+\input{pages/dedication}
+
+% -------- Acknowledgements --------
+\clearpage
+\input{pages/acknowledgements}
+
+% -------- Table of Contents --------
+\clearpage
+\input{pages/Tableofcontenet}
+
+% -------- List of Abbreviations --------
+\clearpage
+\input{pages/abbreviations}
+
+% -------- List of Figures --------
+\clearpage
+\listoffigures
+\thispagestyle{plain}
+
+% -------- List of Tables --------
+\clearpage
+\listoftables
+\thispagestyle{plain}
+
+% -------------------- MAIN MATTER --------------------
+\clearpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+% -------- Introduction --------
+\chapter*{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
+\markboth{Introduction}{Introduction}
+\input{pages/introduction}
+
+% -------- Chapter 1 --------
+\chapter{General Presentation of the Project}
+\input{chapitres/chapitre1}
+
+% -------- Chapter 2 --------
+\chapter{System Analysis and Requirements Specification}
+\input{chapitres/chapitre2}
+
+% -------- Chapter 3 --------
+\chapter{Sprint 1: Backend Infrastructure and Authentication}
+\input{chapitres/chapitre3}
+
+% -------- Chapter 4 --------
+\chapter{Sprint 2: Scanning Engine and Security Pipeline}
+\input{chapitres/chapitre4}
+
+% -------- Chapter 5 --------
+\chapter{Sprint 3: Frontend Dashboard and Visualization}
+\input{chapitres/chapitre5}
+
+% -------- Chapter 6 --------
+\chapter{Sprint 4: AI Integration and Experimental Validation}
+\input{chapitres/chapitre6}
+
+% -------------------- REFERENCES --------------------
+\clearpage
+\chapter*{References}
+\addcontentsline{toc}{chapter}{References}
+\markboth{References}{References}
+\input{pages/references}
+
+% -------------------- CONCLUSION --------------------
+\clearpage
+\chapter*{General Conclusion}
+\markboth{General Conclusion}{General Conclusion}
+\input{pages/conclusion}
+
+\end{document}

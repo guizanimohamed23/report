@@ -1,0 +1,183 @@
+\section{Introduction}
+
+This sprint focuses on the scanning pipeline and on the vulnerability processing features of the HexStrike platform. The goal of this iteration is to implement reliable scan orchestration, normalize heterogeneous tool outputs into a unified schema, match findings against the vulnerability catalog, and persist results for later analysis and reporting.
+
+In practice, this sprint covers scan submission, queueing and scheduling, worker orchestration, normalization, vulnerability matching, result persistence, and the user interfaces to submit and view scans.
+
+\subsection{Sprint Purpose}
+
+The purpose of this sprint is to deliver a robust scan processing pipeline that reliably executes scanners, normalizes their outputs, matches findings to known vulnerabilities, and stores results for retrieval and analysis. Success is measured by correct job processing, normalized result coverage for representative tool outputs, accurate matching to the catalog, and end-to-end retrieval from the UI.
+
+\section{Sprint Backlog}
+
+The backlog for this sprint contains the following user stories:
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabularx}{\textwidth}{|X|}
+        \hline
+        As a user, I can submit a scan target (URL) and receive a job identifier. \\\hline
+        As a user, I can schedule or queue scans for later execution. \\\hline
+        As the system, I can run scanner tools and collect raw outputs. \\\hline
+        As the system, I can normalize raw outputs into a unified \texttt{ScanResult} schema. \\\hline
+        As the system, I can match normalized findings to the vulnerability catalog and assign severities. \\\hline
+        As a user, I can view, filter, and export scan history and results. \\\hline
+        As an operator, I can monitor queue status and worker health. \\\hline
+    \end{tabularx}
+    \caption{Sprint Backlog}
+\end{table}
+
+\section{Requirements Analysis}
+
+\subsection{Use Case Diagram}
+
+The primary actors are the authenticated user (or guest if allowed), the API, and the scan worker. The use case diagram illustrates submission, processing, normalization, matching and viewing flows.
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.85\textwidth}{\centering Use case diagram placeholder for Sprint 2}}%
+    \caption{Use case diagram for scanning and vulnerability processing}
+    \label{fig:sprint4-usecase}
+\end{figure}
+
+\subsection{Use Case Description}
+
+The main use cases of this sprint are summarized in the following tables.
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{|p{3cm}|p{11cm}|}
+        \hline
+        \textbf{Use case} & Submit Scan \\ \hline
+        \textbf{Actor} & Authenticated user (or Guest if permitted) \\ \hline
+        \textbf{Description} & The user provides a target (URL) and optional parameters; the backend validates input, creates a `Scan` job, enqueues it and returns a job identifier. \\ \hline
+        \textbf{Pre-condition} & The user is authorized to submit scans and the queue service is available. \\ \hline
+        \textbf{Post-condition} & A `Scan` job is stored and queued for processing; the user receives the job id. \\ \hline
+    \end{tabular}
+    \caption{Use case description: Submit Scan}
+    \label{tab:submit-scan}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{|p{3cm}|p{11cm}|}
+        \hline
+        \textbf{Use case} & Normalize Result \\ \hline
+        \textbf{Actor} & Scan Worker / Normalizer Service \\ \hline
+        \textbf{Description} & The worker parses raw tool outputs, maps fields to the unified `ScanResult` schema, and records structured findings. \\ \hline
+        \textbf{Pre-condition} & Raw output produced by a scanner is available on disk or in storage. \\ \hline
+        \textbf{Post-condition} & A normalized `ScanResult` object is produced and passed to the matcher and persistence layers. \\ \hline
+    \end{tabular}
+    \caption{Use case description: Normalize Result}
+    \label{tab:normalize-result}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{|p{3cm}|p{11cm}|}
+        \hline
+        \textbf{Use case} & Match Vulnerability \\ \hline
+        \textbf{Actor} & Matcher Service \\ \hline
+        \textbf{Description} & The matcher takes normalized findings and attempts to correlate them with entries in the vulnerability catalog, assigning CVE identifiers or severity levels where applicable. \\ \hline
+        \textbf{Pre-condition} & Normalized findings are available; the vulnerability catalog is loaded and accessible. \\ \hline
+        \textbf{Post-condition} & Findings are annotated with matching vulnerability metadata and severity. \\ \hline
+    \end{tabular}
+    \caption{Use case description: Match Vulnerability}
+    \label{tab:match-vuln}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{|p{3cm}|p{11cm}|}
+        \hline
+        \textbf{Use case} & View Scan History \\ \hline
+        \textbf{Actor} & User \\ \hline
+        \textbf{Description} & The user requests a list of past scans, applies filters, and inspects a scan's details and matched vulnerabilities. \\ \hline
+        \textbf{Pre-condition} & Scan results have been persisted and the user is authorized to view them. \\ \hline
+        \textbf{Post-condition} & The requested data is displayed; the user may export or navigate to details. \\ \hline
+    \end{tabular}
+    \caption{Use case description: View Scan History}
+    \label{tab:view-history}
+\end{table}
+
+\section{Design}
+
+\subsection{Class Diagram}
+
+The principal components include the API, the queue, worker processes, the normalizer and matcher services, and the persistence layer. The class diagram will show the data models and service classes.
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.85\textwidth}{\centering Class diagram placeholder for scanning and matching services}}%
+    \caption{Class diagram for Sprint 2}
+    \label{fig:sprint4-class-diagram}
+\end{figure}
+
+\subsection{Scan Workflow}
+
+The scan workflow describes the end-to-end processing of a submitted target: submission, queueing, worker execution of tools, normalization, matching, and persistence. The diagram below summarizes the sequence and components involved.
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.85\textwidth}{\centering Placeholder: Scan Workflow Diagram (submission → queue → worker → normalizer → matcher → DB)}}%
+    \caption{Scan workflow overview}
+    \label{fig:scan-workflow}
+\end{figure}
+
+\subsection{Sequence Diagram}
+
+Key sequences include submission-to-persistence and normalization-to-matching. A sequence diagram will illustrate the interactions between client, API, queue, worker, normalizer, matcher and DB.
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.85\textwidth}{\centering Sequence diagram placeholder for scan processing pipeline}}%
+    \caption{Sequence diagram for scan processing}
+    \label{fig:sprint4-sequence-diagram}
+\end{figure}
+
+\section{Implementation}
+
+This sprint is implemented on the existing Node.js backend and the React frontend. The backend adds the `scanController` and `scanService` modules, normalization and matcher submodules, and worker/scheduler code. The frontend adds or adapts `ScannerPage.tsx`, `ScanHistoryPage.tsx` and a `ScanDetailView` component.
+
+On the backend, key endpoints include `POST /api/scan` for submission, `GET /api/scan/:id` for status, and `GET /api/scan/:id/results` for results. Worker processes consume jobs from the queue, run configured scanners, and store raw outputs for normalization.
+
+On the frontend, the `ScannerPage` allows scan submission and shows job ids; the `ScanHistoryPage` lists past scans with filters; the `ScanDetailView` displays matched vulnerabilities and normalized findings.
+
+The following figures are reserved for screenshots and visual aids:
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.85\textwidth}{\centering Screenshot placeholder: scanner submission page}}%
+    \caption{Scanner submission page}
+    \label{fig:scanner4-page}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.85\textwidth}{\centering Screenshot placeholder: queue / worker dashboard}}%
+    \caption{Queue and worker dashboard}
+    \label{fig:worker-dashboard}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.85\textwidth}{\centering Screenshot placeholder: scan history page}}%
+    \caption{Scan history page}
+    \label{fig:scan-history4-page}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.85\textwidth}{\centering Screenshot placeholder: scan details and matched vulnerabilities}}%
+    \caption{Scan details page}
+    \label{fig:scan-details4-page}
+\end{figure}
+
+\section{Conclusion}
+
+This sprint builds the core scan processing pipeline and the infrastructure to normalize and match findings. With results persisted and accessible through the UI, future sprints can focus on reporting, enrichment, and advanced correlation features.

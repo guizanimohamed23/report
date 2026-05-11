@@ -1,0 +1,134 @@
+% -------------------- HYPERREF SETUP --------------------
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=black,
+    urlcolor=blue,
+    citecolor=black,
+    pdftitle={CyberScope},
+    pdfauthor={Mohamed Guizani},
+    pdfsubject={End-of-Studies Internship Report},
+    pdfkeywords={Web Security, Vulnerability Scanner, React, Node.js, Automation}
+}
+
+% -------------------- PAGE BEHAVIOR --------------------
+\flushbottom
+
+% -------------------- LINE SPACING --------------------
+\onehalfspacing
+
+% -------------------- PARAGRAPH STYLE --------------------
+\setlength{\parindent}{1.2cm}
+\setlength{\parskip}{0pt}
+
+% -------------------- CAPTION STYLE --------------------
+\captionsetup{
+    font=small,
+    labelfont=bf,
+    justification=centering
+}
+
+% -------------------- LIST SPACING --------------------
+\setlist[itemize]{topsep=4pt,itemsep=2pt}
+\setlist[enumerate]{topsep=4pt,itemsep=2pt}
+
+% -------------------- CODE COLORS --------------------
+\definecolor{codebg}{RGB}{245,245,245}
+\definecolor{codecomment}{RGB}{0,128,0}
+\definecolor{codekeyword}{RGB}{0,0,180}
+\definecolor{codestring}{RGB}{163,21,21}
+
+% -------------------- GENERAL LISTING STYLE --------------------
+\lstdefinestyle{cyberscope}{
+    backgroundcolor=\color{codebg},
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    captionpos=b,
+    commentstyle=\color{codecomment},
+    frame=single,
+    keepspaces=true,
+    keywordstyle=\color{codekeyword}\bfseries,
+    numbers=left,
+    numbersep=8pt,
+    numberstyle=\tiny\color{gray},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    stringstyle=\color{codestring},
+    tabsize=2
+}
+
+% -------------------- JAVASCRIPT --------------------
+\lstdefinelanguage{JavaScript}{
+    keywords={const, let, var, function, return, async, await, if, else, for, while, break, continue, try, catch, throw, new, class, extends, import, from, export, default},
+    keywordstyle=\color{codekeyword}\bfseries,
+    ndkeywords={true, false, null, undefined},
+    ndkeywordstyle=\color{magenta}\bfseries,
+    sensitive=true,
+    comment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    commentstyle=\color{codecomment},
+    morestring=[b]",
+    morestring=[b]',
+    stringstyle=\color{codestring}
+}
+
+% -------------------- BASH --------------------
+\lstdefinelanguage{Bash}{
+    keywords={echo, cd, ls, npm, node, python, pip, curl, nmap, nikto},
+    keywordstyle=\color{codekeyword}\bfseries,
+    sensitive=true,
+    comment=[l]{\#},
+    commentstyle=\color{codecomment},
+    morestring=[b]",
+    morestring=[b]',
+    stringstyle=\color{codestring}
+}
+
+% -------------------- PYTHON --------------------
+\lstdefinelanguage{Python}{
+    keywords={def, return, if, elif, else, for, while, break, continue, import, from, as, class, try, except, finally, with, lambda, yield, True, False, None},
+    keywordstyle=\color{codekeyword}\bfseries,
+    sensitive=true,
+    comment=[l]{\#},
+    commentstyle=\color{codecomment},
+    morestring=[b]",
+    morestring=[b]',
+    stringstyle=\color{codestring}
+}
+
+% -------------------- DEFAULT LISTING STYLE --------------------
+\lstset{style=cyberscope}
+
+% -------------------- TOC STYLE --------------------
+\renewcommand{\cfttoctitlefont}{\hfill\Large\bfseries}
+\renewcommand{\cftaftertoctitle}{\hfill}
+\renewcommand{\cftchapfont}{\bfseries}
+\renewcommand{\cftchappagefont}{\bfseries}
+\setlength{\cftbeforechapskip}{8pt}
+\setlength{\cftbeforesecskip}{2pt}
+\setlength{\cftbeforesubsecskip}{1pt}
+\renewcommand{\cftdotsep}{1}
+\setcounter{tocdepth}{2}
+
+% -------------------- HEADER / FOOTER --------------------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\nouppercase{\leftmark}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% -------------------- CHAPTER MARK --------------------
+\renewcommand{\chaptermark}[1]{\markboth{Chapter \thechapter.\ #1}{}}
+
+% -------------------- CHAPTER / SECTION STYLES --------------------
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries}
+  {Chapter \thechapter}
+  {0.5ex}
+  {\Huge}
+  []
+
+\titlespacing*{\chapter}{0pt}{-20pt}{10pt}
+\titlespacing*{\section}{0pt}{8pt}{4pt}
+\titlespacing*{\subsection}{0pt}{6pt}{3pt}

@@ -1,0 +1,168 @@
+\section{Introduction}
+
+This sprint focuses on the frontend layer and on the visualization features of the HexStrike platform. The goal of this iteration is to provide a clear user interface for authentication, scan submission, scan monitoring, and result exploration.
+
+In practice, this sprint covers the main application pages, route protection, dashboard views, result visualization, and the interaction between the frontend and the backend APIs.
+
+\subsection{Sprint Purpose}
+
+The purpose of this sprint is to deliver a usable frontend that allows users to interact with the platform through clear pages and visual feedback. Success is measured by the availability of the main pages, correct navigation, visual access to scan data, and smooth communication with the backend services.
+
+\section{Sprint Backlog}
+
+The backlog for this sprint contains the following user stories:
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabularx}{\textwidth}{|X|}
+        \hline
+        As a visitor, I can access the login and registration pages. \\\hline
+        As a user, I can authenticate and reach protected areas of the application. \\\hline
+        As a user, I can submit a scan target from the frontend. \\\hline
+        As a user, I can follow the progress of a scan from the interface. \\\hline
+        As a user, I can view scan results and vulnerability details in a structured dashboard. \\\hline
+        As a user, I can filter and explore scan history. \\\hline
+        As the system, I can display charts and summary widgets for quick analysis. \\\hline
+    \end{tabularx}
+    \caption{Sprint Backlog}
+\end{table}
+
+\section{Requirements Analysis}
+
+\subsection{Use Case Diagram}
+
+The main actors in this sprint are the visitor, the authenticated user, and the backend API. The use case diagram illustrates navigation, authentication, scan submission, dashboard access, and visualization flows.
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.85\textwidth}{\centering Use case diagram placeholder for Sprint 3}}%
+    \caption{Use case diagram for the frontend and visualization layer}
+    \label{fig:sprint5-usecase}
+\end{figure}
+
+\subsection{Use Case Description}
+
+The main use cases of this sprint are summarized in the following tables.
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{|p{3cm}|p{11cm}|}
+        \hline
+        \textbf{Use case} & Login and Register \\ \hline
+        \textbf{Actor} & Visitor \\ \hline
+        \textbf{Description} & The visitor opens the login or registration page, provides credentials, and the frontend sends the data to the backend to create or authenticate the account. \\ \hline
+        \textbf{Pre-condition} & The visitor is not already authenticated. \\ \hline
+        \textbf{Post-condition} & The user session is created and the protected pages become available. \\ \hline
+    \end{tabular}
+    \caption{Use case description: Login and Register}
+    \label{tab:login-register-usecase}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{|p{3cm}|p{11cm}|}
+        \hline
+        \textbf{Use case} & Submit Scan \\ \hline
+        \textbf{Actor} & Authenticated user \\ \hline
+        \textbf{Description} & The user enters a target from the scan page; the frontend validates the input and sends the request to the backend scan endpoint. \\ \hline
+        \textbf{Pre-condition} & The user is authenticated and the scan form is available. \\ \hline
+        \textbf{Post-condition} & A scan job is created and the user receives feedback on the submission. \\ \hline
+    \end{tabular}
+    \caption{Use case description: Submit Scan}
+    \label{tab:submit-scan-usecase}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{|p{3cm}|p{11cm}|}
+        \hline
+        \textbf{Use case} & View Results and Dashboard \\ \hline
+        \textbf{Actor} & Authenticated user \\ \hline
+        \textbf{Description} & The user opens the dashboard or history pages to inspect scan results, vulnerabilities, and summary charts. \\ \hline
+        \textbf{Pre-condition} & At least one scan result is available in the backend. \\ \hline
+        \textbf{Post-condition} & The user can analyze the results and navigate through detailed views. \\ \hline
+    \end{tabular}
+    \caption{Use case description: View Results and Dashboard}
+    \label{tab:view-results-usecase}
+\end{table}
+
+\section{Design}
+
+\subsection{Class Diagram}
+
+The frontend is built as a React Single Page Application and interacts with the backend through REST APIs. The design includes page components, shared layout components, session management, and data-fetching services.
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.85\textwidth}{\centering Class diagram placeholder for frontend pages and shared components}}%
+    \caption{Class diagram for Sprint 3}
+    \label{fig:sprint5-class-diagram}
+\end{figure}
+
+\subsection{Scan Workflow}
+
+The scan workflow illustrates how a user moves from the dashboard to scan submission, then to result monitoring and visualization. It highlights the exchanges between the frontend, the backend API, and the scan processing pipeline.
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.85\textwidth}{\centering Placeholder: Scan workflow diagram (frontend -- API -- scan pipeline -- results dashboard)}}%
+    \caption{Scan workflow for the frontend layer}
+    \label{fig:sprint5-scan-workflow}
+\end{figure}
+
+\subsection{Sequence Diagram}
+
+The main sequence of this sprint starts when the user logs in, navigates to the dashboard, submits or opens a scan result, and the frontend retrieves the needed data from the backend.
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.85\textwidth}{\centering Sequence diagram placeholder for frontend navigation and result display}}%
+    \caption{Sequence diagram for the frontend and visualization layer}
+    \label{fig:sprint5-sequence-diagram}
+\end{figure}
+
+\section{Implementation}
+
+This sprint is implemented with a React frontend connected to the HexStrike backend. The implementation is illustrated through screenshots of the main interfaces and visualization components.
+
+On the frontend, the login and registration pages handle authentication, the protected routes control access to the scanner and history pages, the dashboard presents scan summaries, and the charts provide quick visual insights into the results.
+
+The following figures are reserved for screenshots from the application:
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.85\textwidth}{\centering Screenshot placeholder: login page}}%
+    \caption{Login page}
+    \label{fig:login-page-sprint5}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.85\textwidth}{\centering Screenshot placeholder: dashboard page}}%
+    \caption{Dashboard page}
+    \label{fig:dashboard-page}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.85\textwidth}{\centering Screenshot placeholder: scan history page}}%
+    \caption{Scan history page}
+    \label{fig:scan-history-page-sprint5}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.85\textwidth}{\centering Screenshot placeholder: charts and graphs}}%
+    \caption{Visualization components}
+    \label{fig:visualization-components}
+\end{figure}
+
+\section{Conclusion}
+
+This sprint establishes the frontend and visualization layer of the HexStrike platform. It provides the user interface required to access the system, submit scans, and inspect results through a structured dashboard.
+
+The next sprint can now focus on refinements, reporting improvements, and additional visualization features on top of this user-facing foundation.
