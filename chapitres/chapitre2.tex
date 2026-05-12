@@ -35,17 +35,17 @@ The project was organized into multiple sprints, each focusing on a specific obj
     \centering
     \caption{Sprint Organization of CyberScope}
     \renewcommand{\arraystretch}{1.25}
-    \begin{tabularx}{\textwidth}{|p{2.5cm}|X|X|}
+    \begin{tabularx}{\textwidth}{|p{1.8cm}|X|X|p{1.8cm}|}
         \hline
-        \textbf{Sprint} & \textbf{Main Objective} & \textbf{Deliverable} \\
+        \textbf{Sprint} & \textbf{Main Objective} & \textbf{Deliverable} & \textbf{Duration} \\
         \hline
-        Sprint 1 & Backend foundation and database setup & Core backend APIs and database structure \\
+        Sprint 1 & Backend foundation and database setup & Core backend APIs and database structure & 3 weeks \\
         \hline
-        Sprint 2 & Scanning engine and tool orchestration & Integration of tools and scanning pipeline \\
+        Sprint 2 & Scanning engine and tool orchestration & Integration of tools and scanning pipeline & 3 weeks \\
         \hline
-        Sprint 3 & Frontend dashboard development & User interface and result visualization \\
+        Sprint 3 & Frontend dashboard development & User interface and result visualization & 3 weeks \\
         \hline
-        Sprint 4 & Advanced features and validation & AI analysis, reporting, and testing \\
+        Sprint 4 & Advanced features and validation & AI analysis, reporting, and testing & 3 weeks \\
         \hline
     \end{tabularx}
 \end{table}
@@ -106,96 +106,6 @@ The system is composed of three main components:
     \item A backend orchestration layer managing scans and data
     \item A scanning engine responsible for executing security tools
 \end{itemize}
-
-\section{Development Environment}
-
-This section presents the technical environment used to design, implement, and test \textbf{CyberScope}. It highlights the main programming languages, frameworks, tools, and software resources that supported the project.
-
-\subsection{Material Environment}
-
-The development of \textbf{CyberScope} was carried out on a Windows-based workstation. The primary tools and devices used during development are described below.
-
-\begin{itemize}
-    \item \textbf{Visual Studio Code}: the main code editor used for editing, debugging, and managing the project workspace.
-    \\
-    \begin{center}\includegraphics[width=0.18\textwidth]{uploads/logos/vscode.png}\end{center}
-
-    \item \textbf{Git}: version control system used to track changes, manage branches, and coordinate source code history.
-    \\
-    \begin{center}\includegraphics[width=0.12\textwidth]{uploads/logos/git.png}\end{center}
-
-    \item \textbf{Google Chrome / Chromium}: primary browser for manual testing, dynamic debugging and inspecting web application behavior.
-    \\
-    \begin{center}\includegraphics[width=0.15\textwidth]{uploads/logos/chrome.png}\end{center}
-\end{itemize}
-
-\subsection{Software Environment}
-
-The software environment of \textbf{CyberScope} is built around three main layers: the backend API, the frontend interface, and the external intelligence and scanning tools.
-
-\subsubsection{Backend Stack}
-
-The backend of \textbf{CyberScope} is composed of the following key technologies:
-
-\begin{itemize}
-    \item \textbf{Node.js}: runtime environment used to run the backend services.
-    \\
-    \begin{center}\includegraphics[width=0.18\textwidth]{uploads/logos/node.png}\end{center}
-
-    \item \textbf{Express.js}: web framework for building the RESTful API and routing logic.
-    \\
-    \begin{center}\includegraphics[width=0.16\textwidth]{uploads/logos/Expressjs.png}\end{center}
-
-    \item \textbf{Prisma}: ORM used to interact with the PostgreSQL database and manage schema migrations.
-    \\
-    \begin{center}\includegraphics[width=0.16\textwidth]{uploads/logos/prisma.jpg}\end{center}
-
-    \item \textbf{PostgreSQL}: relational database used to persist scan data, users, and results.
-    \\
-    \begin{center}\includegraphics[width=0.16\textwidth]{uploads/logos/postgresql.png}\end{center}
-\end{itemize}
-
-
-
-\begin{itemize}
-    \item \textbf{React}: primary frontend library used to build the interactive dashboard and components.
-    \\
-    \begin{center}\includegraphics[width=0.18\textwidth]{uploads/logos/react.png}\end{center}
-
-    \item \textbf{Vite}: build tool and development server providing fast hot-module reloading for the frontend.
-    \\
-    \begin{center}\includegraphics[width=0.18\textwidth]{uploads/logos/vite.jpg}\end{center}
-
-    \item \textbf{TypeScript}: typed superset of JavaScript used to improve code quality and reduce runtime errors.
-    \\
-    \begin{center}\includegraphics[width=0.14\textwidth]{uploads/logos/TS.png}\end{center}
-\end{itemize}
-
-
-
-\subsubsection{AI and Security Tools}
-
-The project integrates several external tools and services for scanning, orchestration and AI-assisted analysis:
-
-\begin{itemize}
-    \item \textbf{Python}: used to implement the scanning engine and glue code for tool integrations.
-    \\
-    \begin{center}\includegraphics[width=0.16\textwidth]{uploads/logos/python.png}\end{center}
-
-    \item \textbf{Ollama}: local AI engine used for generating analysis prompts and assisting risk assessment.
-    \\
-    \begin{center}\includegraphics[width=0.18\textwidth]{uploads/logos/ollama.png}\end{center}
-
-    \item \textbf{HexStrike AI}: orchestration layer and automation platform used to manage multiple security tools.
-    \\
-    \begin{center}\includegraphics[width=0.18\textwidth]{uploads/logos/hexstrike.png}\end{center}
-
-    \item \textbf{Chromium / Google Chrome}: browser runtime used by dynamic crawlers and headless scanning components.
-    \\
-    \begin{center}\includegraphics[width=0.16\textwidth]{uploads/logos/Chromium_Logo.png}\end{center}
-\end{itemize}
-
-\
 
 \section{Functional Requirements}
 
@@ -298,6 +208,20 @@ The class diagram presents the main structural components of CyberScope and the 
     \includegraphics[width=0.3\textwidth]{uploads/diagrams/classglobal.drawio}
     \caption{Global Class Diagram of CyberScope}
 \end{figure}
+
+\section{Development Environment}
+
+This section presents the technical environment used to design, implement, and test \textbf{CyberScope}. It highlights the main programming languages, frameworks, tools, and software resources that supported the project.
+
+\subsection{Material Environment}
+
+The development of \textbf{CyberScope} was carried out on a Windows-based workstation. The main tools used in this environment were \textbf{Visual Studio Code}, which served as the primary code editor for development, debugging, and workspace management; \textbf{Git}, which was used to track changes and manage the source code history; and \textbf{Google Chrome / Chromium}, which was used for manual testing, dynamic debugging, and inspecting web application behavior.
+
+\subsection{Software Environment}
+
+The software environment of \textbf{CyberScope} is organized around three main layers: the backend API, the frontend interface, and the external intelligence and scanning tools. On the backend, the system relies on \textbf{Node.js} as the runtime environment, \textbf{Express.js} for the RESTful API and routing logic, \textbf{Prisma} as the ORM used to interact with the PostgreSQL database and manage schema migrations, and \textbf{PostgreSQL} for persisting scan data, users, and results. On the frontend, \textbf{React} is used to build the interactive dashboard and components, while \textbf{Vite} provides the development server and fast hot-module reloading, and \textbf{TypeScript} improves code quality and reduces runtime errors.
+
+The project also integrates external tools and services for scanning, orchestration, and AI-assisted analysis. \textbf{Python} is used to implement the scanning engine and the glue code for tool integrations, \textbf{Ollama} serves as the local AI engine for generating analysis prompts and assisting risk assessment, and \textbf{HexStrike AI} acts as the orchestration layer and automation platform for managing multiple security tools. In addition, \textbf{Chromium / Google Chrome} is used as the browser runtime for dynamic crawlers and headless scanning components.
 
 \section{Conclusion}
 
