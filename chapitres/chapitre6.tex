@@ -1,106 +1,79 @@
 \section{Introduction}
 
-This chapter presents the final sprint of the CyberScope project, focusing on advanced features, system evaluation, and overall validation of the proposed solution. In particular, this sprint introduces the integration of artificial intelligence components and evaluates the system's effectiveness compared to existing tools.
+This chapter focuses on HexStrike: its value, internal architecture, and operational details. HexStrike is the orchestration and automation engine that powers tool selection, execution, and intelligent decision making for the project. The chapter highlights how HexStrike complements the CyberScope pipeline, the internals of agent interaction, orchestration, data processing and the AI integration used for risk assessment.
 
-\section{Sprint Backlog}
+\subsection{Chapter Outline}
 
-\begin{table}[H]
-\centering
-\renewcommand{\arraystretch}{1.2}
-\begin{tabularx}{\textwidth}{|p{2cm}|X|p{2cm}|}
-\hline
-\textbf{ID} & \textbf{Task} & \textbf{Status} \\ \hline
-S4-T1 & Integrate AI-based analysis module & Completed \\ \hline
-S4-T2 & Implement risk assessment logic & Completed \\ \hline
-S4-T3 & Generate structured attack insights & Completed \\ \hline
-S4-T4 & Perform system evaluation & Completed \\ \hline
-S4-T5 & Compare results with existing tools & Completed \\ \hline
-\end{tabularx}
-\caption{Sprint 4 Backlog}
-\end{table}
-
-\section{AI Integration}
-
-CyberScope integrates an artificial intelligence layer to enhance vulnerability analysis and provide higher-level insights beyond raw technical findings.
-
-The AI module is designed to process scan results and generate meaningful interpretations, including risk evaluation, prioritization of vulnerabilities, and contextual understanding of potential attack scenarios.
-
-\begin{figure}[H]
-    \centering
-    \fbox{\parbox{0.9\textwidth}{\centering Placeholder: AI Integration Architecture}}
-    \caption{AI Integration in CyberScope}
-\end{figure}
-
-\subsection{Risk Assessment}
-
-The system analyzes detected vulnerabilities and evaluates their severity based on multiple factors, including CVSS scores, affected endpoints, and potential impact.
-
-This allows CyberScope to provide an overall risk score for the scanned application and guide users toward the most critical issues.
-
-\subsection{Attack Scenario Generation}
-
-For high-risk vulnerabilities, the system generates potential attack scenarios describing how an attacker could exploit the identified weaknesses.
-
-These scenarios help users better understand the real-world implications of vulnerabilities and support decision-making in remediation strategies.
-
-\section{System Evaluation}
-
-\subsection{Evaluation Criteria}
-
-The performance of CyberScope is evaluated based on the following criteria:
-
+The chapter is organized as follows:
 \begin{itemize}
-    \item vulnerability detection coverage;
-    \item execution efficiency;
-    \item accuracy of results;
-    \item usability and clarity of outputs.
+  \item 6.1: Value proposition for HexStrike
+  \item 6.2: High-level architecture and components (component diagram)
+    \item 6.3: Agent interaction and MCP protocol (sequence diagram)
+  \item 6.4: Tool orchestration and execution flow (flowchart)
+  \item 6.5: Data pipeline — normalization, matching and enrichment (data flow / ER)
+  \item 6.6: Process management, caching and error recovery (state machine)
+  \item 6.7: AI integration and risk assessment
+  \item 6.8: Evaluation, limitations and future enhancements
 \end{itemize}
 
-\subsection{Experimental Setup}
+\subsection{6.1 Why HexStrike matters (Value Proposition)}
 
-The system was tested on different target web applications, including intentionally vulnerable platforms. The results were compared with those produced by traditional tools.
-
-\begin{figure}[H]
-    \centering
-    \fbox{\parbox{0.9\textwidth}{\centering Placeholder: Test Environment}}
-\end{figure}
-
-\begin{table}[H]
-    \centering
-    \renewcommand{\arraystretch}{1.2}
-    \begin{tabularx}{\textwidth}{|X|c|c|c|}
-    \hline
-    \textbf{Feature} & \textbf{CyberScope} & \textbf{ZAP} & \textbf{Nikto} \\ \hline
-    Dynamic Crawling & Yes & Limited & No \\ \hline
-    Tool Integration & Yes & No & No \\ \hline
-    AI Analysis & Yes & No & No \\ \hline
-    Result Deduplication & Yes & Partial & No \\ \hline
-    Automation Level & High & Medium & Low \\ \hline
-    \end{tabularx}
-    \caption{Comparison with Existing Tools}
-\end{table}
-
-\section{Limitations}
-
-Despite its strengths, CyberScope has some limitations:
-
+HexStrike provides a centralized MCP-compatible orchestration layer that coordinates multiple security tools, optimizes parameters using AI, and aggregates results into actionable intelligence. Its main values are:
 \begin{itemize}
-    \item dependency on external tools availability;
-    \item performance impact when running multiple tools simultaneously;
-    \item limited support for highly complex authentication mechanisms.
+  \item Increased automation and repeatability of multi-tool assessments.
+  \item Intelligent tool selection and parameter optimization that reduce noisy results.
+  \item Better resource usage through worker scheduling and caching.
+  \item AI-assisted interpretation that prioritizes findings and suggests remediation steps.
 \end{itemize}
 
-\section{Future Work}
+% Diagrams removed from this chapter; generated visuals will be inserted during final assembly.
 
-Future improvements may include:
+\subsection{6.2 High-level Architecture and Components}
+
+This section describes the main HexStrike components: MCP Server, AI Decision Engine, Tool Catalog, Worker Manager, Cache, Database, and the UI connector that exposes APIs to the frontend. The diagram below provides a component-level view.
+
+% Architecture diagram removed from this chapter.
+
+\subsection{6.3 Agent Interaction \& MCP Protocol}
+
+Agents connect to HexStrike using the MCP protocol. They register capabilities, receive tasks, and stream results back. The following sequence diagram illustrates the typical interaction between an AI agent, the MCP server, a worker process, and an underlying tool.
+
+% Agent interaction sequence diagram removed.
+
+\subsection{6.4 Tool Orchestration \& Execution Flow}
+
+Tool orchestration includes discovery, selection by the decision engine, parameter optimization, execution scheduling, and result collection. The orchestration flow handles parallel runs, timeouts, retries and fallback strategies.
+
+% Orchestration flowchart removed.
+
+\subsection{6.5 Data Pipeline: Normalization, Matching \& Enrichment}
+
+This section documents how raw scanner outputs are transformed into structured \texttt{ScanResult} objects, matched against a vulnerability catalog, and enriched (CVE lookup, CVSS calculation, contextual evidence).
+
+% Data pipeline diagram removed.
+
+\subsection{6.6 Process Management, Caching \& Error Recovery}
+
+HexStrike employs process-level state management for workers and a caching layer to avoid re-running expensive scans. Error recovery strategies include exponential backoff, automatic retries, and fallback scanning behaviors.
+
+% Worker state machine removed.
+
+\subsection{6.7 AI Integration \& Risk Assessment}
+
+HexStrike integrates local AI models to provide risk assessment and remediation guidance. Models analyze evidence, compute contextual severity, and generate attack scenarios for high-risk findings.
+
+% AI integration diagram removed.
+
+\subsection{6.8 Evaluation, Limitations \& Future Enhancements}
+
+This section summarizes experiments comparing HexStrike-assisted pipelines to baseline scanners, discusses limitations (tool availability, distributed orchestration complexity), and outlines future work (authenticated scanning, distributed workers, deeper AI integration).
 
 \begin{itemize}
-    \item deeper AI integration for vulnerability prediction;
-    \item support for authenticated scanning;
-    \item cloud-based distributed scanning;
-    \item improved visualization and reporting capabilities.
+  \item Experimental results: summary of coverage and precision (move existing comparison table here if relevant).
+  \item Limitations: operational dependencies and performance trade-offs.
+  \item Future work: authenticated scans, distributed scanning, and improved visualization.
 \end{itemize}
 
 \section{Conclusion}
 
-This chapter presented the final sprint of the CyberScope project, including AI integration and system evaluation. The results demonstrate the effectiveness of the proposed approach and highlight its advantages over traditional security scanning solutions.
+HexStrike acts as the project's orchestration backbone. The architecture and internal workflows presented in this chapter demonstrate how the system automates complex multi-tool assessments and provides higher-level intelligence to reduce analyst workload.

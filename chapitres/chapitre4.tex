@@ -52,9 +52,9 @@ The main use cases of this sprint are summarized in the following tables.
         \hline
         \textbf{Use case} & Submit Scan \\ \hline
         \textbf{Actor} & Authenticated user (or Guest if permitted) \\ \hline
-        \textbf{Description} & The user provides a target (URL) and optional parameters; the backend validates input, creates a `Scan` job, enqueues it and returns a job identifier. \\ \hline
+        \textbf{Description} & The user provides a target (URL) and optional parameters; the backend validates input, creates a \texttt{Scan} job, enqueues it and returns a job identifier. \\ \hline
         \textbf{Pre-condition} & The user is authorized to submit scans and the queue service is available. \\ \hline
-        \textbf{Post-condition} & A `Scan` job is stored and queued for processing; the user receives the job id. \\ \hline
+        \textbf{Post-condition} & A \texttt{Scan} job is stored and queued for processing; the user receives the job id. \\ \hline
     \end{tabular}
     \caption{Use case description: Submit Scan}
     \label{tab:submit-scan}
@@ -67,9 +67,9 @@ The main use cases of this sprint are summarized in the following tables.
         \hline
         \textbf{Use case} & Normalize Result \\ \hline
         \textbf{Actor} & Scan Worker / Normalizer Service \\ \hline
-        \textbf{Description} & The worker parses raw tool outputs, maps fields to the unified `ScanResult` schema, and records structured findings. \\ \hline
+        \textbf{Description} & The worker parses raw tool outputs, maps fields to the unified \texttt{ScanResult} schema, and records structured findings. \\ \hline
         \textbf{Pre-condition} & Raw output produced by a scanner is available on disk or in storage. \\ \hline
-        \textbf{Post-condition} & A normalized `ScanResult` object is produced and passed to the matcher and persistence layers. \\ \hline
+        \textbf{Post-condition} & A normalized \texttt{ScanResult} object is produced and passed to the matcher and persistence layers. \\ \hline
     \end{tabular}
     \caption{Use case description: Normalize Result}
     \label{tab:normalize-result}
@@ -135,18 +135,18 @@ Key sequences include submission-to-persistence and normalization-to-matching. A
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.98\textwidth]{uploads/diagrams/sprint2 sequence.drawio (3)}
+    \includegraphics[width=0.98\textwidth]{uploads/diagrams/sprint2 sequence.drawio (3).png}
     \caption{Sequence diagram for scan processing}
     \label{fig:sprint4-sequence-diagram}
 \end{figure}
 
 \section{Implementation}
 
-This sprint is implemented on the existing Node.js backend and the React frontend. The backend adds the `scanController` and `scanService` modules, normalization and matcher submodules, and worker/scheduler code. The frontend adds or adapts `ScannerPage.tsx`, `ScanHistoryPage.tsx` and a `ScanDetailView` component.
+This sprint is implemented on the existing Node.js backend and the React frontend. The backend adds the \texttt{scanController} and \texttt{scanService} modules, normalization and matcher submodules, and worker/scheduler code. The frontend adds or adapts \texttt{ScannerPage.tsx}, \texttt{ScanHistoryPage.tsx} and a \texttt{ScanDetailView} component.
 
-On the backend, key endpoints include `POST /api/scan` for submission, `GET /api/scan/:id` for status, and `GET /api/scan/:id/results` for results. Worker processes consume jobs from the queue, run configured scanners, and store raw outputs for normalization.
+On the backend, key endpoints include \texttt{POST /api/scan} for submission, \texttt{GET /api/scan/:id} for status, and \texttt{GET /api/scan/:id/results} for results. Worker processes consume jobs from the queue, run configured scanners, and store raw outputs for normalization.
 
-On the frontend, the `ScannerPage` allows scan submission and shows job ids; the `ScanHistoryPage` lists past scans with filters; the `ScanDetailView` displays matched vulnerabilities and normalized findings.
+On the frontend, the \texttt{ScannerPage} allows scan submission and shows job ids; the \texttt{ScanHistoryPage} lists past scans with filters; the \texttt{ScanDetailView} displays matched vulnerabilities and normalized findings.
 
 The following figures are reserved for screenshots and visual aids:
 
