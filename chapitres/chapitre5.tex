@@ -1,146 +1,109 @@
 \section{Introduction}
 
-This sprint is dedicated to attack graph generation. The goal is to transform project artifacts into diagrams that show how data, endpoints and vulnerabilities are connected, so the report can highlight potential attack paths in the platform.
-
-\subsection{Objectives}
-
-The chapter aims to:
-\begin{itemize}
-  \item Describe the graph generation pipeline and the diagram types used in this sprint.
-  \item Show how backend artifacts such as the Prisma schema and API routes are converted into diagrams.
-  \item Explain how the generated graph assets are exported and embedded in the report.
-  \item Present the implementation of the attack graph generation workflow.
-\end{itemize}
+This sprint is dedicated to attack graph generation. The goal is to transform project artifacts into diagrams that show how data, endpoints and vulnerabilities are connected, so these diagrams highlight potential attack paths in the platform.
 
 \section{Sprint Purpose}
 
-The purpose of this sprint is to generate a clear visual representation of the backend structure and of the attack surface exposed by the application. Based on the backend documentation, the Prisma schema and the API layers, the sprint produces diagrams that help connect entities, requests and vulnerabilities in a single view.
+The purpose of this sprint is to implement the Dashboard's attack-path and scenario generation features. The generator is an AI-assisted service that produces ephemeral attack scenarios (ordered steps) and a graph object (nodes and edges) for visualization in the Dashboard. Unlike static report diagrams, these graphs are runtime artifacts produced on-demand and returned to the frontend for interactive rendering.
 
 \section{Sprint Backlog}
 
-The backlog of this sprint contains the following user stories:
+The backlog for this sprint focuses on the AI-driven scenario and risk-generation flows and the Dashboard UI integration:
 
 \begin{table}[H]
   \centering
   \renewcommand{\arraystretch}{1.2}
   \begin{tabularx}{\textwidth}{|X|}
     \hline
-    As an analyst, I can generate a graph from backend artifacts such as models and routes. \\\hline
-    As an analyst, I can visualize how endpoints, entities and vulnerabilities are linked. \\\hline
-    As an analyst, I can export the generated graph in a format suitable for the report. \\\hline
-    As the system, I can enrich graph nodes with security metadata from the backend pipeline. \\\hline
-    As the system, I can store the generated diagrams under \texttt{uploads/diagrams/} for reuse in the report. \\\hline
+    As an analyst, I can request an attack scenario for a specific vulnerability and receive structured steps and a graph object. \\\hline
+    As an analyst, I can request a risk assessment for a completed scan and receive a summarized JSON assessment. \\\hline
+    As the system, I must validate and normalize AI responses into a safe, consistent graph payload (nodes/edges). \\\hline
+    As a frontend, the Dashboard should render the returned graph (React Flow) and allow exporting the scenario as JSON. \\\hline
+    As an operator, the service should handle AI timeouts, malformed responses, and return useful error messages. \\\hline
   \end{tabularx}
   \caption{Sprint Backlog}
 \end{table}
 
 \section{Requirements Analysis}
 
+
 \subsection{Generation Pipeline}
 
-The generation pipeline implemented in the project follows three main steps:
+The generator implements a compact, AI-assisted runtime pipeline: the Dashboard requests a scenario for a selected vulnerability; the backend loads the vulnerability context, builds a controlled prompt, calls the configured AI gateway, extracts and validates the returned JSON, maps normalized steps into an ephemeral graph (nodes and edges), and returns the graph and ordered steps to the frontend for interactive rendering.
+
+\begin{figure}[H]
+  \centering
+  \fbox{\parbox{0.9\textwidth}{\centering Placeholder: runtime pipeline (Vulnerability/Scan → AI gateway → parser → ephemeral graph)}}
+  \caption{Attack graph runtime pipeline (placeholder)}
+  \label{fig:graph-pipeline}
+\end{figure}
+
+\subsection{Use Case Diagram}
+
+\begin{figure}[H]
+  \centering
+  \fbox{\parbox{0.85\textwidth}{\centering Placeholder: Use case diagram (select vulnerability → generate scenario → inspect node telemetry)}}
+  \caption{Use case diagram for attack-path generation}
+  \label{fig:use-case-diagram}
+\end{figure}
+
+\section{Design}
+\subsection{Graph Data Model}
+
+The runtime graph payload returned by the backend follows the shape used by the frontend React Flow renderer. Core elements:
+\begin{itemize}
+  \item \textbf{Step (source data)}: \texttt{\{ step\_id, title, description, mitre\_technique, severity, next\_steps: [number] \}} — produced by the AI or derived by the service.
+  \item \textbf{Node}: \texttt{\{ id: string, data: \{ stepNumber, title, description, techniqueId, severity \}, position?: \{x,y\} \}} — represents a step in the graph.
+  \item \textbf{Edge}: \texttt{\{ id: string, source: string, target: string, animated?: boolean \}} — connects nodes according to \texttt{next\_steps}.
+\end{itemize}
+
+Node attributes are intentionally minimal and frontend-friendly; additional metadata such as \texttt{aiRaw} and \texttt{recommendations} are returned alongside the graph for UI display.
+
+\subsection{Sequence Diagram (runtime)}
+
+Typical runtime sequence:
 \begin{enumerate}
-  \item Extraction: parse source artifacts such as \texttt{pfe/PFE\_BACKEND/backend/prisma/schema.prisma}, backend route definitions and supporting documentation.
-  \item Transformation: map extracted entities to an intermediate representation of nodes and edges; enrich nodes with vulnerability metadata when available.
-  \item Rendering: emit diagram source with Mermaid or diagrams.net and export the final asset for the report.
+  \item Dashboard requests \texttt{POST /api/attacks/ai-generate} with \texttt{\{ vulnerabilityId, stepCount?, language? \}}.
+  \item \texttt{attackController} validates input and calls \texttt{attackService.generateScenarioWithAI()}.
+  \item \texttt{attackService} loads the \texttt{Vulnerability} (via Prisma), constructs the AI prompt, and sends it to the AI gateway (\texttt{OLLAMA\_BASE\_URL}).
+  \item The AI gateway returns text; `attackService` extracts JSON, validates it, maps steps into nodes/edges, and returns the ephemeral payload.
+  \item The controller returns the payload to the frontend; `attackApi.normalizeScenarioPayload()` ensures types/safety; the UI renders with React Flow.
 \end{enumerate}
 
 \begin{figure}[H]
   \centering
-  \fbox{\parbox{0.9\textwidth}{\centering Diagram: Graph generation pipeline}}
-  \caption{Graph generation pipeline (placeholder)}
-  \label{fig:graph-pipeline}
-\end{figure}
-
-\subsection{Use Case Description}
-
-The main use cases of this sprint are summarized in the following tables.
-
-\begin{table}[H]
-  \centering
-  \renewcommand{\arraystretch}{1.2}
-  \begin{tabular}{|p{3cm}|p{11cm}|}
-    \hline
-    \textbf{Use case} & Generate Graph \\ \hline
-    \textbf{Actor} & Analyst \\ \hline
-    \textbf{Description} & The analyst selects the graph source artifacts and triggers the generation pipeline. The system extracts nodes and relations from the backend artifacts and prepares the graph representation. \\ \hline
-    \textbf{Pre-condition} & The required source files and metadata are available. \\ \hline
-    \textbf{Post-condition} & A graph representation is produced and ready for rendering. \\ \hline
-  \end{tabular}
-  \caption{Use case description: Generate Graph}
-  \label{tab:generate-graph}
-\end{table}
-
-\begin{table}[H]
-  \centering
-  \renewcommand{\arraystretch}{1.2}
-  \begin{tabular}{|p{3cm}|p{11cm}|}
-    \hline
-    \textbf{Use case} & Export Diagram \\ \hline
-    \textbf{Actor} & Analyst \\ \hline
-    \textbf{Description} & The analyst exports the generated graph to an image format and stores it in the report assets folder. \\ \hline
-    \textbf{Pre-condition} & A rendered graph exists. \\ \hline
-    \textbf{Post-condition} & The diagram is available in \texttt{uploads/diagrams/}. \\ \hline
-  \end{tabular}
-  \caption{Use case description: Export Diagram}
-  \label{tab:export-diagram}
-\end{table}
-
-\begin{table}[H]
-  \centering
-  \renewcommand{\arraystretch}{1.2}
-  \begin{tabular}{|p{3cm}|p{11cm}|}
-    \hline
-    \textbf{Use case} & Enrich Graph \\ \hline
-    \textbf{Actor} & System \\ \hline
-    \textbf{Description} & The system adds security metadata such as severities, evidence and affected components to the graph nodes. \\ \hline
-    \textbf{Pre-condition} & Raw graph nodes and edges have been extracted. \\ \hline
-    \textbf{Post-condition} & The graph is enriched and ready for rendering. \\ \hline
-  \end{tabular}
-  \caption{Use case description: Enrich Graph}
-  \label{tab:enrich-graph}
-\end{table}
-
-\section{Design}
-
-\subsection{Class Diagram}
-
-The design of this sprint is based on the relationship between source extractors, graph builders, enrichers and exporters.
-
-The following figure is reserved for the class diagram of this sprint.
-
-\begin{figure}[H]
-  \centering
-  \fbox{\parbox{0.85\textwidth}{\centering Diagram: Graph generation class diagram}}
-  \caption{Class diagram for attack graph generation}
-  \label{fig:attack-graph-class}
-\end{figure}
-
-\subsection{Sequence Diagram}
-
-The main sequence of this sprint starts when the analyst launches graph generation. The system extracts the backend artifacts, builds the graph model, enriches the nodes and exports the final diagram.
-
-The following figure is reserved for the sequence diagram of this sprint.
-
-\begin{figure}[H]
-  \centering
-  \fbox{\parbox{0.85\textwidth}{\centering Diagram: Graph generation sequence}}
-  \caption{Sequence diagram for attack graph generation}
+  \fbox{\parbox{0.85\textwidth}{\centering Placeholder: Sequence diagram (Dashboard → Controller → Service → AI → Parser → Dashboard)}}
+  \caption{Sequence diagram for runtime scenario generation}
   \label{fig:attack-graph-sequence}
 \end{figure}
 
 \section{Implementation}
 
-This sprint is implemented with a pipeline that reads the backend artifacts, converts them into a graph model and exports the final diagram assets.
+The implementation centers on the backend \texttt{attackService} and \texttt{attackController}, and on the frontend normalization + React Flow renderer.
 
-The backend README describes the pipeline as a normalization and intelligence engine. For graph generation, the relevant inputs are the Prisma schema, API routes and the security metadata extracted from the backend. The backend schema provides the entity relationships, while the API layer and generated evidence help connect endpoints to vulnerabilities.
+Backend details (source files):
+\begin{itemize}
+  \item \texttt{src/controllers/attackController.js} — exposes \texttt{generateAttackScenarioWithAI} and \texttt{generateRiskAssessmentWithAI} endpoints.
+  \item \texttt{src/services/attackService.js} — contains core logic: input validation, DB retrieval (Prisma), AI prompt construction, AI request handling, JSON extraction and normalization (\texttt{mapAiOutputToScenarioPayload}, \texttt{mapAiOutputToEphemeralGraph}).
+  \item Error handling covers invalid inputs, missing DB records, AI timeouts, and invalid AI outputs (returns 400/404/502/504 as appropriate).
+\end{itemize}
 
-The implementation relies on Mermaid-based diagram drafting for quick iteration and on report assets stored under \texttt{uploads/diagrams/}. The generated diagrams are then referenced from the LaTeX report using labeled placeholders until the final assets are inserted.
+Frontend details (source files):
+\begin{itemize}
+  \item \texttt{src/api/attackApi.ts} — \texttt{generateAttackScenario()} posts to \texttt{/api/attacks/ai-generate} and \texttt{normalizeScenarioPayload()} converts the response into typed \texttt{nodes} and \texttt{edges}.
+  \item UI rendering uses React Flow where \texttt{nodes} and \texttt{edges} are passed to the flow component; nodes are positioned and displayed using a custom \texttt{AttackStep} node type.
+\end{itemize}
+
+Notes:
+\begin{itemize}
+  \item The graph produced is ephemeral (returned in the API response). The system may include \texttt{aiRaw} in the response for debugging, but production should avoid persisting raw AI outputs without review.
+  \item The AI gateway must be reachable and configured via \texttt{OLLAMA\_BASE\_URL}, otherwise the service returns an error explaining the gateway issue.
+\end{itemize}
 
 \begin{figure}[H]
   \centering
-  \fbox{\parbox{0.85\textwidth}{\centering Diagram: Graph generation output}}
-  \caption{Graph generation output}
+  \fbox{\parbox{0.85\textwidth}{\centering Placeholder: UI screenshot of Dashboard attack graph rendering}}
+  \caption{Dashboard attack graph (placeholder)}
   \label{fig:graph-output}
 \end{figure}
 
