@@ -1,21 +1,6 @@
 \section{Introduction}
 
 This chapter focuses on HexStrike: its value, internal architecture, and operational details. HexStrike is the orchestration and automation engine that powers tool selection, execution, and intelligent decision making for the project. The chapter highlights how HexStrike complements the CyberScope pipeline, the internals of agent interaction, orchestration, data processing and the AI integration used for risk assessment.
-
-\subsection{Chapter Outline}
-
-The chapter is organized as follows:
-\begin{itemize}
-  \item 6.1: Value proposition for HexStrike
-  \item 6.2: High-level architecture and components (component diagram)
-    \item 6.3: Agent interaction and MCP protocol (sequence diagram)
-  \item 6.4: Tool orchestration and execution flow (flowchart)
-  \item 6.5: Data pipeline — normalization, matching and enrichment (data flow / ER)
-  \item 6.6: Process management, caching and error recovery (state machine)
-  \item 6.7: AI integration and risk assessment
-  \item 6.8: Evaluation, limitations and future enhancements
-\end{itemize}
-
 \subsection{6.1 Why HexStrike matters (Value Proposition)}
 
 HexStrike provides a centralized MCP-compatible orchestration layer that coordinates multiple security tools, optimizes parameters using AI, and aggregates results into actionable intelligence. Its main values are:
@@ -57,22 +42,7 @@ This section documents how raw scanner outputs are transformed into structured \
 HexStrike employs process-level state management for workers and a caching layer to avoid re-running expensive scans. Error recovery strategies include exponential backoff, automatic retries, and fallback scanning behaviors.
 
 % Worker state machine removed.
-
-\subsection{6.7 AI Integration \& Risk Assessment}
-
-HexStrike integrates local AI models to provide risk assessment and remediation guidance. Models analyze evidence, compute contextual severity, and generate attack scenarios for high-risk findings.
-
-% AI integration diagram removed.
-
-\subsection{6.8 Evaluation, Limitations \& Future Enhancements}
-
-This section summarizes experiments comparing HexStrike-assisted pipelines to baseline scanners, discusses limitations (tool availability, distributed orchestration complexity), and outlines future work (authenticated scanning, distributed workers, deeper AI integration).
-
-\begin{itemize}
-  \item Experimental results: summary of coverage and precision (move existing comparison table here if relevant).
-  \item Limitations: operational dependencies and performance trade-offs.
-  \item Future work: authenticated scans, distributed scanning, and improved visualization.
-\end{itemize}
+% Sections on AI integration, evaluation, limitations and future work removed per user request.
 
 \section{Conclusion}
 

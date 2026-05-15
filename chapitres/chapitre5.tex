@@ -50,25 +50,11 @@ The generator implements a compact, AI-assisted runtime pipeline: the Dashboard 
 \section{Design}
 \subsection{Graph Data Model}
 
-The runtime graph payload returned by the backend follows the shape used by the frontend React Flow renderer. Core elements:
-\begin{itemize}
-  \item \textbf{Step (source data)}: \texttt{\{ step\_id, title, description, mitre\_technique, severity, next\_steps: [number] \}} — produced by the AI or derived by the service.
-  \item \textbf{Node}: \texttt{\{ id: string, data: \{ stepNumber, title, description, techniqueId, severity \}, position?: \{x,y\} \}} — represents a step in the graph.
-  \item \textbf{Edge}: \texttt{\{ id: string, source: string, target: string, animated?: boolean \}} — connects nodes according to \texttt{next\_steps}.
-\end{itemize}
-
-Node attributes are intentionally minimal and frontend-friendly; additional metadata such as \texttt{aiRaw} and \texttt{recommendations} are returned alongside the graph for UI display.
+The attack graph is a simple, on-demand diagram that helps an analyst understand how an attacker could move through the system. It represents a generated scenario as a sequence of human-readable steps — each step has a short title, a clear description of the action, and a note about how serious it is. The diagram shows those steps as boxes connected by arrows to indicate possible flows or next actions. When an analyst clicks a box, the interface shows helpful details and suggested countermeasures for that step.
 
 \subsection{Sequence Diagram (runtime)}
 
-Typical runtime sequence:
-\begin{enumerate}
-  \item Dashboard requests \texttt{POST /api/attacks/ai-generate} with \texttt{\{ vulnerabilityId, stepCount?, language? \}}.
-  \item \texttt{attackController} validates input and calls \texttt{attackService.generateScenarioWithAI()}.
-  \item \texttt{attackService} loads the \texttt{Vulnerability} (via Prisma), constructs the AI prompt, and sends it to the AI gateway (\texttt{OLLAMA\_BASE\_URL}).
-  \item The AI gateway returns text; `attackService` extracts JSON, validates it, maps steps into nodes/edges, and returns the ephemeral payload.
-  \item The controller returns the payload to the frontend; `attackApi.normalizeScenarioPayload()` ensures types/safety; the UI renders with React Flow.
-\end{enumerate}
+This sequence diagram summarizes the main runtime interaction for on-demand scenario generation: the Dashboard, the backend orchestration service, the AI gateway, and the frontend renderer. It visualizes the request flow (user selection → generation request → AI call → parsing/validation → interactive rendering) and highlights where failures (timeouts, malformed responses) are handled. The diagram emphasizes high-level handoffs rather than implementation details.
 
 \begin{figure}[H]
   \centering
@@ -79,26 +65,13 @@ Typical runtime sequence:
 
 \section{Implementation}
 
-The implementation centers on the backend \texttt{attackService} and \texttt{attackController}, and on the frontend normalization + React Flow renderer.
+The implementation focuses on a compact orchestration layer that connects the Dashboard to an AI-based scenario generator while keeping the UI interactive and user-friendly.
 
-Backend details (source files):
-\begin{itemize}
-  \item \texttt{src/controllers/attackController.js} — exposes \texttt{generateAttackScenarioWithAI} and \texttt{generateRiskAssessmentWithAI} endpoints.
-  \item \texttt{src/services/attackService.js} — contains core logic: input validation, DB retrieval (Prisma), AI prompt construction, AI request handling, JSON extraction and normalization (\texttt{mapAiOutputToScenarioPayload}, \texttt{mapAiOutputToEphemeralGraph}).
-  \item Error handling covers invalid inputs, missing DB records, AI timeouts, and invalid AI outputs (returns 400/404/502/504 as appropriate).
-\end{itemize}
+- Backend: a lightweight service accepts generation requests, enriches them with vulnerability context, calls the configured AI gateway, and validates and normalizes the returned scenario. The service converts the scenario into an ephemeral graph optimized for client rendering and returns it to the Dashboard. It also handles error conditions (missing records, invalid AI output, gateway timeouts) and surfaces clear HTTP status codes and messages for the frontend to display.
 
-Frontend details (source files):
-\begin{itemize}
-  \item \texttt{src/api/attackApi.ts} — \texttt{generateAttackScenario()} posts to \texttt{/api/attacks/ai-generate} and \texttt{normalizeScenarioPayload()} converts the response into typed \texttt{nodes} and \texttt{edges}.
-  \item UI rendering uses React Flow where \texttt{nodes} and \texttt{edges} are passed to the flow component; nodes are positioned and displayed using a custom \texttt{AttackStep} node type.
-\end{itemize}
+- Frontend: the Dashboard triggers scenario generation for a selected vulnerability, displays progress and error states, and renders the returned graph for interactive inspection. Selecting a node reveals tactical details and suggested countermeasures in the intelligence pane; inventory filters allow analysts to narrow focus before generation.
 
-Notes:
-\begin{itemize}
-  \item The graph produced is ephemeral (returned in the API response). The system may include \texttt{aiRaw} in the response for debugging, but production should avoid persisting raw AI outputs without review.
-  \item The AI gateway must be reachable and configured via \texttt{OLLAMA\_BASE\_URL}, otherwise the service returns an error explaining the gateway issue.
-\end{itemize}
+- Operational notes: generated graphs are ephemeral for this sprint and are not persisted. Raw AI responses are retained only when necessary for debugging and must be protected in production. AI gateway settings (endpoint, model, timeout) are configurable via environment variables and should be tuned for reliability and operator monitoring.
 
 \begin{figure}[H]
   \centering

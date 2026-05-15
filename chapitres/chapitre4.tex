@@ -141,39 +141,42 @@ Key sequences include submission-to-persistence and normalization-to-matching. A
 \end{figure}
 
 \section{Implementation}
+This sprint builds on the existing Node.js backend and React frontend and is illustrated with screenshots of the application interfaces.
 
-This sprint is implemented on the existing Node.js backend and the React frontend. The backend adds the \texttt{scanController} and \texttt{scanService} modules, normalization and matcher submodules, and worker/scheduler code. The frontend adds or adapts \texttt{ScannerPage.tsx}, \texttt{ScanHistoryPage.tsx} and a \texttt{ScanDetailView} component.
+Backend: new scan orchestration components were added (controller, service, worker/scheduler and normalization/matcher submodules). The API exposes endpoints to submit a scan, query job status, and retrieve results. Background workers consume queued jobs, run configured scanners, and store raw outputs for normalization and matching. Persistent domain data (scans, scan results, vulnerability catalog) is stored in the database.
 
-On the backend, key endpoints include \texttt{POST /api/scan} for submission, \texttt{GET /api/scan/:id} for status, and \texttt{GET /api/scan/:id/results} for results. Worker processes consume jobs from the queue, run configured scanners, and store raw outputs for normalization.
+Frontend: the UI was extended with pages and components to submit scans and inspect their results. The Scanner page allows users to start a scan and shows the returned job identifier. The Scan History page lists past scans with filters for date, target and severity. The Scan Detail view presents normalized findings and matched vulnerabilities with contextual information and links to remediation guidance.
 
-On the frontend, the \texttt{ScannerPage} allows scan submission and shows job ids; the \texttt{ScanHistoryPage} lists past scans with filters; the \texttt{ScanDetailView} displays matched vulnerabilities and normalized findings.
+Operational notes: workers and the queue are monitored for health and throughput; normalized results are validated before matching to the vulnerability catalog. Generated intermediate artifacts (raw scanner output) are stored temporarily for processing and auditing; normalized results and match annotations are persisted for reporting.
 
-The following figures are reserved for screenshots and visual aids:
+Figures reserved for this section: scanner submission UI, queue/worker dashboard, scan history, and scan detail views.
+
+Screenshots from the application illustrating the features described in this chapter follow immediately after this section.
 
 \begin{figure}[H]
     \centering
-    \fbox{\parbox{0.85\textwidth}{\centering Screenshot placeholder: scanner submission page}}%
+    \fbox{\parbox{0.85\textwidth}{\centering Screenshot placeholder: scanner submission page}}% 
     \caption{Scanner submission page}
     \label{fig:scanner4-page}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \fbox{\parbox{0.85\textwidth}{\centering Screenshot placeholder: queue / worker dashboard}}%
+    \fbox{\parbox{0.85\textwidth}{\centering Screenshot placeholder: queue / worker dashboard}}% 
     \caption{Queue and worker dashboard}
     \label{fig:worker-dashboard}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \fbox{\parbox{0.85\textwidth}{\centering Screenshot placeholder: scan history page}}%
+    \fbox{\parbox{0.85\textwidth}{\centering Screenshot placeholder: scan history page}}% 
     \caption{Scan history page}
     \label{fig:scan-history4-page}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \fbox{\parbox{0.85\textwidth}{\centering Screenshot placeholder: scan details and matched vulnerabilities}}%
+    \fbox{\parbox{0.85\textwidth}{\centering Screenshot placeholder: scan details and matched vulnerabilities}}% 
     \caption{Scan details page}
     \label{fig:scan-details4-page}
 \end{figure}
