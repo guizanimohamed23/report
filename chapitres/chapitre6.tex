@@ -1,48 +1,139 @@
-\section{Introduction}
+\section{HexStrike Internals and AI Integration}
 
 This chapter focuses on HexStrike: its value, internal architecture, and operational details. HexStrike is the orchestration and automation engine that powers tool selection, execution, and intelligent decision making for the project. The chapter highlights how HexStrike complements the CyberScope pipeline, the internals of agent interaction, orchestration, data processing and the AI integration used for risk assessment.
-\subsection{6.1 Why HexStrike matters (Value Proposition)}
 
-HexStrike provides a centralized MCP-compatible orchestration layer that coordinates multiple security tools, optimizes parameters using AI, and aggregates results into actionable intelligence. Its main values are:
-\begin{itemize}
-  \item Increased automation and repeatability of multi-tool assessments.
-  \item Intelligent tool selection and parameter optimization that reduce noisy results.
-  \item Better resource usage through worker scheduling and caching.
-  \item AI-assisted interpretation that prioritizes findings and suggests remediation steps.
-\end{itemize}
+\section{Why HexStrike matters (Value Proposition)}
+
+HexStrike provides a centralized MCP-compatible orchestration layer that coordinates multiple security tools, optimizes parameters using AI, and aggregates results into actionable intelligence. Key benefits are summarized in Table~\ref{tab:feature-benefits} and visualized in Figure~\ref{fig:feature-box}.
+
+\begin{table}[ht]
+\centering
+\caption{Feature / Benefit summary}
+\label{tab:feature-benefits}
+\begin{tabularx}{\textwidth}{|l|X|c|}
+\hline
+Feature & Problem solved & Impact \\
+\hline
+Automated orchestration & Eliminates manual coordination across tools and brittle scripts & Repeatable runs \\
+\hline
+AI-assisted selection & Reduces noisy results and manual parameter tuning & Higher precision \\
+\hline
+Worker scheduling & Mitigates resource contention across workers & Improved throughput \\
+\hline
+Caching & Avoids re-running identical scans & Lower cost \\
+\hline
+\end{tabularx}
+\end{table}
+
+\begin{figure}[ht]
+\centering
+\fbox{\parbox[c][4cm][c]{0.85\textwidth}{\centering System component diagram (placeholder) -- replace with real graphic in \texttt{uploads/diagrams/}}}
+\caption{High-level component view (placeholder).}
+\label{fig:feature-box}
+\end{figure}
 
 % Diagrams removed from this chapter; generated visuals will be inserted during final assembly.
 
-\subsection{6.2 High-level Architecture and Components}
+\section{Architecture \& Components}
 
-This section describes the main HexStrike components: MCP Server, AI Decision Engine, Tool Catalog, Worker Manager, Cache, Database, and the UI connector that exposes APIs to the frontend. The diagram below provides a component-level view.
+This section lists the main HexStrike components and responsibilities. See Table~\ref{tab:components} for a compact component summary and Figure~\ref{fig:components} for the system diagram.
 
-% Architecture diagram removed from this chapter.
+\begin{table}[ht]
+\centering
+\caption{Component summary}
+\label{tab:components}
+\begin{tabularx}{\textwidth}{|l|X|c|}
+\hline
+Component & Responsibility & Interfaces / Outputs \\
+\hline
+MCP Server & Task distribution, agent registry & HTTP / gRPC \\
+\hline
+AI Decision Engine & Tool selection and parameter optimization & Decision API \\
+\hline
+Worker Manager & Spawn and schedule workers; health monitoring & Worker queue, health API \\
+\hline
+Cache & Result deduplication and TTL policies & Key-value store \\
+\hline
+Database & Persist scan results and queries & SQL / REST \\
+\hline
+UI Connector & Frontend API surface & REST / WebSocket \\
+\hline
+\end{tabularx}
+\end{table}
 
-\subsection{6.3 Agent Interaction \& MCP Protocol}
+\begin{figure}[ht]
+\centering
+\fbox{\parbox[c][4cm][c]{0.85\textwidth}{\centering Component diagram (placeholder) -- replace with exported diagram}}
+\caption{HexStrike component diagram (placeholder).}
+\label{fig:components}
+\end{figure}
 
-Agents connect to HexStrike using the MCP protocol. They register capabilities, receive tasks, and stream results back. The following sequence diagram illustrates the typical interaction between an AI agent, the MCP server, a worker process, and an underlying tool.
+\section{Agent Interaction \& MCP Protocol}
 
-% Agent interaction sequence diagram removed.
+Agents connect to HexStrike using the MCP protocol. They register capabilities, receive tasks, and stream results back. A swimlane-style sequence (Agent / MCP / Worker / Tool) captures registration, task assignment, execution and streaming of results; include an illustrated diagram only if needed.
 
-\subsection{6.4 Tool Orchestration \& Execution Flow}
+% Sequence diagram removed: kept concise textual description above.
 
-Tool orchestration includes discovery, selection by the decision engine, parameter optimization, execution scheduling, and result collection. The orchestration flow handles parallel runs, timeouts, retries and fallback strategies.
+\section{Tool Orchestration \& Execution Flow}
 
-% Orchestration flowchart removed.
+Tool orchestration covers discovery, selection by the decision engine, execution scheduling, retries and fallback strategies. The text summarizes decision points and parallel execution branches; include a flowchart only when a visual is required for reviewers.
 
-\subsection{6.5 Data Pipeline: Normalization, Matching \& Enrichment}
+% Orchestration flowchart removed to reduce figures; see Table~\ref{tab:components} and the textual description.
 
-This section documents how raw scanner outputs are transformed into structured \texttt{ScanResult} objects, matched against a vulnerability catalog, and enriched (CVE lookup, CVSS calculation, contextual evidence).
+\section{Data Pipeline: Normalization, Matching \& Enrichment}
 
-% Data pipeline diagram removed.
+Raw scanner outputs are transformed into structured \texttt{ScanResult} objects, matched against a vulnerability catalog, and enriched with CVE and CVSS data. Table~\ref{tab:schema} gives a short schema fragment and Figure~\ref{fig:dataflow} shows the data flow.
 
-\subsection{6.6 Process Management, Caching \& Error Recovery}
+\begin{table}[ht]
+\centering
+\caption{Key fields in \texttt{ScanResult} (example)}
+\label{tab:schema}
+\begin{tabularx}{\textwidth}{|l|l|X|}
+\hline
+Field & Type & Description \\
+\hline
+id & string & Unique identifier for the finding \\
+\hline
+source & string & Tool that produced the finding \\
+\hline
+evidence & object & Raw evidence and context (headers, request/response) \\
+\hline
+severity & string & Normalized severity (low/medium/high) \\
+\hline
+references & array & CVE ids and external links \\
+\hline
+\end{tabularx}
+\end{table}
 
-HexStrike employs process-level state management for workers and a caching layer to avoid re-running expensive scans. Error recovery strategies include exponential backoff, automatic retries, and fallback scanning behaviors.
+\begin{figure}[ht]
+\centering
+\fbox{\parbox[c][3.5cm][c]{0.85\textwidth}{\centering Data pipeline / ER diagram (placeholder)}}
+\caption{Data pipeline and entity relationships (placeholder).}
+\label{fig:dataflow}
+\end{figure}
 
-% Worker state machine removed.
-% Sections on AI integration, evaluation, limitations and future work removed per user request.
+\section{Process Management, Caching \& Error Recovery}
+
+HexStrike employs process-level state management for workers and a caching layer to avoid re-running expensive scans. Error recovery strategies include exponential backoff, automatic retries, and fallback scanning behaviors. Table~\ref{tab:retry} summarizes retry/backoff policies; include a worker state diagram only if visual clarification is needed.
+
+\begin{table}[ht]
+\centering
+\caption{Retry/backoff policy (example)}
+\label{tab:retry}
+\begin{tabular}{|l|l|l|}
+\hline
+Condition & Action & Notes \\
+\hline
+Transient network error & Retry up to 3 times & Exponential backoff: 2s, 4s, 8s \\
+\hline
+Tool timeout & Retry once with increased timeout & Log and escalate after failure \\
+\hline
+Permanent error & Mark failed & Store diagnostics for analyst \\
+\hline
+\end{tabular}
+\end{table}
+
+% Worker state machine figure removed; see Table~\ref{tab:retry} for policy summary.
 
 \section{Conclusion}
 
