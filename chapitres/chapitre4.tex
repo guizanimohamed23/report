@@ -124,7 +124,24 @@ The scan workflow describes the end-to-end processing of a submitted target: sub
 
 \begin{figure}[H]
     \centering
-    \fbox{\parbox{0.85\textwidth}{\centering Placeholder: Scan Workflow Diagram (submission → queue → worker → normalizer → matcher → DB)}}%
+    \begin{tikzpicture}[node distance=1.8cm, every node/.style={font=\small}]
+        % nodes
+        \node[draw, rectangle, rounded corners, align=center, fill=blue!10] (submission) {Submission\\(Client / API)};
+        \node[draw, rectangle, rounded corners, align=center, fill=orange!10, right=of submission] (queue) {Queue\\(Job Broker)};
+        \node[draw, rectangle, rounded corners, align=center, fill=green!10, right=of queue] (worker) {Worker\\(Scanner Executor)};
+        \node[draw, rectangle, rounded corners, align=center, fill=violet!10, right=of worker] (normalizer) {Normalizer\\(Unify Outputs)};
+        \node[draw, rectangle, rounded corners, align=center, fill=yellow!10, right=of normalizer] (matcher) {Matcher\\(Catalog Correlation)};
+        \node[draw, rectangle, rounded corners, align=center, fill=gray!10, below=of matcher] (db) {Database\\(ScanResult \& Findings)};
+        \node[draw, rectangle, rounded corners, align=center, fill=teal!10, below=of worker] (storage) {Storage\\(Raw Outputs)};
+
+        % arrows
+        \draw[->, >=Stealth] (submission) -- (queue);
+        \draw[->, >=Stealth] (queue) -- (worker);
+        \draw[->, >=Stealth] (worker) -- (normalizer);
+        \draw[->, >=Stealth] (normalizer) -- (matcher);
+        \draw[->, >=Stealth] (matcher) -- (db);
+        \draw[->, >=Stealth] (worker) -- (storage);
+    \end{tikzpicture}
     \caption{Scan workflow overview}
     \label{fig:scan-workflow}
 \end{figure}

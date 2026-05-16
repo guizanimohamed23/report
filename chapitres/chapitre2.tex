@@ -24,10 +24,7 @@ The academic and professional supervisors contributed as stakeholders by validat
     \caption{Scrum Development Process adapted to CyberScope}
     \label{fig:scrum-cyberscope}
 \end{figure}
-
 \subsection{Organization of Sprints and Product Backlog}
-
-The project was organized into multiple sprints, each focusing on a specific objective and producing a functional increment of the system.
 
 \vspace{0.4cm}
 
@@ -52,36 +49,54 @@ The project was organized into multiple sprints, each focusing on a specific obj
 
 \vspace{0.4cm}
 
+\subsubsection{Backlog estimation methods}
+
+T-shirt sizing: For a faster, higher-level estimate during roadmap planning we applied the T-shirt sizing method (XS, S, M, L, XL). This method groups stories by relative size classes rather than numeric points.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{uploads/images/tshirt.jpg}
+    \caption{T-shirt sizing categories used for coarse backlog estimation}
+    \label{fig:tshirt-sizing}
+\end{figure}
+
+\vspace{0.4cm}
+
 \begin{table}[H]
     \centering
     \caption{Product Backlog of CyberScope}
-    \renewcommand{\arraystretch}{1.25}
-    \begin{tabularx}{\textwidth}{|p{1.5cm}|X|p{1.5cm}|p{1.5cm}|}
+    \renewcommand{\arraystretch}{1.35}
+    \small
+    \setlength{\tabcolsep}{8pt}
+    \begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{1.6cm}|>{\centering\arraybackslash}p{2.2cm}|>{\raggedright\arraybackslash}X|>{\centering\arraybackslash}p{1.2cm}|>{\centering\arraybackslash}p{1.2cm}|}
         \hline
-        \textbf{ID} & \textbf{User Story} & \textbf{Priority} & \textbf{Complexity} \\
+        \textbf{Sprint} & \textbf{Category} & \textbf{User Story} & \textbf{Priority} & \textbf{Complexity} \\
         \hline
-        PB-1 & As a user, I want to authenticate securely with JWT tokens & High & Medium \\
+        Sprint 1 & Auth & PB-1 --- As a user, authenticate securely with JWT tokens & High & S \\
         \hline
-        PB-2 & As a user, I want to submit a target URL and initiate a scan & High & High \\
+        Sprint 2 & Scanning & PB-2 --- Submit a target URL and initiate a scan & High & L \\
         \hline
-        PB-3 & As a system, I need to orchestrate multiple security tools & High & High \\
+        Sprint 2 & Orchestration & PB-3 --- Orchestrate multiple security tools & High & L \\
         \hline
-        PB-4 & As a system, I need a browser-based crawling agent for dynamic applications & High & Very High \\
+        Sprint 2 & Crawling & PB-4 --- BrowserAgent for dynamic applications & High & XL \\
         \hline
-        PB-5 & As a user, I want to view scan results on an intuitive dashboard & High & Medium \\
+        Sprint 3 & UI & PB-5 --- View scan results on an intuitive dashboard & High & M \\
         \hline
-        PB-6 & As a user, I want to filter and sort vulnerabilities & Medium & Medium \\
+        Sprint 3 & UI & PB-6 --- Filter and sort vulnerabilities & Medium & S \\
         \hline
-        PB-7 & As a system, I need to deduplicate and normalize findings & High & High \\
+        Sprint 2 & Processing & PB-7 --- Deduplicate and normalize findings & High & L \\
         \hline
-        PB-8 & As a user, I want to generate comprehensive security reports & Medium & Medium \\
+        Sprint 4 & Reporting & PB-8 --- Generate comprehensive security reports & Medium & M \\
         \hline
-        PB-9 & As a system, I need AI-based analysis and risk assessment & Medium & Very High \\
+        Sprint 4 & Analysis & PB-9 --- Analysis: AI-based analysis and risk assessment & Medium & XL \\
         \hline
-        PB-10 & As a user, I want to view scan history and previous results & Low & Low \\
+        Sprint 3 & History & PB-10 --- View scan history and previous results & Low & XS \\
         \hline
     \end{tabularx}
 \end{table}
+% duplicate/older Product Backlog table removed (kept the sprint-assigned detailed backlog above)
+
+
 
 \section{Stakeholder Identification}
 
