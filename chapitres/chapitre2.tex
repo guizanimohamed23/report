@@ -230,13 +230,116 @@ This section presents the technical environment used to design, implement, and t
 
 \subsection{Material Environment}
 
-The development of \textbf{CyberScope} was carried out on a Windows-based workstation. The main tools used in this environment were \textbf{Visual Studio Code}, which served as the primary code editor for development, debugging, and workspace management; \textbf{Git}, which was used to track changes and manage the source code history; and \textbf{Google Chrome / Chromium}, which was used for manual testing, dynamic debugging, and inspecting web application behavior.
+Development work was performed on a Windows workstation using the following primary tools:
+
+\vspace{0.3cm}
+\begin{center}
+    \includegraphics[width=2.4cm]{uploads/logos/vscode.png}\\[0.2cm]
+    \textbf{Visual Studio Code}\\
+    Lightweight, extensible editor used for coding, debugging and workspace management.
+\end{center}
+
+\vspace{0.3cm}
+\begin{center}
+    \includegraphics[width=2.4cm]{uploads/logos/git.png}\\[0.2cm]
+    \textbf{Git}\\
+    Source control system used to track changes and manage project history.
+\end{center}
+
+\vspace{0.3cm}
+\begin{center}
+    \includegraphics[width=2.4cm]{uploads/logos/Chromium_Logo.png}\\[0.2cm]
+    \textbf{Google Chrome / Chromium}\\
+    Browser used for manual testing, dynamic debugging and DOM/network inspection.
+\end{center}
 
 \subsection{Software Environment}
 
-The software environment of \textbf{CyberScope} is organized around three main layers: the backend API, the frontend interface, and the external intelligence and scanning tools. On the backend, the system relies on \textbf{Node.js} as the runtime environment, \textbf{Express.js} for the RESTful API and routing logic, \textbf{Prisma} as the ORM used to interact with the PostgreSQL database and manage schema migrations, and \textbf{PostgreSQL} for persisting scan data, users, and results. On the frontend, \textbf{React} is used to build the interactive dashboard and components, while \textbf{Vite} provides the development server and fast hot-module reloading, and \textbf{TypeScript} improves code quality and reduces runtime errors.
+The software stack is organized by layer; the following items present the main technologies with a short description for each.
 
-The project also integrates external tools and services for scanning, orchestration, and AI-assisted analysis. \textbf{Python} is used to implement the scanning engine and the glue code for tool integrations, \textbf{Ollama} serves as the local AI engine for generating analysis prompts and assisting risk assessment, and \textbf{HexStrike AI} acts as the orchestration layer and automation platform for managing multiple security tools. In addition, \textbf{Chromium / Google Chrome} is used as the browser runtime for dynamic crawlers and headless scanning components.
+\vspace{0.3cm}
+\noindent
+\textbf{Backend}
+
+\vspace{0.2cm}
+\begin{center}
+    \includegraphics[width=2.2cm]{uploads/logos/node.png}\\[0.2cm]
+    \textbf{Node.js}\\
+    JavaScript runtime used as the backend execution environment.
+\end{center}
+
+\vspace{0.3cm}
+\begin{center}
+    \includegraphics[width=2.2cm]{uploads/logos/Expressjs.png}\\[0.2cm]
+    \textbf{Express.js}\\
+    Minimal web framework used to build the RESTful API and routing logic.
+\end{center}
+
+\vspace{0.3cm}
+\begin{center}
+    \includegraphics[width=2.2cm]{uploads/logos/prisma.jpg}\\[0.2cm]
+    \textbf{Prisma}\\
+    ORM used to manage database schema and interact with PostgreSQL.
+\end{center}
+
+\vspace{0.3cm}
+\begin{center}
+    \includegraphics[width=2.2cm]{uploads/logos/postgresql.png}\\[0.2cm]
+    \textbf{PostgreSQL}\\
+    Relational database used to persist scans, users and results.
+\end{center}
+
+\vspace{0.4cm}
+\noindent
+\textbf{Frontend}
+
+\vspace{0.2cm}
+\begin{center}
+    \includegraphics[width=2.2cm]{uploads/logos/react.png}\\[0.2cm]
+    \textbf{React}\\
+    Library used to build the interactive dashboard and UI components.
+\end{center}
+
+\vspace{0.3cm}
+\begin{center}
+    \includegraphics[width=2.2cm]{uploads/logos/vite.jpg}\\[0.2cm]
+    \textbf{Vite}\\
+    Development server and build tool providing fast HMR.
+\end{center}
+
+\vspace{0.3cm}
+\begin{center}
+    \includegraphics[width=2.2cm]{uploads/logos/TS.png}\\[0.2cm]
+    \textbf{TypeScript}\\
+    Typed superset of JavaScript used to improve code quality and catch errors early.
+\end{center}
+
+\vspace{0.4cm}
+\noindent
+\textbf{Scanning \& AI Tools}
+
+\vspace{0.2cm}
+\begin{center}
+    \includegraphics[width=2.2cm]{uploads/logos/python.png}\\[0.2cm]
+    \textbf{Python}\\
+    Used for the scanning engine and glue code to integrate external tools.
+\end{center}
+
+\vspace{0.3cm}
+\begin{center}
+    \includegraphics[width=2.2cm]{uploads/logos/ollama.png}\\[0.2cm]
+    \textbf{Ollama}\\
+    Local AI engine used to assist in analysis and prompt generation.
+\end{center}
+
+\vspace{0.3cm}
+\begin{center}
+    \includegraphics[width=2.2cm]{uploads/logos/hexstrike.png}\\[0.2cm]
+    \textbf{HexStrike AI}\\
+    Orchestration layer for automated execution of multiple security tools.
+\end{center}
+
+
 
 \section{Conclusion}
 

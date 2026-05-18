@@ -33,8 +33,8 @@ The generator implements a compact, AI-assisted runtime pipeline: the Dashboard 
 
 \begin{figure}[H]
   \centering
-  \fbox{\parbox{0.9\textwidth}{\centering Placeholder: runtime pipeline (Vulnerability/Scan → AI gateway → parser → ephemeral graph)}}
-  \caption{Attack graph runtime pipeline (placeholder)}
+  \fbox{\parbox{0.9\textwidth}{\centering\includegraphics[width=0.9\textwidth]{uploads/diagrams/graph pipline.png}}}
+  \caption{Attack graph runtime pipeline}
   \label{fig:graph-pipeline}
 \end{figure}
 
@@ -42,7 +42,7 @@ The generator implements a compact, AI-assisted runtime pipeline: the Dashboard 
 
 \begin{figure}[H]
   \centering
-  \fbox{\parbox{0.85\textwidth}{\centering Placeholder: Use case diagram (select vulnerability → generate scenario → inspect node telemetry)}}
+  \fbox{\parbox{0.85\textwidth}{\centering\includegraphics[width=0.85\textwidth]{uploads/diagrams/sprint3 usecase.drawio.png}}}
   \caption{Use case diagram for attack-path generation}
   \label{fig:use-case-diagram}
 \end{figure}
@@ -54,28 +54,22 @@ The attack graph is a simple, on-demand diagram that helps an analyst understand
 
 \subsection{Sequence Diagram (runtime)}
 
-This sequence diagram summarizes the main runtime interaction for on-demand scenario generation: the Dashboard, the backend orchestration service, the AI gateway, and the frontend renderer. It visualizes the request flow (user selection → generation request → AI call → parsing/validation → interactive rendering) and highlights where failures (timeouts, malformed responses) are handled. The diagram emphasizes high-level handoffs rather than implementation details.
+This sequence diagram summarizes the main runtime interaction for on-demand scenario generation .
 
 \begin{figure}[H]
   \centering
-  \fbox{\parbox{0.85\textwidth}{\centering Placeholder: Sequence diagram (Dashboard → Controller → Service → AI → Parser → Dashboard)}}
+  \fbox{\parbox{0.85\textwidth}{\centering\includegraphics[width=0.85\textwidth]{uploads/diagrams/sprint3 sequence.drawio.png}}}
   \caption{Sequence diagram for runtime scenario generation}
   \label{fig:attack-graph-sequence}
 \end{figure}
 
 \section{Implementation}
 
-The implementation focuses on a compact orchestration layer that connects the Dashboard to an AI-based scenario generator while keeping the UI interactive and user-friendly.
-
-- Backend: a lightweight service accepts generation requests, enriches them with vulnerability context, calls the configured AI gateway, and validates and normalizes the returned scenario. The service converts the scenario into an ephemeral graph optimized for client rendering and returns it to the Dashboard. It also handles error conditions (missing records, invalid AI output, gateway timeouts) and surfaces clear HTTP status codes and messages for the frontend to display.
-
-- Frontend: the Dashboard triggers scenario generation for a selected vulnerability, displays progress and error states, and renders the returned graph for interactive inspection. Selecting a node reveals tactical details and suggested countermeasures in the intelligence pane; inventory filters allow analysts to narrow focus before generation.
-
-- Operational notes: generated graphs are ephemeral for this sprint and are not persisted. Raw AI responses are retained only when necessary for debugging and must be protected in production. AI gateway settings (endpoint, model, timeout) are configurable via environment variables and should be tuned for reliability and operator monitoring.
+In this sprint, we present the interfaces developed for Sprint 5. The implementation includes the attack graph visualization dashboard where analysts can generate and inspect attack scenarios. The following figures illustrate the application interfaces:
 
 \begin{figure}[H]
   \centering
-  \fbox{\parbox{0.85\textwidth}{\centering Placeholder: UI screenshot of Dashboard attack graph rendering}}
+  \fbox{\parbox{0.85\textwidth}{\centering\includegraphics[width=0.85\textwidth]{uploads/images/graph.png}}}
   \caption{Dashboard attack graph (placeholder)}
   \label{fig:graph-output}
 \end{figure}

@@ -60,35 +60,9 @@ The main use cases of this sprint are summarized in the following tables.
     \label{tab:submit-scan}
 \end{table}
 
-\begin{table}[H]
-    \centering
-    \renewcommand{\arraystretch}{1.2}
-    \begin{tabular}{|p{3cm}|p{11cm}|}
-        \hline
-        \textbf{Use case} & Normalize Result \\ \hline
-        \textbf{Actor} & Scan Worker / Normalizer Service \\ \hline
-        \textbf{Description} & The worker parses raw tool outputs, maps fields to the unified \texttt{ScanResult} schema, and records structured findings. \\ \hline
-        \textbf{Pre-condition} & Raw output produced by a scanner is available on disk or in storage. \\ \hline
-        \textbf{Post-condition} & A normalized \texttt{ScanResult} object is produced and passed to the matcher and persistence layers. \\ \hline
-    \end{tabular}
-    \caption{Use case description: Normalize Result}
-    \label{tab:normalize-result}
-\end{table}
 
-\begin{table}[H]
-    \centering
-    \renewcommand{\arraystretch}{1.2}
-    \begin{tabular}{|p{3cm}|p{11cm}|}
-        \hline
-        \textbf{Use case} & Match Vulnerability \\ \hline
-        \textbf{Actor} & Matcher Service \\ \hline
-        \textbf{Description} & The matcher takes normalized findings and attempts to correlate them with entries in the vulnerability catalog, assigning CVE identifiers or severity levels where applicable. \\ \hline
-        \textbf{Pre-condition} & Normalized findings are available; the vulnerability catalog is loaded and accessible. \\ \hline
-        \textbf{Post-condition} & Findings are annotated with matching vulnerability metadata and severity. \\ \hline
-    \end{tabular}
-    \caption{Use case description: Match Vulnerability}
-    \label{tab:match-vuln}
-\end{table}
+
+
 
 \begin{table}[H]
     \centering
@@ -96,13 +70,43 @@ The main use cases of this sprint are summarized in the following tables.
     \begin{tabular}{|p{3cm}|p{11cm}|}
         \hline
         \textbf{Use case} & View Scan History \\ \hline
-        \textbf{Actor} & User \\ \hline
+        \textbf{Actor} & Authenticated user \\ \hline
         \textbf{Description} & The user requests a list of past scans, applies filters, and inspects a scan's details and matched vulnerabilities. \\ \hline
         \textbf{Pre-condition} & Scan results have been persisted and the user is authorized to view them. \\ \hline
         \textbf{Post-condition} & The requested data is displayed; the user may export or navigate to details. \\ \hline
     \end{tabular}
     \caption{Use case description: View Scan History}
     \label{tab:view-history}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{|p{3cm}|p{11cm}|}
+        \hline
+        \textbf{Use case} & View / Browse scan results \\ \hline
+        \textbf{Actor} & Authenticated user \\ \hline
+        \textbf{Description} & The user selects a completed scan to view its results. The system displays scan metadata including target URL, scan date, scan configuration, and execution summary. It also shows a detailed list of discovered vulnerabilities with severity, affected paths, CVE or reference identifiers, and brief remediation notes. \\ \hline
+        \textbf{Pre-condition} & One or more completed scans exist and the user has permission to view them. \\ \hline
+        \textbf{Post-condition} & Scan metadata and vulnerabilities are presented to the user; the user may drill down into individual findings or export the data. \\ \hline
+    \end{tabular}
+    \caption{Use case description: View / Browse scan results}
+    \label{tab:view-results-usecase}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{|p{3cm}|p{11cm}|}
+        \hline
+        \textbf{Use case} & Scan report exporting \\ \hline
+        \textbf{Actor} & Authenticated user \\ \hline
+        \textbf{Description} & The user requests an export of a completed scan report. The system generates an export file (PDF, CSV or JSON) that includes scan metadata, a summary of findings, detailed vulnerability entries, and optional attachments (screenshots, raw tool outputs). The user can download the file or receive it via email. \\ \hline
+        \textbf{Pre-condition} & A completed scan exists and the user has permission to export reports. \\ \hline
+        \textbf{Post-condition} & An export file is generated and made available to the user; export operations are logged for audit. \\ \hline
+    \end{tabular}
+    \caption{Use case description: Scan report exporting}
+    \label{tab:scan-export-usecase}
 \end{table}
 
 \section{Design}
@@ -124,24 +128,7 @@ The scan workflow describes the end-to-end processing of a submitted target: sub
 
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[node distance=1.8cm, every node/.style={font=\small}]
-        % nodes
-        \node[draw, rectangle, rounded corners, align=center, fill=blue!10] (submission) {Submission\\(Client / API)};
-        \node[draw, rectangle, rounded corners, align=center, fill=orange!10, right=of submission] (queue) {Queue\\(Job Broker)};
-        \node[draw, rectangle, rounded corners, align=center, fill=green!10, right=of queue] (worker) {Worker\\(Scanner Executor)};
-        \node[draw, rectangle, rounded corners, align=center, fill=violet!10, right=of worker] (normalizer) {Normalizer\\(Unify Outputs)};
-        \node[draw, rectangle, rounded corners, align=center, fill=yellow!10, right=of normalizer] (matcher) {Matcher\\(Catalog Correlation)};
-        \node[draw, rectangle, rounded corners, align=center, fill=gray!10, below=of matcher] (db) {Database\\(ScanResult \& Findings)};
-        \node[draw, rectangle, rounded corners, align=center, fill=teal!10, below=of worker] (storage) {Storage\\(Raw Outputs)};
-
-        % arrows
-        \draw[->, >=Stealth] (submission) -- (queue);
-        \draw[->, >=Stealth] (queue) -- (worker);
-        \draw[->, >=Stealth] (worker) -- (normalizer);
-        \draw[->, >=Stealth] (normalizer) -- (matcher);
-        \draw[->, >=Stealth] (matcher) -- (db);
-        \draw[->, >=Stealth] (worker) -- (storage);
-    \end{tikzpicture}
+    \includegraphics[width=0.9\textwidth]{uploads/diagrams/scan pipline.png}
     \caption{Scan workflow overview}
     \label{fig:scan-workflow}
 \end{figure}
@@ -158,42 +145,33 @@ Key sequences include submission-to-persistence and normalization-to-matching. A
 \end{figure}
 
 \section{Implementation}
-This sprint builds on the existing Node.js backend and React frontend and is illustrated with screenshots of the application interfaces.
 
-Backend: new scan orchestration components were added (controller, service, worker/scheduler and normalization/matcher submodules). The API exposes endpoints to submit a scan, query job status, and retrieve results. Background workers consume queued jobs, run configured scanners, and store raw outputs for normalization and matching. Persistent domain data (scans, scan results, vulnerability catalog) is stored in the database.
-
-Frontend: the UI was extended with pages and components to submit scans and inspect their results. The Scanner page allows users to start a scan and shows the returned job identifier. The Scan History page lists past scans with filters for date, target and severity. The Scan Detail view presents normalized findings and matched vulnerabilities with contextual information and links to remediation guidance.
-
-Operational notes: workers and the queue are monitored for health and throughput; normalized results are validated before matching to the vulnerability catalog. Generated intermediate artifacts (raw scanner output) are stored temporarily for processing and auditing; normalized results and match annotations are persisted for reporting.
-
-Figures reserved for this section: scanner submission UI, queue/worker dashboard, scan history, and scan detail views.
-
-Screenshots from the application illustrating the features described in this chapter follow immediately after this section.
+In this sprint, we present the interfaces developed for Sprint 2. The implementation includes the scanner submission interface,  scan history with filtering options, and detailed scan results view. The following figures illustrate the application interfaces:
 
 \begin{figure}[H]
     \centering
-    \fbox{\parbox{0.85\textwidth}{\centering Screenshot placeholder: scanner submission page}}% 
+    \fbox{\parbox{0.85\textwidth}{\centering\includegraphics[width=0.85\textwidth]{uploads/images/scan.png}}}% 
     \caption{Scanner submission page}
     \label{fig:scanner4-page}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \fbox{\parbox{0.85\textwidth}{\centering Screenshot placeholder: queue / worker dashboard}}% 
-    \caption{Queue and worker dashboard}
-    \label{fig:worker-dashboard}
+    \fbox{\parbox{0.85\textwidth}{\centering\includegraphics[width=0.85\textwidth]{uploads/images/export.png}}}% 
+    \caption{export Scan Report page}
+    \label{fig:export-scan-report}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \fbox{\parbox{0.85\textwidth}{\centering Screenshot placeholder: scan history page}}% 
+    \fbox{\parbox{0.85\textwidth}{\centering\includegraphics[width=0.85\textwidth]{uploads/images/scan history.png}}}% 
     \caption{Scan history page}
     \label{fig:scan-history4-page}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \fbox{\parbox{0.85\textwidth}{\centering Screenshot placeholder: scan details and matched vulnerabilities}}% 
+    \fbox{\parbox{0.85\textwidth}{\centering\includegraphics[width=0.85\textwidth]{uploads/images/scan result.png}}}% 
     \caption{Scan details page}
     \label{fig:scan-details4-page}
 \end{figure}

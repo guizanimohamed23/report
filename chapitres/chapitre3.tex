@@ -126,43 +126,25 @@ The following figure is reserved for the sequence diagram of this sprint.
 
 \section{Implementation}
 
-This sprint is implemented with an Express.js backend and a React frontend. The implementation of the sprint is illustrated through screenshots of the application interfaces.
-
-On the backend, the main authentication endpoints are defined under \texttt{/api/auth}. The register and login endpoints create secured sessions, the guest endpoint creates a limited temporary session, and the \texttt{/me} endpoint returns the current authenticated user. The backend stores users in PostgreSQL through Prisma and uses bcrypt to hash passwords before saving them.
-
-On the frontend, the Login page sends credentials to the backend, the AuthContext stores the token and the current user in local storage, and the route guards block unauthorized access. The scanner page, scan history page, and scan details page are only available after authentication, while public access is restricted to the login and registration pages.
-
-The following figures are reserved for screenshots from the application:
+In this sprint, we present the interfaces developed for Sprint 1. The implementation includes authentication pages (login and registration). The following figures illustrate the application interfaces:
 
 \begin{figure}[H]
     \centering
-    \fbox{\parbox{0.85\textwidth}{\centering Screenshot placeholder: login page}}%
+    \fbox{\parbox{0.85\textwidth}{\centering\includegraphics[width=0.85\textwidth]{uploads/images/login.png}}}%
     \caption{Login page}
     \label{fig:login-page}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \fbox{\parbox{0.85\textwidth}{\centering Screenshot placeholder: scanner page}}%
-    \caption{Scanner page}
-    \label{fig:scanner-page}
+    \fbox{\parbox{0.85\textwidth}{\centering\includegraphics[width=0.85\textwidth]{uploads/images/sign up.png}}}%
+    \caption{sign up  page}
+    \label{fig:sizgn-up-page}
 \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \fbox{\parbox{0.85\textwidth}{\centering Screenshot placeholder: scan history page}}%
-    \caption{Scan history page}
-    \label{fig:scan-history-page}
-\end{figure}
 
-\begin{figure}[H]
-    \centering
-    \fbox{\parbox{0.85\textwidth}{\centering Screenshot placeholder: scan details page}}%
-    \caption{Scan details page}
-    \label{fig:scan-details-page}
-\end{figure}
 
-This implementation also prepares the rest of the application by ensuring that scan creation and scan history remain protected, while guest users can only use limited public interactions.
+
  
 
 \section{Conclusion}
