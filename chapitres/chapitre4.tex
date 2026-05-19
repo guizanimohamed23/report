@@ -126,23 +126,23 @@ The principal components include the API, the queue, worker processes, the norma
 
 The scan workflow describes the end-to-end processing of a submitted target: submission, queueing, worker execution of tools, normalization, matching, and persistence. The diagram below summarizes the sequence and components involved.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.9\textwidth]{uploads/diagrams/scan pipline.png}
-    \caption{Scan workflow overview}
-    \label{fig:scan-workflow}
-\end{figure}
+% Inline scan workflow to avoid float page breaks
+\begin{center}
+    \includegraphics[width=0.85\textwidth]{uploads/diagrams/scan pipline.png}\\
+    \captionsetup{skip=2pt}
+    \captionof{figure}{Scan workflow overview}\label{fig:scan-workflow}
+\end{center}
 
 \subsection{Sequence Diagram}
 
 Key sequences include submission-to-persistence and normalization-to-matching. A sequence diagram will illustrate the interactions between client, API, queue, worker, normalizer, matcher and DB.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.98\textwidth]{uploads/diagrams/sprint2 sequence.drawio (3).png}
-    \caption{Sequence diagram for scan processing}
-    \label{fig:sprint4-sequence-diagram}
-\end{figure}
+% Inline sequence diagram to keep it with the workflow and avoid large gaps
+\begin{center}
+    \includegraphics[width=0.9\textwidth]{uploads/diagrams/sprint2 sequence.drawio (3).png}\\
+    \captionsetup{skip=2pt}
+    \captionof{figure}{Sequence diagram for scan processing}\label{fig:sprint4-sequence-diagram}
+\end{center}
 
 \section{Implementation}
 
