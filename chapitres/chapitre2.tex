@@ -28,87 +28,95 @@ The academic and professional supervisors contributed as stakeholders by validat
 
 \vspace{0.4cm}
 
+CyberScope is organized into three iterative sprints, each with distinct objectives and deliverables. Table~\ref{tab:sprint-organization} presents the sprint timeline and main goals, showing how the project progresses from backend infrastructure through tool integration to advanced attack graph generation over a 12-week development cycle.
+
 \begin{table}[H]
     \centering
     \caption{Sprint Organization of CyberScope}
+    \label{tab:sprint-organization}
     \renewcommand{\arraystretch}{1.25}
     \begin{tabularx}{\textwidth}{|p{1.8cm}|X|X|p{1.8cm}|}
         \hline
         \textbf{Sprint} & \textbf{Main Objective} & \textbf{Deliverable} & \textbf{Duration} \\
         \hline
-        Sprint 1 & Backend foundation and database setup & Core backend APIs and database structure & 3 weeks \\
+        Sprint 1 & Backend foundation and database setup & Core backend APIs and database structure & 4 weeks \\
         \hline
-        Sprint 2 & Scanning engine and tool orchestration & Integration of tools and scanning pipeline & 3 weeks \\
+        Sprint 2 & Scanning engine and tool orchestration & Integration of tools and scanning pipeline & 4 weeks \\
         \hline
-        Sprint 3 & Frontend dashboard development & User interface and result visualization & 3 weeks \\
-        \hline
-        Sprint 4 & Advanced features and validation & AI analysis, reporting, and testing & 3 weeks \\
+        Sprint 3 & Attack Graph Generation & Computational framework for generating attack graphs & 4 weeks \\
         \hline
     \end{tabularx}
-\end{table}
+    \end{table}
 
-\vspace{0.4cm}
+    Each sprint delivers a cohesive set of user stories that align with its main objective. Table~\ref{tab:product-backlog} consolidates all seventeen user stories across the three sprints, with each story categorized by type, associated priority level, and sprint assignment. This backlog provides a comprehensive view of the system's functional requirements and guides development efforts from inception through delivery.
 
-\subsubsection{Backlog estimation methods}
-
-T-shirt sizing: For a faster, higher-level estimate during roadmap planning we applied the T-shirt sizing method (XS, S, M, L, XL). This method groups stories by relative size classes rather than numeric points.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\textwidth]{uploads/images/tshirt.jpg}
-    \caption{T-shirt sizing categories used for coarse backlog estimation}
-    \label{fig:tshirt-sizing}
-\end{figure}
-
-\vspace{0.4cm}
-
-\begin{table}[H]
-    \centering
-    \caption{Product Backlog of CyberScope}
-    \renewcommand{\arraystretch}{1.35}
-    \small
-    \setlength{\tabcolsep}{8pt}
-    \begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{1.6cm}|>{\centering\arraybackslash}p{2.2cm}|>{\raggedright\arraybackslash}X|>{\centering\arraybackslash}p{1.2cm}|>{\centering\arraybackslash}p{1.2cm}|}
+    {\small
+    \begin{longtable}{|>{\centering\arraybackslash}p{1.4cm}|>{\centering\arraybackslash}p{2cm}|>{\centering\arraybackslash}p{2.2cm}|>{\raggedright\arraybackslash}p{7.5cm}|>{\centering\arraybackslash}p{1.2cm}|}
+        \caption{Product Backlog of CyberScope}
+        \label{tab:product-backlog} \\
         \hline
-        \textbf{Sprint} & \textbf{Category} & \textbf{User Story} & \textbf{Priority} & \textbf{Complexity} \\
+        \textbf{ID} & \textbf{Sprint} & \textbf{Category} & \textbf{User Story} & \textbf{Priority} \\
         \hline
-        Sprint 1 & Auth & PB-1 --- As a user, authenticate securely with JWT tokens & High & S \\
+        \endfirsthead
+        \multicolumn{5}{c}{\textit{}} \\
         \hline
-        Sprint 2 & Scanning & PB-2 --- Submit a target URL and initiate a scan & High & L \\
+        \textbf{ID} & \textbf{Sprint} & \textbf{Category} & \textbf{User Story} & \textbf{Priority} \\
         \hline
-        Sprint 2 & Orchestration & PB-3 --- Orchestrate multiple security tools & High & L \\
+        \endhead
         \hline
-        Sprint 2 & Crawling & PB-4 --- BrowserAgent for dynamic applications & High & XL \\
+        \multicolumn{5}{r}{\textit{continued on next page}} \\
+        \endfoot
         \hline
-        Sprint 3 & UI & PB-5 --- View scan results on an intuitive dashboard & High & M \\
+        \endlastfoot
+        US-S1-01 & Sprint 1 & Authentication & As a User, I can create an account and log in to the platform so that I can securely access my data and scanning features. & High \\
         \hline
-        Sprint 3 & UI & PB-6 --- Filter and sort vulnerabilities & Medium & S \\
+        US-S1-02 & Sprint 1 & Session & As a Guest User, I can start a temporary guest session without creating a persistent account so that I can quickly evaluate the platform. & Medium \\
         \hline
-        Sprint 2 & Processing & PB-7 --- Deduplicate and normalize findings & High & L \\
+        US-S1-03 & Sprint 1 & Access Control & As a User, I can access protected pages such as the scanner and scan history so that I can run scans and review past results. & High \\
         \hline
-        Sprint 4 & Reporting & PB-8 --- Generate comprehensive security reports & Medium & M \\
+        US-S1-04 & Sprint 1 & Session Management & As the System, I can verify and refresh the current session by exposing the authenticated user profile so that sessions remain valid and secure. & High \\
         \hline
-        Sprint 4 & Analysis & PB-9 --- Analysis: AI-based analysis and risk assessment & Medium & XL \\
+        US-S1-05 & Sprint 1 & Tool Integration & As the System, I must resolve and safely execute HexStrike scanner binaries with timeout enforcement and resource limits so that tool outputs are captured reliably for processing. & High \\
         \hline
-        Sprint 3 & History & PB-10 --- View scan history and previous results & Low & XS \\
+        US-S1-06 & Sprint 1 & AI Foundation & As the System, I must integrate Ollama for local AI inference to enable contextual analysis and intelligent recommendation generation without external API dependencies. & High \\
         \hline
-    \end{tabularx}
-\end{table}
+        US-S2-01 & Sprint 2 & Scan Submission & As a User, I can submit a scan target (URL) and receive a job identifier so that I can track and retrieve results. & High \\
+        \hline
+        US-S2-03 & Sprint 2 & Execution & As the System, I can run scanner tools and collect raw outputs so that findings can be processed. & High \\
+        \hline
+        US-S2-04 & Sprint 2 & Normalization & As the System, I can normalize raw outputs into a unified schema so that results are consistent across tools. & High \\
+        \hline
+        US-S2-05 & Sprint 2 & Matching & As the System, I can match normalized findings to the vulnerability catalog and assign severities so that results are actionable. & High \\
+        \hline
+        US-S2-06 & Sprint 2 & Results UI & As a User, I can view, filter, and export scan history and results so that I can analyze and share findings. & Medium \\
+        \hline
+        US-S2-07 & Sprint 2 & Operations & As the System, I can monitor queue status and worker health so that the processing pipeline remains reliable. & Medium \\
+        \hline
+        US-S3-01 & Sprint 3 & Scenario Gen & As a User, I can request an attack scenario for a specific vulnerability and receive structured steps and a graph object so that I can investigate exploitation paths. & High \\
+        \hline
+        US-S3-02 & Sprint 3 & Remediation & As a User, I can click on an attack scenario step in the interactive graph so that I receive contextualized remediation tips and countermeasures to address that specific vulnerability. & High \\
+        \hline
+        US-S3-03 & Sprint 3 & Normalization & As the System, I must validate and normalize AI responses into a safe, consistent graph payload (nodes/edges) so that frontend rendering is robust and secure. & High \\
+        \hline
+        US-S3-04 & Sprint 3 & Frontend Integration & As a User, the Dashboard should render the returned graph (React Flow) and allow interaction with attack scenario steps so that I can explore potential attack paths. & Medium \\
+        \hline
+        US-S3-05 & Sprint 3 & Operations & As the System, I should handle AI timeouts, malformed responses, and return useful error messages so that failures are observable and debuggable. & Medium \\
+        \hline
+    \end{longtable}
+    }
 % duplicate/older Product Backlog table removed (kept the sprint-assigned detailed backlog above)
 
 
 
 \section{Stakeholder Identification}
 
-The development and use of \textbf{CyberScope} involve several stakeholders, each interacting with the system according to specific roles.
+The development and use of \textbf{CyberScope} involve three primary actors, each interacting with the system according to specific roles and responsibilities.
 
-The primary stakeholder is the \textbf{Security Analyst}, who represents the main user of the platform. This actor submits target URLs, launches scans, and analyzes results through the dashboard.
+The \textbf{User} represents the primary actor and main beneficiary of the platform. This actor performs core activities such as creating an account, logging in, submitting target URLs for security analysis, launching scans, and analyzing results through the interactive dashboard. The User relies on the system to provide accurate vulnerability detection and actionable remediation recommendations.
 
-The \textbf{System Administrator} is responsible for maintaining the system, managing configurations, and ensuring the availability of integrated tools.
+The \textbf{Guest User} is a secondary actor who interacts with the platform without establishing a persistent account. This actor can access the system through a temporary guest session to evaluate the platform's capabilities and explore basic features, enabling quick evaluation without registration overhead.
 
-Academic and professional supervisors act as indirect stakeholders. They validate the project objectives and ensure the quality of the delivered solution.
-
-Finally, the \textbf{target application owner} represents an external stakeholder who benefits from the security analysis results.
+The \textbf{System} acts as the backend orchestrator and automated processor. This actor performs critical operations including tool integration and resolution, session management, scan execution and pipeline orchestration, output normalization and enrichment, vulnerability matching, and AI-driven attack graph generation. The System ensures reliable, scalable, and secure operation of all automated processes.
 
 \section{System Overview}
 
@@ -210,17 +218,18 @@ The use case diagram illustrates the main interactions between the user and the 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{uploads/diagrams/use case general .drawio.png}
+    \includegraphics[width=0.85\textwidth]{uploads/diagrams/use case general .drawio.png}
     \caption{Global Use Case Diagram of CyberScope}
 \end{figure}
 
+\clearpage
 \subsection{Global Class Diagram}
 
 The class diagram presents the main structural components of CyberScope and the relationships between its core services, models, and orchestration layers.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{uploads/diagrams/classglobal.drawio.png}
+    \includegraphics[width=0.8\textwidth]{uploads/diagrams/classglobal.drawio.png}
     \caption{Global Class Diagram of CyberScope}
 \end{figure}
 
@@ -233,25 +242,68 @@ This section presents the technical environment used to design, implement, and t
 Development work was performed on a Windows workstation using the following primary tools:
 
 \vspace{0.3cm}
-\begin{center}
-    \includegraphics[width=2.4cm]{uploads/logos/vscode.png}\\[0.2cm]
-    \textbf{Visual Studio Code}\\
-    Lightweight, extensible editor used for coding, debugging and workspace management.
-\end{center}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=2.4cm]{uploads/logos/vscode.png}
+    \caption{Logo of Visual Studio Code.}
+    \label{fig:vscode-logo}
+    \vspace{0.2cm}
+    \begin{minipage}{0.9\textwidth}
+        \centering
+        \footnotesize Lightweight, extensible editor used for coding, debugging and workspace management.
+    \end{minipage}
+\end{figure}
 
 \vspace{0.3cm}
-\begin{center}
-    \includegraphics[width=2.4cm]{uploads/logos/git.png}\\[0.2cm]
-    \textbf{Git}\\
-    Source control system used to track changes and manage project history.
-\end{center}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=2.4cm]{uploads/logos/git.png}
+    \caption{Logo of Git.}
+    \label{fig:git-logo}
+    \vspace{0.2cm}
+    \begin{minipage}{0.9\textwidth}
+        \centering
+        \footnotesize Source control system used to track changes and manage project history.
+    \end{minipage}
+\end{figure}
 
 \vspace{0.3cm}
-\begin{center}
-    \includegraphics[width=2.4cm]{uploads/logos/Chromium_Logo.png}\\[0.2cm]
-    \textbf{Google Chrome / Chromium}\\
-    Browser used for manual testing, dynamic debugging and DOM/network inspection.
-\end{center}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=2.4cm]{uploads/logos/Chromium_Logo.png}
+    \caption{Logo of Google Chrome / Chromium.}
+    \label{fig:chromium-logo}
+    \vspace{0.2cm}
+    \begin{minipage}{0.9\textwidth}
+        \centering
+        \footnotesize Browser used for manual testing, dynamic debugging and DOM/network inspection.
+    \end{minipage}
+\end{figure}
+\vspace{0.3cm}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=2.4cm]{uploads/images/drawiologo.png}
+    \caption{Logo of diagrams.net (draw.io).}
+    \label{fig:drawio-logo}
+    \vspace{0.2cm}
+    \begin{minipage}{0.9\textwidth}
+        \centering
+        \footnotesize Diagramming tool used to design system architecture and UML diagrams.
+    \end{minipage}
+\end{figure}
+
+\vspace{0.3cm}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=2.4cm]{uploads/images/overleaf-logo-primary.png}
+    \caption{Logo of Overleaf.}
+    \label{fig:overleaf-logo}
+    \vspace{0.2cm}
+    \begin{minipage}{0.9\textwidth}
+        \centering
+        \footnotesize Online LaTeX editor used for collaborative editing and compiling documentation.
+    \end{minipage}
+\end{figure}
 
 \subsection{Software Environment}
 
@@ -262,82 +314,144 @@ The software stack is organized by layer; the following items present the main t
 \textbf{Backend}
 
 \vspace{0.2cm}
-\begin{center}
-    \includegraphics[width=2.2cm]{uploads/logos/node.png}\\[0.2cm]
-    \textbf{Node.js}\\
-    JavaScript runtime used as the backend execution environment.
-\end{center}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=2.2cm]{uploads/logos/node.png}
+    \caption{Node.js}
+    \label{fig:node-logo}
+    \vspace{0.2cm}
+    \begin{minipage}{0.9\textwidth}
+        \centering
+        \footnotesize JavaScript runtime used as the backend execution environment.
+    \end{minipage}
+\end{figure}
 
 \vspace{0.3cm}
-\begin{center}
-    \includegraphics[width=2.2cm]{uploads/logos/Expressjs.png}\\[0.2cm]
-    \textbf{Express.js}\\
-    Minimal web framework used to build the RESTful API and routing logic.
-\end{center}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=2.2cm]{uploads/logos/Expressjs.png}
+    \caption{Express.js}
+    \label{fig:express-logo}
+    \vspace{0.2cm}
+    \begin{minipage}{0.9\textwidth}
+        \centering
+        \footnotesize Minimal web framework used to build the RESTful API and routing logic.
+    \end{minipage}
+\end{figure}
 
 \vspace{0.3cm}
-\begin{center}
-    \includegraphics[width=2.2cm]{uploads/logos/prisma.jpg}\\[0.2cm]
-    \textbf{Prisma}\\
-    ORM used to manage database schema and interact with PostgreSQL.
-\end{center}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=2.2cm]{uploads/logos/prisma.jpg}
+    \caption{Prisma}
+    \label{fig:prisma-logo}
+    \vspace{0.2cm}
+    \begin{minipage}{0.9\textwidth}
+        \centering
+        \footnotesize ORM used to manage database schema and interact with PostgreSQL.
+    \end{minipage}
+\end{figure}
 
 \vspace{0.3cm}
-\begin{center}
-    \includegraphics[width=2.2cm]{uploads/logos/postgresql.png}\\[0.2cm]
-    \textbf{PostgreSQL}\\
-    Relational database used to persist scans, users and results.
-\end{center}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=2.2cm]{uploads/logos/postgresql.png}
+    \caption{PostgreSQL}
+    \label{fig:postgresql-logo}
+    \vspace{0.2cm}
+    \begin{minipage}{0.9\textwidth}
+        \centering
+        \footnotesize Relational database used to persist scans, users and results.
+    \end{minipage}
+\end{figure}
 
 \vspace{0.4cm}
 \noindent
 \textbf{Frontend}
 
 \vspace{0.2cm}
-\begin{center}
-    \includegraphics[width=2.2cm]{uploads/logos/react.png}\\[0.2cm]
-    \textbf{React}\\
-    Library used to build the interactive dashboard and UI components.
-\end{center}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=2.2cm]{uploads/logos/react.png}
+    \caption{React}
+    \label{fig:react-logo}
+    \vspace{0.2cm}
+    \begin{minipage}{0.9\textwidth}
+        \centering
+        \footnotesize Library used to build the interactive dashboard and UI components.
+    \end{minipage}
+\end{figure}
 
 \vspace{0.3cm}
-\begin{center}
-    \includegraphics[width=2.2cm]{uploads/logos/vite.jpg}\\[0.2cm]
-    \textbf{Vite}\\
-    Development server and build tool providing fast HMR.
-\end{center}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=2.2cm]{uploads/logos/vite.jpg}
+    \caption{Vite}
+    \label{fig:vite-logo}
+    \vspace{0.2cm}
+    \begin{minipage}{0.9\textwidth}
+        \centering
+        \footnotesize Development server and build tool providing fast HMR.
+    \end{minipage}
+\end{figure}
 
 \vspace{0.3cm}
-\begin{center}
-    \includegraphics[width=2.2cm]{uploads/logos/TS.png}\\[0.2cm]
-    \textbf{TypeScript}\\
-    Typed superset of JavaScript used to improve code quality and catch errors early.
-\end{center}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=2.2cm]{uploads/logos/TS.png}
+    \caption{TypeScript}
+    \label{fig:typescript-logo}
+    \vspace{0.2cm}
+    \begin{minipage}{0.9\textwidth}
+        \centering
+        \footnotesize Typed superset of JavaScript used to improve code quality and catch errors early.
+    \end{minipage}
+\end{figure}
 
 \vspace{0.4cm}
 \noindent
 \textbf{Scanning \& AI Tools}
 
 \vspace{0.2cm}
-\begin{center}
-    \includegraphics[width=2.2cm]{uploads/logos/python.png}\\[0.2cm]
-    \textbf{Python}\\
-    Used for the scanning engine and glue code to integrate external tools.
-\end{center}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=2.2cm]{uploads/logos/python.png}
+    \caption{Python}
+    \label{fig:python-logo}
+    \vspace{0.2cm}
+    \begin{minipage}{0.9\textwidth}
+        \centering
+        \footnotesize Used for the scanning engine and glue code to integrate external tools.
+    \end{minipage}
+\end{figure}
 
 \vspace{0.3cm}
-\begin{center}
-    \includegraphics[width=2.2cm]{uploads/logos/ollama.png}\\[0.2cm]
-    \textbf{Ollama}\\
-    Local AI engine used to assist in analysis and prompt generation.
-\end{center}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=2.2cm]{uploads/logos/ollama.png}
+    \caption{Ollama}
+    \label{fig:ollama-logo}
+    \vspace{0.2cm}
+    \begin{minipage}{0.9\textwidth}
+        \centering
+        \footnotesize Local AI engine used to assist in analysis and prompt generation.
+    \end{minipage}
+\end{figure}
 
 \vspace{0.3cm}
-\begin{center}
-    \includegraphics[width=2.2cm]{uploads/logos/hexstrike.png}\\[0.2cm]
-    \textbf{HexStrike AI}\\
-    Orchestration layer for automated execution of multiple security tools.
-\end{center}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=2.2cm]{uploads/logos/hexstrike.png}
+    \caption{HexStrike AI}
+    \label{fig:hexstrike-logo}
+    \vspace{0.2cm}
+    \begin{minipage}{0.9\textwidth}
+        \centering
+        \footnotesize Orchestration layer for automated execution of multiple security tools.
+    \end{minipage}
+\end{figure}
+
+% Diagramming and documentation tools are declared in Material Environment (2.8.1)
 
 
 

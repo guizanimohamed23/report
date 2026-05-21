@@ -12,16 +12,25 @@ The backlog for this sprint focuses on the AI-driven scenario and risk-generatio
 
 \begin{table}[H]
   \centering
-  \renewcommand{\arraystretch}{1.2}
-  \begin{tabularx}{\textwidth}{|X|}
-    \hline
-    As an analyst, I can request an attack scenario for a specific vulnerability and receive structured steps and a graph object. \\\hline
-    As an analyst, I can request a risk assessment for a completed scan and receive a summarized JSON assessment. \\\hline
-    As the system, I must validate and normalize AI responses into a safe, consistent graph payload (nodes/edges). \\\hline
-    As a frontend, the Dashboard should render the returned graph (React Flow) and allow exporting the scenario as JSON. \\\hline
-    As an operator, the service should handle AI timeouts, malformed responses, and return useful error messages. \\\hline
-  \end{tabularx}
   \caption{Sprint Backlog}
+  \renewcommand{\arraystretch}{1.35}
+  \small
+  \setlength{\tabcolsep}{8pt}
+  \begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{1.6cm}|>{\centering\arraybackslash}p{2.2cm}|>{\raggedright\arraybackslash}X|>{\centering\arraybackslash}p{1.2cm}|}
+    \hline
+    \textbf{ID} & \textbf{Category} & \textbf{User Story} & \textbf{Priority} \\
+    \hline
+    US-S3-01 & Scenario Gen & As a User, I can request an attack scenario for a specific vulnerability and receive structured steps and a graph object so that I can investigate exploitation paths. & High \\
+    \hline
+    US-S3-02 & Remediation & As a User, I can click on an attack scenario step in the interactive graph so that I receive contextualized remediation tips and countermeasures to address that specific vulnerability. & High \\
+    \hline
+    US-S3-03 & Normalization & As the System, I must validate and normalize AI responses into a safe, consistent graph payload (nodes/edges) so that frontend rendering is robust and secure. & High \\
+    \hline
+    US-S3-04 & Frontend Integration & As a User, the Dashboard should render the returned graph (React Flow) and allow interaction with attack scenario steps so that I can explore potential attack paths. & Medium \\
+    \hline
+    US-S3-05 & Operations & As the System, I should handle AI timeouts, malformed responses, and return useful error messages so that failures are observable and debuggable. & Medium \\
+    \hline
+  \end{tabularx}
 \end{table}
 
 \section{Requirements Analysis}
@@ -47,6 +56,70 @@ The generator implements a compact, AI-assisted runtime pipeline: the Dashboard 
   \caption{Use case diagram for attack-path generation}
   \label{fig:use-case-diagram}
 \end{figure}
+
+\subsection{Use Case Description}
+
+The main use cases of this sprint are summarized in the following tables.
+
+\begin{table}[H]
+  \centering
+  \caption{Use case description: Request Attack Scenario}
+  \label{tab:request-scenario}
+  \renewcommand{\arraystretch}{1.4}
+  \small
+  \begin{tabularx}{\textwidth}{|p{2.5cm}|X|}
+    \hline
+    \textbf{Name} & Request Attack Scenario \\\hline
+    \textbf{ID} & UC-S3-01 \\\hline
+    \textbf{Actors} & User (Authenticated) \\\hline
+    \textbf{Description} & This use case enables an authenticated user to request an AI-generated attack scenario for a specific vulnerability discovered during a scan. The system processes the vulnerability context, generates structured exploitation steps, builds a graph representation of the attack path, and returns both steps and graph object to the user for interactive analysis. \\\hline
+    \textbf{Precondition} & The user is authenticated with a valid session token. A completed scan exists with discovered vulnerabilities. The user has selected a specific vulnerability to analyze. The AI inference service (Ollama) is operational. \\\hline
+    \textbf{Nominal Scenario} & 1. User navigates to scan results and selects a vulnerability. 2. User clicks ``Generate Attack Scenario'' button. 3. System retrieves vulnerability metadata (type, severity, affected endpoint, CVE reference). 4. System builds a controlled prompt with vulnerability context. 5. System invokes the AI inference gateway (Ollama) with the prompt. 6. System extracts and parses the AI response into structured steps (title, description, severity, mitigations). 7. System normalizes the steps into graph nodes with edges representing attack progression. 8. System validates the graph structure for security and consistency. 9. System returns graph object (nodes/edges) and ordered steps list to frontend. 10. Frontend renders the interactive graph visualization. \\\hline
+    \textbf{Exception Scenario} & 1. AI service timeout: System displays a message indicating generation is taking longer and offers retry. 2. Malformed AI response: System logs error and returns a generic scenario template. 3. AI service unavailable: System displays service unavailable message and suggests trying again. 4. Graph validation fails: System logs error and displays a simplified representation of steps. 5. User interrupts request: System allows cancellation and clears loading state. \\\hline
+    \textbf{Postcondition} & An attack scenario is generated and available for the user to interact with. The scenario includes ordered steps and a graph representation. The generation event is logged for audit purposes. \\\hline
+    \textbf{Logical Constraints} & Attack scenarios must be generated on-demand and not persisted. AI responses must be validated for safety before returning to frontend. Graph nodes must represent actionable attack steps. Scenario generation must complete within a defined timeout (e.g., 30 seconds). \\\hline
+  \end{tabularx}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \caption{Use case description: Select Attack Step and View Remediation}
+  \label{tab:select-step-remediation}
+  \renewcommand{\arraystretch}{1.4}
+  \small
+  \begin{tabularx}{\textwidth}{|p{2.5cm}|X|}
+    \hline
+    \textbf{Name} & Select Attack Step and View Remediation \\\hline
+    \textbf{ID} & UC-S3-02 \\\hline
+    \textbf{Actors} & User (Authenticated) \\\hline
+    \textbf{Description} & This use case enables an authenticated user to click on an attack step in the interactive graph visualization and receive contextualized remediation tips, countermeasures, and mitigation strategies specific to that attack step and the underlying vulnerability. \\\hline
+    \textbf{Precondition} & The user is authenticated with a valid session token. An attack scenario has been generated and is displayed in the interactive graph. The user has the graph visible on the Dashboard. \\\hline
+    \textbf{Nominal Scenario} & 1. User views the interactive attack graph on the Dashboard. 2. User clicks on a specific node (attack step) in the graph. 3. Frontend highlights the selected node and requests remediation details. 4. System retrieves the attack step context (step title, description, affected endpoint, vulnerability type). 5. System queries the remediation knowledge base for mitigations related to the step and vulnerability type. 6. System displays a remediation panel with: recommended countermeasures, step-by-step mitigation instructions, relevant security controls, links to CWE/CVE references, and best practices. 7. User can navigate between connected nodes to compare remediation strategies across the attack path. \\\hline
+    \textbf{Exception Scenario} & 1. No remediation available: System displays a generic message and suggests consulting security documentation. 2. Remediation lookup timeout: System displays cached/default remediation content. 3. Remediation service unavailable: System displays a retry option or directs user to external resources. 4. User selects an invalid node: System ignores the action or displays an error message. \\\hline
+    \textbf{Postcondition} & The remediation panel is displayed with targeted countermeasures for the selected attack step. The user can interact with remediation details and continue exploring the attack graph. User interaction is logged for analytics. \\\hline
+    \textbf{Logical Constraints} & Remediation must be specific to the selected attack step and vulnerability type. Remediation content must be concise and actionable. User clicks must immediately highlight the relevant node. Remediation lookup must complete within a reasonable timeout (e.g., 5 seconds). \\\hline
+  \end{tabularx}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \caption{Use case description: Render and Interact with Attack Graph}
+  \label{tab:render-graph}
+  \renewcommand{\arraystretch}{1.4}
+  \small
+  \begin{tabularx}{\textwidth}{|p{2.5cm}|X|}
+    \hline
+    \textbf{Name} & Render and Interact with Attack Graph \\\hline
+    \textbf{ID} & UC-S3-03 \\\hline
+    \textbf{Actors} & User (Authenticated), System (React Flow Frontend) \\\hline
+    \textbf{Description} & This use case describes the frontend rendering and interactive display of the attack graph. The system receives the graph object (nodes and edges) from the backend, renders it using React Flow, and enables user interactions such as zooming, panning, node selection, and navigation to remediation details. \\\hline
+    \textbf{Precondition} & The user is authenticated and on the Dashboard. An attack scenario has been generated and the graph object is available from the backend. React Flow library is loaded and functional in the frontend. \\\hline
+    \textbf{Nominal Scenario} & 1. Backend returns graph object with nodes (attack steps) and edges (attack progression paths). 2. Frontend receives the graph structure. 3. React Flow component parses nodes and edges. 4. React Flow renders nodes as visual boxes with step titles and severity indicators. 5. React Flow renders edges as arrows indicating progression paths. 6. Frontend applies layout algorithm for visual clarity (e.g., hierarchical or force-directed). 7. User can zoom in/out to explore the graph. 8. User can pan across the graph. 9. User clicks on a node to select it and view details. 10. User can double-click on an edge to understand the progression relationship. \\\hline
+    \textbf{Exception Scenario} & 1. Graph rendering fails: Frontend displays a generic error and suggests refreshing. 2. Large graph (many nodes/edges): Frontend applies pagination or simplified rendering. 3. Invalid graph structure: Frontend logs error and displays a fallback step-list view. 4. React Flow library error: Frontend displays error message and suggests browser/plugin check. \\\hline
+    \textbf{Postcondition} & The attack graph is rendered interactively on the Dashboard. User can explore the graph through panning, zooming, and node selection. The UI remains responsive to user interactions. \\\hline
+    \textbf{Logical Constraints} & Graph rendering must be performant with up to 100+ nodes. React Flow must handle dynamic node/edge data. Node styling must clearly indicate attack step severity. Interactions (zoom, pan, click) must be smooth and responsive. \\\hline
+  \end{tabularx}
+\end{table}
 
 \section{Design}
 \subsection{Graph Data Model}

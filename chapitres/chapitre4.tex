@@ -6,26 +6,33 @@ In practice, this sprint covers scan submission, queueing and scheduling, worker
 
 \subsection{Sprint Purpose}
 
-The purpose of this sprint is to deliver a robust scan processing pipeline that reliably executes scanners, normalizes their outputs, matches findings to known vulnerabilities, and stores results for retrieval and analysis. Success is measured by correct job processing, normalized result coverage for representative tool outputs, accurate matching to the catalog, and end-to-end retrieval from the UI.
-
 \section{Sprint Backlog}
 
 The backlog for this sprint contains the following user stories:
 
 \begin{table}[H]
     \centering
-    \renewcommand{\arraystretch}{1.2}
-    \begin{tabularx}{\textwidth}{|X|}
-        \hline
-        As a user, I can submit a scan target (URL) and receive a job identifier. \\\hline
-        As a user, I can schedule or queue scans for later execution. \\\hline
-        As the system, I can run scanner tools and collect raw outputs. \\\hline
-        As the system, I can normalize raw outputs into a unified \texttt{ScanResult} schema. \\\hline
-        As the system, I can match normalized findings to the vulnerability catalog and assign severities. \\\hline
-        As a user, I can view, filter, and export scan history and results. \\\hline
-        As an operator, I can monitor queue status and worker health. \\\hline
-    \end{tabularx}
     \caption{Sprint Backlog}
+    \renewcommand{\arraystretch}{1.35}
+    \small
+    \setlength{\tabcolsep}{8pt}
+    \begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}p{1.6cm}|>{\centering\arraybackslash}p{2.2cm}|>{\raggedright\arraybackslash}X|>{\centering\arraybackslash}p{1.2cm}|}
+        \hline
+        \textbf{ID} & \textbf{Category} & \textbf{User Story} & \textbf{Priority} \\
+        \hline
+        US-S2-01 & Scan Submission & As a User, I can submit a scan target (URL) and receive a job identifier so that I can track and retrieve results. & High \\
+        \hline
+        US-S2-03 & Execution & As the System, I can run scanner tools and collect raw outputs so that findings can be processed. & High \\
+        \hline
+        US-S2-04 & Normalization & As the System, I can normalize raw outputs into a unified \texttt{ScanResult} schema so that results are consistent across tools. & High \\
+        \hline
+        US-S2-05 & Matching & As the System, I can match normalized findings to the vulnerability catalog and assign severities so that results are actionable. & High \\
+        \hline
+        US-S2-06 & Results UI & As a User, I can view, filter, and export scan history and results so that I can analyze and share findings. & Medium \\
+        \hline
+        US-S2-07 & Operations & As the System, I can monitor queue status and worker health so that the processing pipeline remains reliable. & Medium \\
+        \hline
+    \end{tabularx}
 \end{table}
 
 \section{Requirements Analysis}
@@ -41,23 +48,26 @@ The primary actors are the authenticated user (or guest if allowed), the API, an
     \label{fig:sprint4-usecase}
 \end{figure}
 
-\subsection{Use Case Description}
-
 The main use cases of this sprint are summarized in the following tables.
 
 \begin{table}[H]
     \centering
-    \renewcommand{\arraystretch}{1.2}
-    \begin{tabular}{|p{3cm}|p{11cm}|}
-        \hline
-        \textbf{Use case} & Submit Scan \\ \hline
-        \textbf{Actor} & Authenticated user (or Guest if permitted) \\ \hline
-        \textbf{Description} & The user provides a target (URL) and optional parameters; the backend validates input, creates a \texttt{Scan} job, enqueues it and returns a job identifier. \\ \hline
-        \textbf{Pre-condition} & The user is authorized to submit scans and the queue service is available. \\ \hline
-        \textbf{Post-condition} & A \texttt{Scan} job is stored and queued for processing; the user receives the job id. \\ \hline
-    \end{tabular}
-    \caption{Use case description: Submit Scan}
+    \caption{Use case description: Submit Scan Target}
     \label{tab:submit-scan}
+    \renewcommand{\arraystretch}{1.4}
+    \small
+    \begin{tabularx}{\textwidth}{|p{2.5cm}|X|}
+        \hline
+        \textbf{Name} & Submit Scan Target \\\hline
+        \textbf{ID} & UC-S2-01 \\\hline
+        \textbf{Actors} & User (Authenticated) \\\hline
+        \textbf{Description} & This use case enables an authenticated user to initiate a security scan by providing a target URL and optional parameters. The system validates the input, creates a Scan job record, enqueues it for processing, and returns a unique job identifier to the user for tracking purposes. \\\hline
+        \textbf{Precondition} & The user is authenticated with a valid session token. The scan submission endpoint is operational and the queue service is accessible. Network connectivity to target validation services is available. \\\hline
+        \textbf{Nominal Scenario} & 1. User navigates to the Scanner page. 2. User enters a target URL and optionally selects scan parameters (tools, depth, timeout). 3. User initiates the scan submission. 4. System validates the URL format and accessibility. 5. System checks target against blacklist/whitelist policies. 6. System creates a Scan record in the database with metadata. 7. System enqueues the job to the scan queue. 8. System generates a unique job identifier. 9. System returns the job ID and redirect user to scan history or progress page. \\\hline
+        \textbf{Exception Scenario} & 1. Invalid URL format: System displays validation error and prompts for correction. 2. Target unreachable: System validates after submission and notifies user of failure. 3. Target blacklisted: System rejects the submission with a policy violation message. 4. Queue service unavailable: System logs the error and displays a retry message. 5. Database error: System logs error and displays a generic failure message. 6. Rate limit exceeded: System informs user that too many scans are queued and suggests waiting. \\\hline
+        \textbf{Postcondition} & A Scan job is created in the database with status ``pending'', the job is enqueued for worker processing, and the user receives a job identifier for tracking. \\\hline
+        \textbf{Logical Constraints} & URLs must be validated for format and accessibility. Blacklist/whitelist policies must be enforced. Rate limiting must be applied per user. Job identifiers must be globally unique. Queue must maintain FIFO ordering. \\\hline
+    \end{tabularx}
 \end{table}
 
 
@@ -66,47 +76,62 @@ The main use cases of this sprint are summarized in the following tables.
 
 \begin{table}[H]
     \centering
-    \renewcommand{\arraystretch}{1.2}
-    \begin{tabular}{|p{3cm}|p{11cm}|}
-        \hline
-        \textbf{Use case} & View Scan History \\ \hline
-        \textbf{Actor} & Authenticated user \\ \hline
-        \textbf{Description} & The user requests a list of past scans, applies filters, and inspects a scan's details and matched vulnerabilities. \\ \hline
-        \textbf{Pre-condition} & Scan results have been persisted and the user is authorized to view them. \\ \hline
-        \textbf{Post-condition} & The requested data is displayed; the user may export or navigate to details. \\ \hline
-    \end{tabular}
     \caption{Use case description: View Scan History}
     \label{tab:view-history}
+    \renewcommand{\arraystretch}{1.4}
+    \small
+    \begin{tabularx}{\textwidth}{|p{2.5cm}|X|}
+        \hline
+        \textbf{Name} & View Scan History \\\hline
+        \textbf{ID} & UC-S2-02 \\\hline
+        \textbf{Actors} & User (Authenticated) \\\hline
+        \textbf{Description} & This use case allows an authenticated user to retrieve and review a list of all scans they have submitted. The user can filter, sort, and drill down into individual scan records to inspect metadata, execution status, and aggregated results. \\\hline
+        \textbf{Precondition} & The user is authenticated with a valid session token. Scan history data exists for the user. The database is accessible. \\\hline
+        \textbf{Nominal Scenario} & 1. User navigates to the Scan History page. 2. System retrieves all scans associated with the authenticated user from the database. 3. System displays a table of scans with columns: scan date, target, status, vulnerability count, duration. 4. User optionally applies filters (date range, target, status). 5. User optionally sorts by column. 6. User clicks on a scan to view detailed results. 7. System retrieves scan metadata and results from the database. 8. System displays scan details page with vulnerability list. \\\hline
+        \textbf{Exception Scenario} & 1. No scan history exists: System displays a message indicating no scans have been run. 2. Database query timeout: System displays an error and suggests refreshing. 3. User lacks permission: System displays an access denied message. 4. Scan data corrupted: System logs error and displays a retry message. \\\hline
+        \textbf{Postcondition} & User can view a paginated list of their scans, filter and sort as needed, and navigate to individual scan details for further inspection. \\\hline
+        \textbf{Logical Constraints} & Users can only view their own scans. Historical scans must be retained with timestamps. Pagination must be implemented for large datasets. Scan status values must be consistent. \\\hline
+    \end{tabularx}
 \end{table}
 
 \begin{table}[H]
     \centering
-    \renewcommand{\arraystretch}{1.2}
-    \begin{tabular}{|p{3cm}|p{11cm}|}
-        \hline
-        \textbf{Use case} & View / Browse scan results \\ \hline
-        \textbf{Actor} & Authenticated user \\ \hline
-        \textbf{Description} & The user selects a completed scan to view its results. The system displays scan metadata including target URL, scan date, scan configuration, and execution summary. It also shows a detailed list of discovered vulnerabilities with severity, affected paths, CVE or reference identifiers, and brief remediation notes. \\ \hline
-        \textbf{Pre-condition} & One or more completed scans exist and the user has permission to view them. \\ \hline
-        \textbf{Post-condition} & Scan metadata and vulnerabilities are presented to the user; the user may drill down into individual findings or export the data. \\ \hline
-    \end{tabular}
-    \caption{Use case description: View / Browse scan results}
+    \caption{Use case description: View Scan Results}
     \label{tab:view-results-usecase}
+    \renewcommand{\arraystretch}{1.4}
+    \small
+    \begin{tabularx}{\textwidth}{|p{2.5cm}|X|}
+        \hline
+        \textbf{Name} & View Scan Results \\\hline
+        \textbf{ID} & UC-S2-03 \\\hline
+        \textbf{Actors} & User (Authenticated) \\\hline
+        \textbf{Description} & This use case enables an authenticated user to inspect detailed results from a completed scan, including metadata, discovered vulnerabilities, affected endpoints, and remediation guidance. The user can filter vulnerabilities by severity, search for specific issues, and drill down into details. \\\hline
+        \textbf{Precondition} & The user is authenticated. A completed scan exists and is associated with the user. Scan results have been normalized and persisted in the database. \\\hline
+        \textbf{Nominal Scenario} & 1. User selects a completed scan from history. 2. System retrieves scan metadata (target URL, scan date, duration, tool configuration). 3. System displays scan overview with vulnerability summary statistics. 4. System retrieves normalized vulnerability records from the database. 5. System displays a sortable, filterable list of vulnerabilities with: CVE/reference, severity level, affected endpoint/parameter, discovery method, remediation notes. 6. User clicks on a vulnerability to expand details. 7. System displays full vulnerability context, including affected paths, request/response examples, and detailed remediation steps. \\\hline
+        \textbf{Exception Scenario} & 1. Scan in progress: System displays a loading indicator or status message. 2. Scan failed: System displays an error message and retry options. 3. Results not yet persisted: System displays a message that results are being processed. 4. User lacks permission: System displays access denied message. 5. Database error: System logs error and displays a retry message. \\\hline
+        \textbf{Postcondition} & User views detailed scan results, can filter and search vulnerabilities, and can examine remediation guidance for each finding. Results are clearly organized by severity and endpoint. \\\hline
+        \textbf{Logical Constraints} & Vulnerability data must be normalized across all tools. Results must be sorted/filterable by severity, endpoint, CVE. Users can only view their own scan results. Remediation notes must be clear and actionable. \\\hline
+    \end{tabularx}
 \end{table}
 
 \begin{table}[H]
     \centering
-    \renewcommand{\arraystretch}{1.2}
-    \begin{tabular}{|p{3cm}|p{11cm}|}
-        \hline
-        \textbf{Use case} & Scan report exporting \\ \hline
-        \textbf{Actor} & Authenticated user \\ \hline
-        \textbf{Description} & The user requests an export of a completed scan report. The system generates an export file (PDF, CSV or JSON) that includes scan metadata, a summary of findings, detailed vulnerability entries, and optional attachments (screenshots, raw tool outputs). The user can download the file or receive it via email. \\ \hline
-        \textbf{Pre-condition} & A completed scan exists and the user has permission to export reports. \\ \hline
-        \textbf{Post-condition} & An export file is generated and made available to the user; export operations are logged for audit. \\ \hline
-    \end{tabular}
-    \caption{Use case description: Scan report exporting}
+    \caption{Use case description: Export Scan Report}
     \label{tab:scan-export-usecase}
+    \renewcommand{\arraystretch}{1.4}
+    \small
+    \begin{tabularx}{\textwidth}{|p{2.5cm}|X|}
+        \hline
+        \textbf{Name} & Export Scan Report \\\hline
+        \textbf{ID} & UC-S2-04 \\\hline
+        \textbf{Actors} & User (Authenticated) \\\hline
+        \textbf{Description} & This use case enables an authenticated user to export a completed scan report in multiple formats (PDF, CSV, JSON). The exported report includes comprehensive scan metadata, vulnerability summaries, detailed findings, affected endpoints, and remediation guidance. The user can download the file or arrange email delivery. \\\hline
+        \textbf{Precondition} & The user is authenticated. A completed scan exists and is owned by the user. Scan results are fully persisted in the database. \\\hline
+        \textbf{Nominal Scenario} & 1. User selects a completed scan from history. 2. User clicks ``Export Report'' button. 3. System displays format selection dialog (PDF, CSV, JSON). 4. User selects desired format. 5. System retrieves scan data, metadata, and all normalized vulnerabilities. 6. System generates formatted report: PDF includes styled tables and charts, CSV includes tabular vulnerability data, JSON includes full structured data. 7. System writes file to temporary storage or initiates download. 8. System triggers client-side download or displays email delivery option. 9. System logs the export operation for audit purposes. \\\hline
+        \textbf{Exception Scenario} & 1. Scan data incomplete: System displays a message that the report cannot be generated and suggests waiting. 2. Report generation timeout: System displays error and offers retry. 3. File system error: System logs error and displays a generic failure message. 4. User lacks permission: System displays access denied message. 5. Export service unavailable: System displays a retry message. \\\hline
+        \textbf{Postcondition} & An export file is generated in the selected format and made available to the user for download or email delivery. Export operation is logged for audit and compliance purposes. \\\hline
+        \textbf{Logical Constraints} & Multiple export formats must be supported. Exported reports must include all scan metadata and findings. File generation must complete within a timeout period. Export operations must be auditable and logged with timestamp and user ID. \\\hline
+    \end{tabularx}
 \end{table}
 
 \section{Design}
