@@ -1,10 +1,10 @@
 \section{Introduction}
 
-This chapter focuses on the general context of the project. It presents the background of the work, the security challenges faced by modern web applications, the limitations of existing solutions, and the motivation behind the proposed system, \textbf{CyberScope}.
+\justify This chapter focuses on the general context of the project. It presents the background of the work, the security challenges faced by modern web applications, the limitations of existing solutions, and the motivation behind the proposed system, \textbf{CyberScope}.
 
 \section{Presentation of the Host Organization}
 
-Ernst \& Young (EY)~\cite{ey} is one of the world’s leading professional services firms, recognized globally for its expertise in assurance, consulting, strategy, tax, and transaction services. Founded in 1989 through the merger of Ernst \& Whinney and Arthur Young, EY operates in more than 150 countries and employs hundreds of thousands of professionals worldwide.
+\justify Ernst \& Young (EY)~\cite{ey} is one of the world's leading professional services firms, recognized globally for its expertise in assurance, consulting, strategy, tax, and transaction services. Founded in 1989 through the merger of Ernst \& Whinney and Arthur Young, EY operates in more than 150 countries and employs hundreds of thousands of professionals worldwide.
 
 In Tunisia, EY plays a key role in supporting organizations in their digital transformation and technological innovation. The firm assists both public and private institutions in addressing complex business challenges by providing tailored consulting services and advanced technical solutions.
 
@@ -26,15 +26,20 @@ The cybersecurity division focuses on helping organizations identify weaknesses 
 
 \vspace{0.6cm}
 
+\noindent Figure~\ref{fig:ey-logo} presents the EY Tunisia organizational context and cybersecurity division, which hosted the development of the CyberScope project.
+
+\vspace{0.3cm}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.35\textwidth]{uploads/logos/EY_logo.png}
     \caption{EY Tunisia}
+    \label{fig:ey-logo}
 \end{figure}
 
 \section{Project Context and Problem Statement}
 
-With the increasing reliance on web applications in critical domains such as finance, e-commerce, and healthcare, ensuring their security has become a major challenge. Modern applications are more dynamic and complex, which significantly increases their exposure to various cyber threats such as SQL injection, cross-site scripting, and authentication vulnerabilities.
+\justify With the increasing reliance on web applications in critical domains such as finance, e-commerce, and healthcare, ensuring their security has become a major challenge. Modern applications are more dynamic and complex, which significantly increases their exposure to various cyber threats such as SQL injection, cross-site scripting, and authentication vulnerabilities.
 
 Despite the availability of several security tools, existing solutions often fail to effectively analyze modern web applications, especially those based on dynamic architectures. These tools may miss critical vulnerabilities, generate redundant results, or require significant manual intervention, which reduces their efficiency and reliability.
 
@@ -44,7 +49,7 @@ The objective of this project is therefore to design and develop \textbf{CyberSc
 
 \section{Overview of Web Application Security}
 
-Web application security refers to the set of measures and practices implemented to protect web applications from vulnerabilities and cyber threats. As web applications become increasingly central to business operations and data management, ensuring their security is essential to preserve the confidentiality, integrity, and availability of information.
+\justify Web application security refers to the set of measures and practices implemented to protect web applications from vulnerabilities and cyber threats. As web applications become increasingly central to business operations and data management, ensuring their security is essential to preserve the confidentiality, integrity, and availability of information.
 
 Modern web applications are exposed to a wide range of attacks that exploit weaknesses in their design, implementation, or configuration. These attacks may target input validation, authentication mechanisms, session management, or communication between client and server. As a result, a single vulnerability can compromise the entire system and lead to severe consequences such as data breaches, financial loss, or reputational damage.
 
@@ -62,9 +67,14 @@ By highlighting the most significant threats, the OWASP Top 10 helps developers 
 
 \vspace{0.4cm}
 
+\noindent Table~\ref{tab:owasp-top10} lists the ten most critical web application security risks defined by OWASP, providing a foundation for understanding the primary threats addressed by CyberScope.
+
+\vspace{0.3cm}
+
 \begin{table}[H]
     \centering
     \caption{OWASP Top 10 Web Application Security Risks}
+    \label{tab:owasp-top10}
     \renewcommand{\arraystretch}{1.25}
     \begin{tabularx}{\textwidth}{|p{2cm}|X|}
         \hline
@@ -121,10 +131,15 @@ However, Nikto is limited to server-side analysis and does not effectively handl
 
 \vspace{0.4cm}
 
+\noindent Figure~\ref{fig:nikto-logo} represents Nikto logo  .
+
+\vspace{0.3cm}
+
 \begin{figure}[H]
     \centering
     \includegraphics[height=2cm]{uploads/logos/NIKTOlogo.png}
     \caption{Nikto}
+    \label{fig:nikto-logo}
 \end{figure}
 
 \subsection{OWASP ZAP}
@@ -135,10 +150,15 @@ Despite its flexibility, ZAP may require proper configuration and user expertise
 
 \vspace{0.4cm}
 
+\noindent Figure~\ref{fig:zap-logo} represents OWASP ZAP Logo .
+
+\vspace{0.3cm}
+
 \begin{figure}[H]
     \centering
     \includegraphics[height=2cm]{uploads/logos/ZAPlogo.png}
     \caption{OWASP ZAP}
+    \label{fig:zap-logo}
 \end{figure}
 
 \subsection{Burp Suite}
@@ -149,10 +169,15 @@ While powerful, Burp Suite is more complex to use and often requires significant
 
 \vspace{0.4cm}
 
+\noindent Figure~\ref{fig:burp-logo} represents Burp Suite logo  .
+
+\vspace{0.3cm}
+
 \begin{figure}[H]
     \centering
     \includegraphics[height=2cm]{uploads/logos/BURPlogo.png}
     \caption{Burp Suite}
+    \label{fig:burp-logo}
 \end{figure}
 
 \subsection{AI-Driven Security Testing Solutions}
@@ -171,9 +196,14 @@ Nikto is well suited for rapid server-side checks, OWASP ZAP provides a balanced
 
 \vspace{0.5cm}
 
+\noindent Table~\ref{tab:comparative-analysis} provides a detailed comparison of Nikto, OWASP ZAP, Burp Suite, and AI-driven solutions across key criteria, demonstrating that none fully address the integrated orchestration and intelligent analysis required by modern security auditing.
+
+\vspace{0.3cm}
+
 \begin{table}[H]
     \centering
     \caption{Comparative analysis of existing solutions}
+    \label{tab:comparative-analysis}
     \renewcommand{\arraystretch}{1.25}
     \begin{tabularx}{\textwidth}{|p{2.8cm}|X|X|X|X|}
         \hline
@@ -210,9 +240,14 @@ These limitations are mainly related to the lack of support for dynamic applicat
 
 \vspace{0.5cm}
 
+\noindent Table~\ref{tab:limitations-synthesis} synthesizes the main limitations of existing vulnerability scanning tools across dimensions of dynamic application support, false positive rates, correlation capabilities, and scalability.
+
+\vspace{0.3cm}
+
 \begin{table}[H]
     \centering
     \caption{Synthesis of limitations of existing solutions}
+    \label{tab:limitations-synthesis}
     \renewcommand{\arraystretch}{1.3}
     \begin{tabularx}{\textwidth}{|p{4cm}|X|X|}
         \hline
@@ -249,11 +284,15 @@ In addition, the system incorporates an intelligent analysis layer responsible f
 
 By combining automation, dynamic exploration, and intelligent processing, CyberScope aims to provide a more efficient and scalable approach to web application security auditing.
 
-% Inline logo to avoid float page gap
-\begin{center}
-    \includegraphics[width=0.22\textwidth]{uploads/logos/logo.png}\\
-    \captionof{figure}{CyberScope Logo}
-\end{center}
+\noindent Figure~\ref{fig:cyberscope-logo} presents the CyberScope system logo .
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.22\textwidth]{uploads/logos/logo.png}
+    \caption{CyberScope Logo}
+    \label{fig:cyberscope-logo}
+\end{figure}
+
 
 \subsection{Vision and Objectives}
 
@@ -264,10 +303,12 @@ The vision of \textbf{CyberScope} is to provide an enterprise-oriented web appli
 CyberScope does not aim to replace existing scanners. Instead, it acts as an intelligent orchestration and analysis layer that enhances their effectiveness by combining their outputs and presenting them in a more structured and actionable form.
 
 \vspace{0.5cm}
+\noindent Table~\ref{tab:cyberscope-value} highlights the key contributions of CyberScope compared to existing solutions, demonstrating added value through integrated orchestration, comprehensive dynamic analysis, intelligent result normalization, and AI-assisted interpretation.
 
 \begin{table}[H]
     \centering
     \caption{Added value of CyberScope compared to existing solutions}
+    \label{tab:cyberscope-value}
     \renewcommand{\arraystretch}{1.3}
     \begin{tabularx}{\textwidth}{|p{4cm}|X|X|}
         \hline
@@ -288,7 +329,6 @@ CyberScope does not aim to replace existing scanners. Instead, it acts as an int
     \end{tabularx}
 \end{table}
 
-These contributions position CyberScope as an integrated auditing platform that improves automation, readability, and decision-making in web application security assessment.
 
 \section{Conclusion}
 

@@ -1,10 +1,12 @@
 \section{Introduction}
 
-This sprint focuses on the scanning pipeline and on the vulnerability processing features of the HexStrike platform. The goal of this iteration is to implement reliable scan orchestration, normalize heterogeneous tool outputs into a unified schema, match findings against the vulnerability catalog, and persist results for later analysis and reporting.
+\justify This sprint focuses on the scanning pipeline and on the vulnerability processing features of the HexStrike platform. The goal of this iteration is to implement reliable scan orchestration, normalize heterogeneous tool outputs into a unified schema, match findings against the vulnerability catalog, and persist results for later analysis and reporting.
 
 In practice, this sprint covers scan submission, queueing and scheduling, worker orchestration, normalization, vulnerability matching, result persistence, and the user interfaces to submit and view scans.
 
 \subsection{Sprint Purpose}
+
+\justify The purpose of this sprint is to build a reliable and scalable scanning infrastructure that transforms raw target submissions into actionable vulnerability intelligence. Concretely, the sprint delivers a robust queue and worker system for tool orchestration, a normalization pipeline that unifies outputs across heterogeneous security tools, a matching engine that correlates findings with known vulnerabilities, and a user interface for scan management and result analysis. This foundation enables efficient vulnerability detection and establishes the data pipeline required for advanced attack graph generation in subsequent sprints.
 
 \section{Sprint Backlog}
 
@@ -37,9 +39,13 @@ The backlog for this sprint contains the following user stories:
 
 \section{Requirements Analysis}
 
+\justify The requirements analysis for Sprint 2 covers the scanning pipeline, tool orchestration, and result processing mechanisms.
+
 \subsection{Use Case Diagram}
 
-The primary actors are the authenticated user (or guest if allowed), the API, and the scan worker. The use case diagram illustrates submission, processing, normalization, matching and viewing flows.
+\noindent Figure~\ref{fig:sprint4-usecase} illustrates the use case diagram with submission, processing, normalization, matching, and viewing flows. The primary actors are the authenticated user (or guest if allowed), the API, and the scan worker.
+
+\vspace{0.3cm}
 
 \begin{figure}[H]
     \centering
@@ -47,6 +53,8 @@ The primary actors are the authenticated user (or guest if allowed), the API, an
     \caption{Use case diagram for scanning and vulnerability processing}
     \label{fig:sprint4-usecase}
 \end{figure}
+
+\subsection{Use Case Description}
 
 The main use cases of this sprint are summarized in the following tables.
 
@@ -138,7 +146,7 @@ The main use cases of this sprint are summarized in the following tables.
 
 \subsection{Class Diagram}
 
-The principal components include the API, the queue, worker processes, the normalizer and matcher services, and the persistence layer. The class diagram will show the data models and service classes.
+The principal components include the API, the queue, worker processes, the normalizer and matcher services, and the persistence layer. Figure~\ref{fig:sprint4-class-diagram} presents the class diagram showing the data models and service classes organized around the scanning pipeline architecture.
 
 \begin{figure}[H]
     \centering
@@ -149,7 +157,7 @@ The principal components include the API, the queue, worker processes, the norma
 
 \subsection{Scan Workflow}
 
-The scan workflow describes the end-to-end processing of a submitted target: submission, queueing, worker execution of tools, normalization, matching, and persistence. The diagram below summarizes the sequence and components involved.
+The scan workflow describes the end-to-end processing of a submitted target: submission, queueing, worker execution of tools, normalization, matching, and persistence. Figure~\ref{fig:scan-workflow} provides an overview of this workflow, illustrating the sequence and components involved in transforming a target URL submission into normalized and matched vulnerability findings.
 
 % Inline scan workflow to avoid float page breaks
 \begin{center}
@@ -160,7 +168,7 @@ The scan workflow describes the end-to-end processing of a submitted target: sub
 
 \subsection{Sequence Diagram}
 
-Key sequences include submission-to-persistence and normalization-to-matching. A sequence diagram will illustrate the interactions between client, API, queue, worker, normalizer, matcher and DB.
+Key sequences include submission-to-persistence and normalization-to-matching. Figure~\ref{fig:sprint4-sequence-diagram} illustrates the critical interactions between client, API, queue, worker, normalizer, matcher, and database, showing how scan jobs progress through each processing stage.
 
 % Inline sequence diagram to keep it with the workflow and avoid large gaps
 \begin{center}
@@ -171,35 +179,43 @@ Key sequences include submission-to-persistence and normalization-to-matching. A
 
 \section{Implementation}
 
-In this sprint, we present the interfaces developed for Sprint 2. The implementation includes the scanner submission interface,  scan history with filtering options, and detailed scan results view. The following figures illustrate the application interfaces:
+In this sprint, we present the interfaces developed for Sprint 2. The implementation includes the scanner submission interface, scan history with filtering options, and detailed scan results view. The following figures illustrate the application interfaces and enable users to submit scans, track their progress, and analyze discovered vulnerabilities:
 
 \begin{figure}[H]
     \centering
-    \fbox{\parbox{0.85\textwidth}{\centering\includegraphics[width=0.85\textwidth]{uploads/images/scan.png}}}% 
+    \fbox{\parbox{0.85\textwidth}{\centering\includegraphics[width=0.85\textwidth]{uploads/images/scan.png}}}%
     \caption{Scanner submission page}
     \label{fig:scanner4-page}
 \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \fbox{\parbox{0.85\textwidth}{\centering\includegraphics[width=0.85\textwidth]{uploads/images/export.png}}}% 
-    \caption{export Scan Report page}
-    \label{fig:export-scan-report}
-\end{figure}
+\noindent Figure~\ref{fig:scanner4-page} presents the scanner submission interface where authenticated users input target URLs and configure scan parameters.
 
 \begin{figure}[H]
     \centering
-    \fbox{\parbox{0.85\textwidth}{\centering\includegraphics[width=0.85\textwidth]{uploads/images/scan history.png}}}% 
+    \fbox{\parbox{0.85\textwidth}{\centering\includegraphics[width=0.85\textwidth]{uploads/images/export.png}}}%
+    \caption{Export Scan Report page}
+    \label{fig:export-scan-report}
+\end{figure}
+
+\noindent Figure~\ref{fig:export-scan-report} illustrates the export interface allowing users to download scan reports in multiple formats (PDF, CSV, JSON) for analysis and sharing.
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.85\textwidth}{\centering\includegraphics[width=0.85\textwidth]{uploads/images/scan history.png}}}%
     \caption{Scan history page}
     \label{fig:scan-history4-page}
 \end{figure}
 
+\noindent Figure~\ref{fig:scan-history4-page} displays the scan history interface with filtering, sorting, and pagination options for managing past scans.
+
 \begin{figure}[H]
     \centering
-    \fbox{\parbox{0.85\textwidth}{\centering\includegraphics[width=0.85\textwidth]{uploads/images/scan result.png}}}% 
+    \fbox{\parbox{0.85\textwidth}{\centering\includegraphics[width=0.85\textwidth]{uploads/images/scan result.png}}}%
     \caption{Scan details page}
     \label{fig:scan-details4-page}
 \end{figure}
+
+\noindent Figure~\ref{fig:scan-details4-page} shows the detailed scan results interface where users can browse normalized vulnerabilities organized by severity and endpoint.
 
 \section{Conclusion}
 

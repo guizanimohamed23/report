@@ -1,20 +1,21 @@
 \section{Introduction}
 
-This sprint focuses on the authentication layer of the HexStrike platform and on the access control rules that protect the main application modules. The goal of this iteration is to provide a secure entry point to the system, manage user sessions with JWT, and restrict sensitive actions such as scan creation and scan history access to authenticated users only.
+\justify This sprint focuses on the authentication layer of the HexStrike platform and on the access control rules that protect the main application modules. The goal of this iteration is to provide a secure entry point to the system, manage user sessions with JWT, and restrict sensitive actions such as scan creation and scan history access to authenticated users only.
 
 In practice, this sprint covers the login and registration flow, the guest session mechanism, protected routes on the frontend, and the backend middleware that validates every secured request.
 
 \subsection{Sprint Purpose}
 
-The purpose of this sprint is to secure the platform's entry points and session management to enable safe use of the scanning and analysis features. Concretely, the sprint delivers a robust authentication system, a guest mode for quick evaluation, and middleware that enforces access control for all sensitive API endpoints.
+\justify The purpose of this sprint is to secure the platform's entry points and session management to enable safe use of the scanning and analysis features. Concretely, the sprint delivers a robust authentication system, a guest mode for quick evaluation, and middleware that enforces access control for all sensitive API endpoints.
 
 \section{Sprint Backlog}
 
-The backlog of this sprint contains the following user stories:
+The backlog of this sprint contains the following user stories. Table~\ref{tab:sprint-backlog-s1} illustrates the six authentication and session management stories prioritized for this sprint:
 
 \begin{table}[H]
     \centering
     \caption{Sprint Backlog}
+    \label{tab:sprint-backlog-s1}
     \renewcommand{\arraystretch}{1.35}
     \small
     \setlength{\tabcolsep}{8pt}
@@ -39,11 +40,11 @@ The backlog of this sprint contains the following user stories:
 
 \section{Requirements Analysis}
 
+\justify The requirements analysis for Sprint 1 covers the authentication and access control mechanisms needed to secure the platform.
+
 \subsection{Use Case Diagram}
 
-The actors involved in this sprint are the visitor, the registered user, and the guest user. The visitor can register and log in, the registered user can access protected modules, and the guest user can only use limited temporary access.
-
-The following figure is reserved for the use case diagram of this sprint.
+The actors involved in this sprint are the visitor, the registered user, and the guest user. The visitor can register and log in, the registered user can access protected modules, and the guest user can only use limited temporary access. Figure~\ref{fig:sprint1-usecase} illustrates these three actors and their respective use cases within the authentication system.
 
 \begin{figure}[H]
     \centering
@@ -124,9 +125,7 @@ The design of this sprint is based on the separation between frontend and backen
 
 On the backend side, the authentication flow is handled by the Auth controller and service, the user data is stored in the Prisma User model, and the secured routes are protected by the authentication middleware. The server also applies rate limiting to login endpoints to reduce brute-force attempts.
 
-On the frontend side, the AuthContext manages the session state, the Login and Register pages collect credentials, and the ProtectedRoute and PublicOnlyRoute components control access to the application pages.
-
-The following figure is reserved for the refined class diagram of this sprint.
+On the frontend side, the AuthContext manages the session state, the Login and Register pages collect credentials, and the ProtectedRoute and PublicOnlyRoute components control access to the application pages. Figure~\ref{fig:sprint3-class-diagram} illustrates the key components and their relationships for both frontend and backend architectures.
 
 % Inline class diagram to avoid float-induced blank space
 \begin{center}
@@ -137,7 +136,7 @@ The following figure is reserved for the refined class diagram of this sprint.
 
 \subsection{Sequence Diagram}
 
-The sequence diagram illustrates the main authentication flows: visitor registration and login. It shows interactions between the user interface, authentication form, backend services, and database.
+The authentication process involves multiple interactions between the client application and backend services. Figure~\ref{fig:sprint1-sequence-diagram} illustrates the main authentication flows: visitor registration and login. The diagram shows interactions between the user interface, authentication form, backend services, and database, including credential validation, JWT token generation, and session establishment.
 
 \begin{figure}[H]
     \centering

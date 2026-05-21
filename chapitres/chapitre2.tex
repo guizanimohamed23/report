@@ -1,22 +1,23 @@
 \section{Introduction}
 
-This chapter presents the analysis and specification of the \textbf{CyberScope} system. It introduces the adopted development methodology, identifies the main stakeholders, presents the development environment, and defines both functional and non-functional requirements. It also presents the use case diagram, the textual description of the main use cases, and the organization of the project through the product backlog and sprint planning.
+\justify This chapter presents the analysis and specification of the \textbf{CyberScope} system. It introduces the adopted development methodology, identifies the main stakeholders, presents the development environment, and defines both functional and non-functional requirements. It also presents the use case diagram, the textual description of the main use cases, and the organization of the project through the product backlog and sprint planning.
 
 \section{Adopted Development Methodology}
 
-To ensure a flexible and progressive development process, the Scrum methodology was adopted for the realization of \textbf{CyberScope}. Scrum is an agile framework based on iterative development, incremental delivery, continuous feedback, and adaptation to evolving requirements.
+\justify To ensure a flexible and progressive development process, the Scrum methodology was adopted for the realization of \textbf{CyberScope}. Scrum is an agile framework based on iterative development, incremental delivery, continuous feedback, and adaptation to evolving requirements.
 
 \subsection{Justification of the Choice of Scrum}
 
-The choice of Scrum is justified by the nature of the CyberScope project, which involves several heterogeneous components such as a frontend dashboard, a backend API, a Python-based scanning engine, external security tools, and AI-based analysis modules.
+\justify The choice of Scrum is justified by the nature of the CyberScope project, which involves several heterogeneous components such as a frontend dashboard, a backend API, a Python-based scanning engine, external security tools, and AI-based analysis modules.
 
 A traditional sequential development approach would make it difficult to validate each component progressively. Scrum allows the project to be divided into smaller increments, making it possible to test, validate, and improve each part of the system throughout development.
 
 \subsection{Adaptation of Scrum to an Individual Project}
 
-Although Scrum is typically applied in team-based environments, it was adapted to the context of an individual end-of-studies project. The student assumed multiple roles simultaneously, including development, planning, and coordination.
+\justify Although Scrum is typically applied in team-based environments, it was adapted to the context of an individual end-of-studies project. The student assumed multiple roles simultaneously, including development, planning, and coordination.
 
 The academic and professional supervisors contributed as stakeholders by validating the objectives, monitoring progress, and providing feedback. This adaptation preserved the benefits of Scrum while accommodating the constraints of a single-developer project.
+\noindent Figure~\ref{fig:scrum-cyberscope} illustrates the Scrum development process adapted to the CyberScope project, showing the iterative sprint cycles, ceremonies, and feedback loops that guided the development of all three project sprints.
 
 \begin{figure}[H]
     \centering
@@ -24,12 +25,14 @@ The academic and professional supervisors contributed as stakeholders by validat
     \caption{Scrum Development Process adapted to CyberScope}
     \label{fig:scrum-cyberscope}
 \end{figure}
+
 \subsection{Organization of Sprints and Product Backlog}
 
 \vspace{0.4cm}
 
-CyberScope is organized into three iterative sprints, each with distinct objectives and deliverables. Table~\ref{tab:sprint-organization} presents the sprint timeline and main goals, showing how the project progresses from backend infrastructure through tool integration to advanced attack graph generation over a 12-week development cycle.
-
+CyberScope is organized into three iterative sprints, each with distinct objectives and deliverables.     Each sprint delivers a cohesive set of user stories that align with its main objective. 
+ Table~\ref{tab:sprint-organization} presents the sprint timeline and main goals, showing how the project progresses from backend infrastructure through tool integration to advanced attack graph generation over a 12-week development cycle.
+Table~\ref{tab:product-backlog} consolidates all seventeen user stories across the three sprints, with each story categorized by type, associated priority level, and sprint assignment. This backlog provides a comprehensive view of the system's functional requirements and guides development efforts from inception through delivery.
 \begin{table}[H]
     \centering
     \caption{Sprint Organization of CyberScope}
@@ -48,7 +51,6 @@ CyberScope is organized into three iterative sprints, each with distinct objecti
     \end{tabularx}
     \end{table}
 
-    Each sprint delivers a cohesive set of user stories that align with its main objective. Table~\ref{tab:product-backlog} consolidates all seventeen user stories across the three sprints, with each story categorized by type, associated priority level, and sprint assignment. This backlog provides a comprehensive view of the system's functional requirements and guides development efforts from inception through delivery.
 
     {\small
     \begin{longtable}{|>{\centering\arraybackslash}p{1.4cm}|>{\centering\arraybackslash}p{2cm}|>{\centering\arraybackslash}p{2.2cm}|>{\raggedright\arraybackslash}p{7.5cm}|>{\centering\arraybackslash}p{1.2cm}|}
@@ -120,7 +122,7 @@ The \textbf{System} acts as the backend orchestrator and automated processor. Th
 
 \section{System Overview}
 
-CyberScope is an intelligent web application security auditing platform designed to automate vulnerability detection and analysis. It integrates multiple security tools into a unified pipeline and provides advanced features such as dynamic crawling, result aggregation, and AI-driven interpretation.
+\justify CyberScope is an intelligent web application security auditing platform designed to automate vulnerability detection and analysis. It integrates multiple security tools into a unified pipeline and provides advanced features such as dynamic crawling, result aggregation, and AI-driven interpretation.
 
 The system is composed of three main components:
 
@@ -132,7 +134,7 @@ The system is composed of three main components:
 
 \section{Functional Requirements}
 
-The functional requirements define the core services provided by CyberScope. These functionalities describe how the system interacts with users and how it performs automated security analysis, from scan initiation to result reporting.
+\justify The functional requirements define the core services provided by CyberScope. These functionalities describe how the system interacts with users and how it performs automated security analysis, from scan initiation to result reporting.
 
 \subsection{Scan Initiation and Target Submission}
 
@@ -215,22 +217,30 @@ Extensibility is essential to adapt the platform to new vulnerabilities, technol
 \section{Global Use Case Diagram}
 
 The use case diagram illustrates the main interactions between the user and the CyberScope system.
+\noindent Figure~\ref{fig:global-usecase} illustrates the main actors (User, Guest User, and System) and their interactions with the CyberScope platform, showing the primary use case flows for authentication, scanning, and attack scenario generation.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.85\textwidth]{uploads/diagrams/use case general .drawio.png}
     \caption{Global Use Case Diagram of CyberScope}
+    \label{fig:global-usecase}
 \end{figure}
+
 
 \clearpage
 \subsection{Global Class Diagram}
 
+
+\vspace{0.3cm}
+
 The class diagram presents the main structural components of CyberScope and the relationships between its core services, models, and orchestration layers.
+\noindent Figure~\ref{fig:global-class-diagram} presents the principal components and relationships of CyberScope architecture, including frontend models, backend API services, scanning engine, and external tool integration layers.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{uploads/diagrams/classglobal.drawio.png}
     \caption{Global Class Diagram of CyberScope}
+    \label{fig:global-class-diagram}
 \end{figure}
 
 \section{Development Environment}
@@ -242,6 +252,11 @@ This section presents the technical environment used to design, implement, and t
 Development work was performed on a Windows workstation using the following primary tools:
 
 \vspace{0.3cm}
+
+\noindent Figure~\ref{fig:vscode-logo} shows Visual Studio Code, the primary development environment used for writing frontend and backend code, providing advanced features for debugging and extension management.
+
+\vspace{0.3cm}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=2.4cm]{uploads/logos/vscode.png}
@@ -253,6 +268,7 @@ Development work was performed on a Windows workstation using the following prim
         \footnotesize Lightweight, extensible editor used for coding, debugging and workspace management.
     \end{minipage}
 \end{figure}
+\noindent Figure~\ref{fig:git-logo} represents Git, the distributed version control system used for managing source code, tracking development history, and coordinating collaborative contributions throughout the project lifecycle.
 
 \vspace{0.3cm}
 \begin{figure}[H]
@@ -267,6 +283,8 @@ Development work was performed on a Windows workstation using the following prim
     \end{minipage}
 \end{figure}
 
+\noindent Figure~\ref{fig:chromium-logo} shows the Chromium/Google Chrome browser, used for manual functional testing, dynamic content verification, and network analysis of the CyberScope frontend during development.
+
 \vspace{0.3cm}
 \begin{figure}[H]
     \centering
@@ -279,8 +297,12 @@ Development work was performed on a Windows workstation using the following prim
         \footnotesize Browser used for manual testing, dynamic debugging and DOM/network inspection.
     \end{minipage}
 \end{figure}
+
+\noindent Figure~\ref{fig:drawio-logo} represents diagrams.net (draw.io), the diagramming tool used to create all architectural diagrams, use case diagrams, class diagrams, and sequence diagrams throughout the documentation.
+
 \vspace{0.3cm}
 \begin{figure}[H]
+
     \centering
     \includegraphics[width=2.4cm]{uploads/images/drawiologo.png}
     \caption{Logo of diagrams.net (draw.io).}
@@ -291,6 +313,8 @@ Development work was performed on a Windows workstation using the following prim
         \footnotesize Diagramming tool used to design system architecture and UML diagrams.
     \end{minipage}
 \end{figure}
+
+\noindent Figure~\ref{fig:overleaf-logo} shows Overleaf, the online collaborative LaTeX editor used for writing, editing, and compiling the project documentation and technical report.
 
 \vspace{0.3cm}
 \begin{figure}[H]
@@ -305,6 +329,7 @@ Development work was performed on a Windows workstation using the following prim
     \end{minipage}
 \end{figure}
 
+
 \subsection{Software Environment}
 
 The software stack is organized by layer; the following items present the main technologies with a short description for each.
@@ -314,6 +339,12 @@ The software stack is organized by layer; the following items present the main t
 \textbf{Backend}
 
 \vspace{0.2cm}
+
+\noindent Figure~\ref{fig:node-logo} represents Node.js, the JavaScript runtime environment providing the execution platform for the CyberScope backend server and all related processes.
+
+\vspace{0.3cm}
+\noindent Figure~\ref{fig:express-logo} shows Express.js, the lightweight web framework used to define all RESTful API endpoints, routing logic, and middleware components in the CyberScope backend.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=2.2cm]{uploads/logos/node.png}
@@ -327,6 +358,11 @@ The software stack is organized by layer; the following items present the main t
 \end{figure}
 
 \vspace{0.3cm}
+
+\noindent Figure~\ref{fig:prisma-logo} represents Prisma, the Object-Relational Mapping tool providing type-safe database access, migrations, and schema management for the PostgreSQL database.
+
+\vspace{0.3cm}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=2.2cm]{uploads/logos/Expressjs.png}
@@ -340,6 +376,10 @@ The software stack is organized by layer; the following items present the main t
 \end{figure}
 
 \vspace{0.3cm}
+
+
+\vspace{0.3cm}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=2.2cm]{uploads/logos/prisma.jpg}
@@ -353,6 +393,11 @@ The software stack is organized by layer; the following items present the main t
 \end{figure}
 
 \vspace{0.3cm}
+
+\noindent Figure~\ref{fig:postgresql-logo} shows PostgreSQL, the robust relational database management system used to persistently store user data, scan jobs, vulnerabilities, and analysis results.
+
+\vspace{0.3cm}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=2.2cm]{uploads/logos/postgresql.png}
@@ -368,6 +413,7 @@ The software stack is organized by layer; the following items present the main t
 \vspace{0.4cm}
 \noindent
 \textbf{Frontend}
+\noindent Figure~\ref{fig:react-logo} represents React, the JavaScript library used to build the interactive CyberScope frontend dashboard with reusable components, state management, and dynamic user interfaces.
 
 \vspace{0.2cm}
 \begin{figure}[H]
@@ -382,7 +428,13 @@ The software stack is organized by layer; the following items present the main t
     \end{minipage}
 \end{figure}
 
+
 \vspace{0.3cm}
+
+\noindent Figure~\ref{fig:vite-logo} shows Vite, the modern frontend build tool and development server used to provide fast hot module replacement and optimized production builds for the React frontend.
+
+\vspace{0.3cm}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=2.2cm]{uploads/logos/vite.jpg}
@@ -396,6 +448,11 @@ The software stack is organized by layer; the following items present the main t
 \end{figure}
 
 \vspace{0.3cm}
+
+\noindent Figure~\ref{fig:typescript-logo} represents TypeScript, the typed superset of JavaScript used throughout both frontend and backend development to provide static type checking and improved code quality.
+
+\vspace{0.3cm}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=2.2cm]{uploads/logos/TS.png}
@@ -410,7 +467,10 @@ The software stack is organized by layer; the following items present the main t
 
 \vspace{0.4cm}
 \noindent
-\textbf{Scanning \& AI Tools}
+\textbf{Scanning \& AI Tools} 
+\hspace{10cm}
+\break
+\noindent Figure~\ref{fig:python-logo} shows Python, the programming language used to develop the scanning orchestration engine, tool integration scripts, and auxiliary processing utilities in CyberScope.
 
 \vspace{0.2cm}
 \begin{figure}[H]
@@ -425,6 +485,8 @@ The software stack is organized by layer; the following items present the main t
     \end{minipage}
 \end{figure}
 
+\noindent Figure~\ref{fig:ollama-logo} shows Ollama, the local AI engine used to assist in analysis and prompt generation within CyberScope.
+
 \vspace{0.3cm}
 \begin{figure}[H]
     \centering
@@ -437,6 +499,7 @@ The software stack is organized by layer; the following items present the main t
         \footnotesize Local AI engine used to assist in analysis and prompt generation.
     \end{minipage}
 \end{figure}
+\noindent Figure~\ref{fig:hexstrike-logo} shows HexStrike AI, the orchestration layer for automated execution of multiple security tools in CyberScope.
 
 \vspace{0.3cm}
 \begin{figure}[H]

@@ -1,18 +1,19 @@
 \section{Introduction}
 
-This sprint is dedicated to attack graph generation. The goal is to transform project artifacts into diagrams that show how data, endpoints and vulnerabilities are connected, so these diagrams highlight potential attack paths in the platform.
+\justify This sprint is dedicated to attack graph generation. The goal is to transform project artifacts into diagrams that show how data, endpoints and vulnerabilities are connected, so these diagrams highlight potential attack paths in the platform.
 
 \section{Sprint Purpose}
 
-The purpose of this sprint is to implement the Dashboard's attack-path and scenario generation features. The generator is an AI-assisted service that produces ephemeral attack scenarios (ordered steps) and a graph object (nodes and edges) for visualization in the Dashboard. Unlike static report diagrams, these graphs are runtime artifacts produced on-demand and returned to the frontend for interactive rendering.
+\justify The purpose of this sprint is to implement the Dashboard's attack-path and scenario generation features. The generator is an AI-assisted service that produces ephemeral attack scenarios (ordered steps) and a graph object (nodes and edges) for visualization in the Dashboard. Unlike static report diagrams, these graphs are runtime artifacts produced on-demand and returned to the frontend for interactive rendering.
 
 \section{Sprint Backlog}
 
-The backlog for this sprint focuses on the AI-driven scenario and risk-generation flows and the Dashboard UI integration:
+The backlog for this sprint focuses on the AI-driven scenario and risk-generation flows and the Dashboard UI integration. Table~\ref{tab:sprint-backlog-s3} presents the five user stories covering attack scenario generation, remediation, and interactive visualization:
 
 \begin{table}[H]
   \centering
   \caption{Sprint Backlog}
+  \label{tab:sprint-backlog-s3}
   \renewcommand{\arraystretch}{1.35}
   \small
   \setlength{\tabcolsep}{8pt}
@@ -35,10 +36,11 @@ The backlog for this sprint focuses on the AI-driven scenario and risk-generatio
 
 \section{Requirements Analysis}
 
+\justify The requirements analysis for Sprint 3 addresses the attack scenario generation, interactive graph rendering, and remediation features.
 
 \subsection{Generation Pipeline}
 
-The generator implements a compact, AI-assisted runtime pipeline: the Dashboard requests a scenario for a selected vulnerability; the backend loads the vulnerability context, builds a controlled prompt, calls the configured AI gateway, extracts and validates the returned JSON, maps normalized steps into an ephemeral graph (nodes and edges), and returns the graph and ordered steps to the frontend for interactive rendering.
+The generator implements a compact, AI-assisted runtime pipeline. Figure~\ref{fig:graph-pipeline} illustrates this pipeline: the Dashboard requests a scenario for a selected vulnerability; the backend loads the vulnerability context, builds a controlled prompt, calls the configured AI gateway, extracts and validates the returned JSON, maps normalized steps into an ephemeral graph (nodes and edges), and returns the graph and ordered steps to the frontend for interactive rendering.
 
 \begin{figure}[H]
   \centering
@@ -49,6 +51,8 @@ The generator implements a compact, AI-assisted runtime pipeline: the Dashboard 
 \end{figure}
 
 \subsection{Use Case Diagram}
+
+Figure~\ref{fig:use-case-diagram} illustrates the main actors and their interactions for attack-path generation, showing how users request and interact with generated attack scenarios.
 
 \begin{figure}[H]
   \centering
@@ -122,13 +126,16 @@ The main use cases of this sprint are summarized in the following tables.
 \end{table}
 
 \section{Design}
+
+\justify This section presents the design elements for Sprint 3 attack graph generation.
+
 \subsection{Graph Data Model}
 
 The attack graph is a simple, on-demand diagram that helps an analyst understand how an attacker could move through the system. It represents a generated scenario as a sequence of human-readable steps — each step has a short title, a clear description of the action, and a note about how serious it is. The diagram shows those steps as boxes connected by arrows to indicate possible flows or next actions. When an analyst clicks a box, the interface shows helpful details and suggested countermeasures for that step.
 
 \subsection{Sequence Diagram (runtime)}
 
-This sequence diagram summarizes the main runtime interaction for on-demand scenario generation .
+The runtime sequence describes the main interactions involved in on-demand scenario generation. Figure~\ref{fig:attack-graph-sequence} illustrates this sequence diagram, which summarizes the key steps from user request through graph rendering, including AI invocation, response validation, and frontend visualization.
 
 \begin{figure}[H]
   \centering
@@ -139,14 +146,16 @@ This sequence diagram summarizes the main runtime interaction for on-demand scen
 
 \section{Implementation}
 
-In this sprint, we present the interfaces developed for Sprint 5. The implementation includes the attack graph visualization dashboard where analysts can generate and inspect attack scenarios. The following figures illustrate the application interfaces:
+\justify In this sprint, we present the interfaces developed for Sprint 3. The implementation includes the attack graph visualization dashboard where analysts can generate and inspect attack scenarios. Figure~\ref{fig:graph-output} illustrates the application interface for interactive attack graph visualization:
 
 \begin{figure}[H]
   \centering
   \fbox{\parbox{0.85\textwidth}{\centering\includegraphics[width=0.85\textwidth]{uploads/images/graph.png}}}
-  \caption{Dashboard attack graph (placeholder)}
+  \caption{Dashboard attack graph}
   \label{fig:graph-output}
 \end{figure}
+
+\noindent Figure~\ref{fig:graph-output} shows the attack graph visualization dashboard where users can view generated attack scenarios, interact with nodes for remediation details, and explore potential exploitation paths through the interactive React Flow interface.
 
 \section{Conclusion}
 
