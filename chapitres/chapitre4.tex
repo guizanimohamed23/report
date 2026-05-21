@@ -1,16 +1,16 @@
-\section{Introduction}
+﻿\section{Introduction}
 
-\justify This sprint focuses on the scanning pipeline and on the vulnerability processing features of the HexStrike platform. The goal of this iteration is to implement reliable scan orchestration, normalize heterogeneous tool outputs into a unified schema, match findings against the vulnerability catalog, and persist results for later analysis and reporting.
+\indent\justify This sprint focuses on the scanning pipeline and on the vulnerability processing features of the HexStrike platform. The goal of this iteration is to implement reliable scan orchestration, normalize heterogeneous tool outputs into a unified schema, match findings against the vulnerability catalog, and persist results for later analysis and reporting.
 
-In practice, this sprint covers scan submission, queueing and scheduling, worker orchestration, normalization, vulnerability matching, result persistence, and the user interfaces to submit and view scans.
+\indent In practice, this sprint covers scan submission, queueing and scheduling, worker orchestration, normalization, vulnerability matching, result persistence, and the user interfaces to submit and view scans.
 
 \subsection{Sprint Purpose}
 
-\justify The purpose of this sprint is to build a reliable and scalable scanning infrastructure that transforms raw target submissions into actionable vulnerability intelligence. Concretely, the sprint delivers a robust queue and worker system for tool orchestration, a normalization pipeline that unifies outputs across heterogeneous security tools, a matching engine that correlates findings with known vulnerabilities, and a user interface for scan management and result analysis. This foundation enables efficient vulnerability detection and establishes the data pipeline required for advanced attack graph generation in subsequent sprints.
+\indent\justify The purpose of this sprint is to build a reliable and scalable scanning infrastructure that transforms raw target submissions into actionable vulnerability intelligence. Concretely, the sprint delivers a robust queue and worker system for tool orchestration, a normalization pipeline that unifies outputs across heterogeneous security tools, a matching engine that correlates findings with known vulnerabilities, and a user interface for scan management and result analysis. This foundation enables efficient vulnerability detection and establishes the data pipeline required for advanced attack graph generation in subsequent sprints.
 
 \section{Sprint Backlog}
 
-The backlog for this sprint contains the following user stories:
+\indent The backlog for this sprint contains the following user stories:
 
 \begin{table}[H]
     \centering
@@ -39,7 +39,7 @@ The backlog for this sprint contains the following user stories:
 
 \section{Requirements Analysis}
 
-\justify The requirements analysis for Sprint 2 covers the scanning pipeline, tool orchestration, and result processing mechanisms.
+\indent\justify The requirements analysis for Sprint 2 covers the scanning pipeline, tool orchestration, and result processing mechanisms.
 
 \subsection{Use Case Diagram}
 
@@ -56,7 +56,7 @@ The backlog for this sprint contains the following user stories:
 
 \subsection{Use Case Description}
 
-The main use cases of this sprint are summarized in the following tables.
+\indent The main use cases of this sprint are summarized in the following tables.
 
 \begin{table}[H]
     \centering
@@ -144,9 +144,9 @@ The main use cases of this sprint are summarized in the following tables.
 
 \section{Design}
 
-\subsection{Class Diagram}
+\indent \subsection{Class Diagram}
 
-The principal components include the API, the queue, worker processes, the normalizer and matcher services, and the persistence layer. Figure~\ref{fig:sprint4-class-diagram} presents the class diagram showing the data models and service classes organized around the scanning pipeline architecture.
+\indent The principal components include the API, the queue, worker processes, the normalizer and matcher services, and the persistence layer. Figure~\ref{fig:sprint4-class-diagram} presents the class diagram showing the data models and service classes organized around the scanning pipeline architecture.
 
 \begin{figure}[H]
     \centering
@@ -157,7 +157,7 @@ The principal components include the API, the queue, worker processes, the norma
 
 \subsection{Scan Workflow}
 
-The scan workflow describes the end-to-end processing of a submitted target: submission, queueing, worker execution of tools, normalization, matching, and persistence. Figure~\ref{fig:scan-workflow} provides an overview of this workflow, illustrating the sequence and components involved in transforming a target URL submission into normalized and matched vulnerability findings.
+\indent The scan workflow describes the end-to-end processing of a submitted target: submission, queueing, worker execution of tools, normalization, matching, and persistence. Figure~\ref{fig:scan-workflow} provides an overview of this workflow, illustrating the sequence and components involved in transforming a target URL submission into normalized and matched vulnerability findings.
 
 % Inline scan workflow to avoid float page breaks
 \begin{center}
@@ -168,7 +168,7 @@ The scan workflow describes the end-to-end processing of a submitted target: sub
 
 \subsection{Sequence Diagram}
 
-Key sequences include submission-to-persistence and normalization-to-matching. Figure~\ref{fig:sprint4-sequence-diagram} illustrates the critical interactions between client, API, queue, worker, normalizer, matcher, and database, showing how scan jobs progress through each processing stage.
+\indent Key sequences include submission-to-persistence and normalization-to-matching. Figure~\ref{fig:sprint4-sequence-diagram} illustrates the critical interactions between client, API, queue, worker, normalizer, matcher, and database, showing how scan jobs progress through each processing stage.
 
 % Inline sequence diagram to keep it with the workflow and avoid large gaps
 \begin{center}
@@ -179,7 +179,7 @@ Key sequences include submission-to-persistence and normalization-to-matching. F
 
 \section{Implementation}
 
-In this sprint, we present the interfaces developed for Sprint 2. The implementation includes the scanner submission interface, scan history with filtering options, and detailed scan results view. The following figures illustrate the application interfaces and enable users to submit scans, track their progress, and analyze discovered vulnerabilities:
+\indent In this sprint, we present the interfaces developed for Sprint 2. The implementation includes the scanner submission interface, scan history with filtering options, and detailed scan results view. The following figures illustrate the application interfaces and enable users to submit scans, track their progress, and analyze discovered vulnerabilities:
 
 \begin{figure}[H]
     \centering
@@ -219,4 +219,4 @@ In this sprint, we present the interfaces developed for Sprint 2. The implementa
 
 \section{Conclusion}
 
-This sprint builds the core scan processing pipeline and the infrastructure to normalize and match findings. With results persisted and accessible through the UI, future sprints can focus on reporting, enrichment, and advanced correlation features.
+\indent This sprint builds the core scan processing pipeline and the infrastructure to normalize and match findings. With results persisted and accessible through the UI, future sprints can focus on reporting, enrichment, and advanced correlation features.

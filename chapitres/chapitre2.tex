@@ -1,22 +1,22 @@
-\section{Introduction}
+﻿\section{Introduction}
 
-\justify This chapter presents the analysis and specification of the \textbf{CyberScope} system. It introduces the adopted development methodology, identifies the main stakeholders, presents the development environment, and defines both functional and non-functional requirements. It also presents the use case diagram, the textual description of the main use cases, and the organization of the project through the product backlog and sprint planning.
+\indent\justify This chapter presents the analysis and specification of the \textbf{CyberScope} system. It introduces the adopted development methodology, identifies the main stakeholders, presents the development environment, and defines both functional and non-functional requirements. It also presents the use case diagram, the textual description of the main use cases, and the organization of the project through the product backlog and sprint planning.
 
 \section{Adopted Development Methodology}
 
-\justify To ensure a flexible and progressive development process, the Scrum methodology was adopted for the realization of \textbf{CyberScope}. Scrum is an agile framework based on iterative development, incremental delivery, continuous feedback, and adaptation to evolving requirements.
+\indent\justify To ensure a flexible and progressive development process, the Scrum methodology was adopted for the realization of \textbf{CyberScope}. Scrum is an agile framework based on iterative development, incremental delivery, continuous feedback, and adaptation to evolving requirements.
 
 \subsection{Justification of the Choice of Scrum}
 
-\justify The choice of Scrum is justified by the nature of the CyberScope project, which involves several heterogeneous components such as a frontend dashboard, a backend API, a Python-based scanning engine, external security tools, and AI-based analysis modules.
+\indent\justify The choice of Scrum is justified by the nature of the CyberScope project, which involves several heterogeneous components such as a frontend dashboard, a backend API, a Python-based scanning engine, external security tools, and AI-based analysis modules.
 
-A traditional sequential development approach would make it difficult to validate each component progressively. Scrum allows the project to be divided into smaller increments, making it possible to test, validate, and improve each part of the system throughout development.
+\indent A traditional sequential development approach would make it difficult to validate each component progressively. Scrum allows the project to be divided into smaller increments, making it possible to test, validate, and improve each part of the system throughout development.
 
 \subsection{Adaptation of Scrum to an Individual Project}
 
-\justify Although Scrum is typically applied in team-based environments, it was adapted to the context of an individual end-of-studies project. The student assumed multiple roles simultaneously, including development, planning, and coordination.
+\indent\justify Although Scrum is typically applied in team-based environments, it was adapted to the context of an individual end-of-studies project. The student assumed multiple roles simultaneously, including development, planning, and coordination.
 
-The academic and professional supervisors contributed as stakeholders by validating the objectives, monitoring progress, and providing feedback. This adaptation preserved the benefits of Scrum while accommodating the constraints of a single-developer project.
+\indent The academic and professional supervisors contributed as stakeholders by validating the objectives, monitoring progress, and providing feedback. This adaptation preserved the benefits of Scrum while accommodating the constraints of a single-developer project.
 \noindent Figure~\ref{fig:scrum-cyberscope} illustrates the Scrum development process adapted to the CyberScope project, showing the iterative sprint cycles, ceremonies, and feedback loops that guided the development of all three project sprints.
 
 \begin{figure}[H]
@@ -26,13 +26,13 @@ The academic and professional supervisors contributed as stakeholders by validat
     \label{fig:scrum-cyberscope}
 \end{figure}
 
-\subsection{Organization of Sprints and Product Backlog}
+\subsection{Organization of Sprints }
 
 \vspace{0.4cm}
 
-CyberScope is organized into three iterative sprints, each with distinct objectives and deliverables.     Each sprint delivers a cohesive set of user stories that align with its main objective. 
- Table~\ref{tab:sprint-organization} presents the sprint timeline and main goals, showing how the project progresses from backend infrastructure through tool integration to advanced attack graph generation over a 12-week development cycle.
-Table~\ref{tab:product-backlog} consolidates all seventeen user stories across the three sprints, with each story categorized by type, associated priority level, and sprint assignment. This backlog provides a comprehensive view of the system's functional requirements and guides development efforts from inception through delivery.
+\indent CyberScope is organized into three iterative sprints, each with distinct objectives and deliverables.     Each sprint delivers a cohesive set of user stories that align with its main objective. 
+ \indent Table~\ref{tab:sprint-organization} presents the sprint timeline and main goals, showing how the project progresses from backend infrastructure through tool integration to advanced attack graph generation over a 12-week development cycle.
+\indent Table~\ref{tab:product-backlog} consolidates all seventeen user stories across the three sprints, with each story categorized by type, associated priority level, and sprint assignment. This backlog provides a comprehensive view of the system's functional requirements and guides development efforts from inception through delivery.
 \begin{table}[H]
     \centering
     \caption{Sprint Organization of CyberScope}
@@ -50,6 +50,22 @@ Table~\ref{tab:product-backlog} consolidates all seventeen user stories across t
         \hline
     \end{tabularx}
     \end{table}
+
+
+\subsection{Backlog estimation methods}
+
+\indent\justify For faster, higher-level estimates during roadmap planning we applied the T-shirt sizing method (XS, S, M, L, XL). This method groups user stories by relative size classes rather than numeric points, allowing quick comparison of complexity and effort across items. The T-shirt sizing scale we used is illustrated in Figure~\ref{fig:tshirt-sizing}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{uploads/images/tshirt.jpg}
+    \caption{T-shirt sizing method (XS--XL) used for coarse estimates}
+    \label{fig:tshirt-sizing}
+\end{figure}
+ 
+\subsection{Product Backlog}
+
+\indent\justify The product backlog consolidates all identified user stories, features, and technical tasks prioritized for implementation. Table~\ref{tab:product-backlog} lists the backlog items with their assigned sprint, category, and priority, providing a roadmap for development and release planning.
 
 
     {\small
@@ -112,19 +128,19 @@ Table~\ref{tab:product-backlog} consolidates all seventeen user stories across t
 
 \section{Stakeholder Identification}
 
-The development and use of \textbf{CyberScope} involve three primary actors, each interacting with the system according to specific roles and responsibilities.
+\indent The development and use of \textbf{CyberScope} involve three primary actors, each interacting with the system according to specific roles and responsibilities.
 
-The \textbf{User} represents the primary actor and main beneficiary of the platform. This actor performs core activities such as creating an account, logging in, submitting target URLs for security analysis, launching scans, and analyzing results through the interactive dashboard. The User relies on the system to provide accurate vulnerability detection and actionable remediation recommendations.
+\indent The \textbf{User} represents the primary actor and main beneficiary of the platform. This actor performs core activities such as creating an account, logging in, submitting target URLs for security analysis, launching scans, and analyzing results through the interactive dashboard. The User relies on the system to provide accurate vulnerability detection and actionable remediation recommendations.
 
-The \textbf{Guest User} is a secondary actor who interacts with the platform without establishing a persistent account. This actor can access the system through a temporary guest session to evaluate the platform's capabilities and explore basic features, enabling quick evaluation without registration overhead.
+\indent The \textbf{Guest User} is a secondary actor who interacts with the platform without establishing a persistent account. This actor can access the system through a temporary guest session to evaluate the platform's capabilities and explore basic features, enabling quick evaluation without registration overhead.
 
-The \textbf{System} acts as the backend orchestrator and automated processor. This actor performs critical operations including tool integration and resolution, session management, scan execution and pipeline orchestration, output normalization and enrichment, vulnerability matching, and AI-driven attack graph generation. The System ensures reliable, scalable, and secure operation of all automated processes.
+\indent The \textbf{System} acts as the backend orchestrator and automated processor. This actor performs critical operations including tool integration and resolution, session management, scan execution and pipeline orchestration, output normalization and enrichment, vulnerability matching, and AI-driven attack graph generation. The System ensures reliable, scalable, and secure operation of all automated processes.
 
 \section{System Overview}
 
-\justify CyberScope is an intelligent web application security auditing platform designed to automate vulnerability detection and analysis. It integrates multiple security tools into a unified pipeline and provides advanced features such as dynamic crawling, result aggregation, and AI-driven interpretation.
+\indent\justify CyberScope is an intelligent web application security auditing platform designed to automate vulnerability detection and analysis. It integrates multiple security tools into a unified pipeline and provides advanced features such as dynamic crawling, result aggregation, and AI-driven interpretation.
 
-The system is composed of three main components:
+\indent The system is composed of three main components:
 
 \begin{itemize}
     \item A frontend dashboard for user interaction and visualization
@@ -134,89 +150,89 @@ The system is composed of three main components:
 
 \section{Functional Requirements}
 
-\justify The functional requirements define the core services provided by CyberScope. These functionalities describe how the system interacts with users and how it performs automated security analysis, from scan initiation to result reporting.
+\indent\justify The functional requirements define the core services provided by CyberScope. These functionalities describe how the system interacts with users and how it performs automated security analysis, from scan initiation to result reporting.
 
 \subsection{Scan Initiation and Target Submission}
 
-The system must allow users to submit a target web application through a valid URL and initiate a security scan. Prior to execution, the system must validate the input to ensure correctness and accessibility of the target.
+\indent The system must allow users to submit a target web application through a valid URL and initiate a security scan. Prior to execution, the system must validate the input to ensure correctness and accessibility of the target.
 
-Once validated, the system must create a scan instance, assign it a unique identifier, and trigger the scanning workflow. The user must be able to monitor the progress of the scan (e.g., pending, running, completed, failed) through the interface. Additionally, the system should support multiple concurrent scans and maintain a history of previous scans for later consultation.
+\indent Once validated, the system must create a scan instance, assign it a unique identifier, and trigger the scanning workflow. The user must be able to monitor the progress of the scan (e.g., pending, running, completed, failed) through the interface. Additionally, the system should support multiple concurrent scans and maintain a history of previous scans for later consultation.
 
 \subsection{Intelligent Tool Orchestration}
 
-CyberScope must coordinate the execution of multiple security tools within a unified and automated pipeline. The system should dynamically orchestrate tools such as Nmap, Nuclei, Nikto, and SQLMap depending on the target characteristics.
+\indent CyberScope must coordinate the execution of multiple security tools within a unified and automated pipeline. The system should dynamically orchestrate tools such as Nmap, Nuclei, Nikto, and SQLMap depending on the target characteristics.
 
-The orchestration process must ensure efficient scheduling, avoid redundant executions, and support parallel processing when possible. It must also manage tool configuration, execution, and result collection transparently, without requiring manual user intervention.
+\indent The orchestration process must ensure efficient scheduling, avoid redundant executions, and support parallel processing when possible. It must also manage tool configuration, execution, and result collection transparently, without requiring manual user intervention.
 
 \subsection{Dynamic Application Crawling (BrowserAgent)}
 
-The system must include a browser-based crawling component, referred to as the \textbf{BrowserAgent}, capable of interacting with modern web applications.
+\indent The system must include a browser-based crawling component, referred to as the \textbf{BrowserAgent}, capable of interacting with modern web applications.
 
-This component must simulate real user behavior by executing JavaScript, navigating through dynamic interfaces, and capturing network requests. It enables the discovery of hidden endpoints, API calls, and parameters that are not accessible through traditional static scanning techniques.
+\indent This component must simulate real user behavior by executing JavaScript, navigating through dynamic interfaces, and capturing network requests. It enables the discovery of hidden endpoints, API calls, and parameters that are not accessible through traditional static scanning techniques.
 
-This functionality is particularly important for analyzing Single Page Applications (SPAs) and dynamically generated content.
+\indent This functionality is particularly important for analyzing Single Page Applications (SPAs) and dynamically generated content.
 
 \subsection{Vulnerability Detection and Analysis}
 
-The system must detect a wide range of web application vulnerabilities, including SQL injection, cross-site scripting (XSS), exposed services, insecure configurations, and outdated components.
+\indent The system must detect a wide range of web application vulnerabilities, including SQL injection, cross-site scripting (XSS), exposed services, insecure configurations, and outdated components.
 
-CyberScope must process the outputs of integrated tools and transform them into structured vulnerability objects. Each vulnerability should include detailed information such as its type, severity level, affected endpoint, technical evidence, and potential impact.
+\indent CyberScope must process the outputs of integrated tools and transform them into structured vulnerability objects. Each vulnerability should include detailed information such as its type, severity level, affected endpoint, technical evidence, and potential impact.
 
-This structured representation facilitates further analysis, prioritization, and decision-making.
+\indent This structured representation facilitates further analysis, prioritization, and decision-making.
 
 \subsection{Aggregation and Visualization of Results}
 
-The system must aggregate results collected from multiple tools and eliminate duplicate findings through normalization and deduplication mechanisms.
+\indent The system must aggregate results collected from multiple tools and eliminate duplicate findings through normalization and deduplication mechanisms.
 
-The processed results must be presented through an intuitive dashboard that allows users to explore vulnerabilities using filters, sorting options, and visual indicators. The interface should provide a clear overview of the security posture, including severity distribution, affected components, and scan statistics.
+\indent The processed results must be presented through an intuitive dashboard that allows users to explore vulnerabilities using filters, sorting options, and visual indicators. The interface should provide a clear overview of the security posture, including severity distribution, affected components, and scan statistics.
 
-This improves readability and enables users to quickly identify and prioritize critical issues.
+\indent This improves readability and enables users to quickly identify and prioritize critical issues.
 
 \subsection{Report Generation}
 
-The system must generate comprehensive and structured reports summarizing the results of a security scan.
+\indent The system must generate comprehensive and structured reports summarizing the results of a security scan.
 
-These reports should include target information, detected vulnerabilities, severity classification, risk assessment, and remediation recommendations. The reports must be exportable in a professional format (e.g., PDF) to facilitate communication with stakeholders and support auditing processes.
+\indent These reports should include target information, detected vulnerabilities, severity classification, risk assessment, and remediation recommendations. The reports must be exportable in a professional format (e.g., PDF) to facilitate communication with stakeholders and support auditing processes.
 
 \section{Non-Functional Requirements}
 
-Non-functional requirements define the quality attributes and operational constraints of the CyberScope system. They ensure that the platform is efficient, secure, reliable, and maintainable.
+\indent Non-functional requirements define the quality attributes and operational constraints of the CyberScope system. They ensure that the platform is efficient, secure, reliable, and maintainable.
 
 \subsection{Performance and Scalability}
 
-The system must provide acceptable performance in terms of response time and processing efficiency. While vulnerability scans may be resource-intensive, user interactions with the platform must remain responsive.
+\indent The system must provide acceptable performance in terms of response time and processing efficiency. While vulnerability scans may be resource-intensive, user interactions with the platform must remain responsive.
 
-The architecture should support scalability by allowing the distribution of system components (frontend, backend, scanning engine) to handle increasing workloads and larger target applications without significant performance degradation.
+\indent The architecture should support scalability by allowing the distribution of system components (frontend, backend, scanning engine) to handle increasing workloads and larger target applications without significant performance degradation.
 
 \subsection{Security Requirements}
 
-CyberScope must implement strong security mechanisms to protect user data and scan results. Authentication and authorization must be enforced using secure approaches such as JSON Web Tokens (JWT).
+\indent CyberScope must implement strong security mechanisms to protect user data and scan results. Authentication and authorization must be enforced using secure approaches such as JSON Web Tokens (JWT).
 
-Sensitive data must be protected against unauthorized access, and secure communication must be ensured between system components. Given the nature of the platform, maintaining confidentiality and integrity is essential.
+\indent Sensitive data must be protected against unauthorized access, and secure communication must be ensured between system components. Given the nature of the platform, maintaining confidentiality and integrity is essential.
 
 \subsection{Usability}
 
-The platform must provide an intuitive and user-friendly interface that simplifies interaction with complex security data.
+\indent The platform must provide an intuitive and user-friendly interface that simplifies interaction with complex security data.
 
-The dashboard should present information in a clear and structured manner, allowing users to easily navigate between scans, analyze vulnerabilities, and access reports. Important elements such as severity levels and risk indicators should be highlighted to improve decision-making.
+\indent The dashboard should present information in a clear and structured manner, allowing users to easily navigate between scans, analyze vulnerabilities, and access reports. Important elements such as severity levels and risk indicators should be highlighted to improve decision-making.
 
 \subsection{Reliability and Availability}
 
-The system must ensure stable and reliable operation during scan execution and data processing. It should handle failures gracefully, such as tool crashes or network interruptions, without compromising data integrity.
+\indent The system must ensure stable and reliable operation during scan execution and data processing. It should handle failures gracefully, such as tool crashes or network interruptions, without compromising data integrity.
 
-Appropriate logging and error-handling mechanisms must be implemented to support monitoring and debugging. The system should also maintain high availability with minimal downtime.
+\indent Appropriate logging and error-handling mechanisms must be implemented to support monitoring and debugging. The system should also maintain high availability with minimal downtime.
 
 \subsection{Maintainability and Extensibility}
 
-CyberScope must be designed using a modular architecture that facilitates maintenance and future evolution.
+\indent CyberScope must be designed using a modular architecture that facilitates maintenance and future evolution.
 
-The system should allow easy integration of new security tools, updates to existing components, and modifications without affecting the overall system stability. Clear separation between components (frontend, backend, scanning engine) enhances maintainability.
+\indent The system should allow easy integration of new security tools, updates to existing components, and modifications without affecting the overall system stability. Clear separation between components (frontend, backend, scanning engine) enhances maintainability.
 
-Extensibility is essential to adapt the platform to new vulnerabilities, technologies, and evolving security requirements.
+\indent Extensibility is essential to adapt the platform to new vulnerabilities, technologies, and evolving security requirements.
 
 \section{Global Use Case Diagram}
 
-The use case diagram illustrates the main interactions between the user and the CyberScope system.
+\indent The use case diagram illustrates the main interactions between the user and the CyberScope system.
 \noindent Figure~\ref{fig:global-usecase} illustrates the main actors (User, Guest User, and System) and their interactions with the CyberScope platform, showing the primary use case flows for authentication, scanning, and attack scenario generation.
 
 \begin{figure}[H]
@@ -233,7 +249,7 @@ The use case diagram illustrates the main interactions between the user and the 
 
 \vspace{0.3cm}
 
-The class diagram presents the main structural components of CyberScope and the relationships between its core services, models, and orchestration layers.
+\indent The class diagram presents the main structural components of CyberScope and the relationships between its core services, models, and orchestration layers.
 \noindent Figure~\ref{fig:global-class-diagram} presents the principal components and relationships of CyberScope architecture, including frontend models, backend API services, scanning engine, and external tool integration layers.
 
 \begin{figure}[H]
@@ -245,11 +261,11 @@ The class diagram presents the main structural components of CyberScope and the 
 
 \section{Development Environment}
 
-This section presents the technical environment used to design, implement, and test \textbf{CyberScope}. It highlights the main programming languages, frameworks, tools, and software resources that supported the project.
+\indent This section presents the technical environment used to design, implement, and test \textbf{CyberScope}. It highlights the main programming languages, frameworks, tools, and software resources that supported the project.
 
 \subsection{Material Environment}
 
-Development work was performed on a Windows workstation using the following primary tools:
+\indent Development work was performed on a Windows workstation using the following primary tools:
 
 \vspace{0.3cm}
 
@@ -332,7 +348,7 @@ Development work was performed on a Windows workstation using the following prim
 
 \subsection{Software Environment}
 
-The software stack is organized by layer; the following items present the main technologies with a short description for each.
+\indent The software stack is organized by layer; the following items present the main technologies with a short description for each.
 
 \vspace{0.3cm}
 \noindent
@@ -520,4 +536,4 @@ The software stack is organized by layer; the following items present the main t
 
 \section{Conclusion}
 
-This chapter presented the analysis and specification of the CyberScope system, including the adopted methodology, stakeholder identification, development environment, system overview, and requirements. These elements provide a solid foundation for the system design presented in the next chapter.
+\indent This chapter presented the analysis and specification of the CyberScope system, including the adopted methodology, stakeholder identification, development environment, system overview, and requirements. These elements provide a solid foundation for the system design presented in the next chapter.

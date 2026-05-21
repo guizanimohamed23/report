@@ -1,16 +1,16 @@
-\section{Introduction}
+﻿\section{Introduction}
 
-\justify This sprint focuses on the authentication layer of the HexStrike platform and on the access control rules that protect the main application modules. The goal of this iteration is to provide a secure entry point to the system, manage user sessions with JWT, and restrict sensitive actions such as scan creation and scan history access to authenticated users only.
+\indent\justify This sprint focuses on the authentication layer of the HexStrike platform and on the access control rules that protect the main application modules. The goal of this iteration is to provide a secure entry point to the system, manage user sessions with JWT, and restrict sensitive actions such as scan creation and scan history access to authenticated users only.
 
-In practice, this sprint covers the login and registration flow, the guest session mechanism, protected routes on the frontend, and the backend middleware that validates every secured request.
+\indent In practice, this sprint covers the login and registration flow, the guest session mechanism, protected routes on the frontend, and the backend middleware that validates every secured request.
 
 \subsection{Sprint Purpose}
 
-\justify The purpose of this sprint is to secure the platform's entry points and session management to enable safe use of the scanning and analysis features. Concretely, the sprint delivers a robust authentication system, a guest mode for quick evaluation, and middleware that enforces access control for all sensitive API endpoints.
+\indent\justify The purpose of this sprint is to secure the platform's entry points and session management to enable safe use of the scanning and analysis features. Concretely, the sprint delivers a robust authentication system, a guest mode for quick evaluation, and middleware that enforces access control for all sensitive API endpoints.
 
 \section{Sprint Backlog}
 
-The backlog of this sprint contains the following user stories. Table~\ref{tab:sprint-backlog-s1} illustrates the six authentication and session management stories prioritized for this sprint:
+\indent The backlog of this sprint contains the following user stories. Table~\ref{tab:sprint-backlog-s1} illustrates the six authentication and session management stories prioritized for this sprint:
 
 \begin{table}[H]
     \centering
@@ -40,11 +40,11 @@ The backlog of this sprint contains the following user stories. Table~\ref{tab:s
 
 \section{Requirements Analysis}
 
-\justify The requirements analysis for Sprint 1 covers the authentication and access control mechanisms needed to secure the platform.
+\indent\justify The requirements analysis for Sprint 1 covers the authentication and access control mechanisms needed to secure the platform.
 
 \subsection{Use Case Diagram}
 
-The actors involved in this sprint are the visitor, the registered user, and the guest user. The visitor can register and log in, the registered user can access protected modules, and the guest user can only use limited temporary access. Figure~\ref{fig:sprint1-usecase} illustrates these three actors and their respective use cases within the authentication system.
+\indent The actors involved in this sprint are the visitor, the registered user, and the guest user. The visitor can register and log in, the registered user can access protected modules, and the guest user can only use limited temporary access. Figure~\ref{fig:sprint1-usecase} illustrates these three actors and their respective use cases within the authentication system.
 
 \begin{figure}[H]
     \centering
@@ -55,7 +55,7 @@ The actors involved in this sprint are the visitor, the registered user, and the
 
 \subsection{Use Case Description}
 
-The main use cases of this sprint are summarized in the following tables.
+\indent The main use cases of this sprint are summarized in the following tables.
 
 \begin{table}[H]
     \centering
@@ -119,13 +119,13 @@ The main use cases of this sprint are summarized in the following tables.
 
 \section{Design}
 
-\subsection{Class Diagram}
+\indent \subsection{Class Diagram}
 
-The design of this sprint is based on the separation between frontend and backend responsibilities.
+\indent The design of this sprint is based on the separation between frontend and backend responsibilities.
 
-On the backend side, the authentication flow is handled by the Auth controller and service, the user data is stored in the Prisma User model, and the secured routes are protected by the authentication middleware. The server also applies rate limiting to login endpoints to reduce brute-force attempts.
+\indent On the backend side, the authentication flow is handled by the Auth controller and service, the user data is stored in the Prisma User model, and the secured routes are protected by the authentication middleware. The server also applies rate limiting to login endpoints to reduce brute-force attempts.
 
-On the frontend side, the AuthContext manages the session state, the Login and Register pages collect credentials, and the ProtectedRoute and PublicOnlyRoute components control access to the application pages. Figure~\ref{fig:sprint3-class-diagram} illustrates the key components and their relationships for both frontend and backend architectures.
+\indent On the frontend side, the AuthContext manages the session state, the Login and Register pages collect credentials, and the ProtectedRoute and PublicOnlyRoute components control access to the application pages. Figure~\ref{fig:sprint3-class-diagram} illustrates the key components and their relationships for both frontend and backend architectures.
 
 % Inline class diagram to avoid float-induced blank space
 \begin{center}
@@ -136,7 +136,7 @@ On the frontend side, the AuthContext manages the session state, the Login and R
 
 \subsection{Sequence Diagram}
 
-The authentication process involves multiple interactions between the client application and backend services. Figure~\ref{fig:sprint1-sequence-diagram} illustrates the main authentication flows: visitor registration and login. The diagram shows interactions between the user interface, authentication form, backend services, and database, including credential validation, JWT token generation, and session establishment.
+\indent The authentication process involves multiple interactions between the client application and backend services. Figure~\ref{fig:sprint1-sequence-diagram} illustrates the main authentication flows: visitor registration and login. The diagram shows interactions between the user interface, authentication form, backend services, and database, including credential validation, JWT token generation, and session establishment.
 
 \begin{figure}[H]
     \centering
@@ -147,7 +147,7 @@ The authentication process involves multiple interactions between the client app
 
 \section{Implementation}
 
-In this sprint, we present the user interfaces developed for Sprint 1. The implementation includes the registration form for new users, the login form for returning users, and the guest access option. The following figures illustrate the application interfaces:
+\indent In this sprint, we present the user interfaces developed for Sprint 1. The implementation includes the registration form for new users, the login form for returning users, and the guest access option. The following figures illustrate the application interfaces:
 
 \begin{figure}[H]
     \centering
@@ -165,4 +165,4 @@ In this sprint, we present the user interfaces developed for Sprint 1. The imple
 
 \section{Conclusion}
 
-This sprint establishes the foundation for secure platform access through a robust authentication and session management layer. With user registration, login, guest access, and access control mechanisms in place, the platform is ready to support the scanning and analysis features implemented in subsequent sprints.
+\indent This sprint establishes the foundation for secure platform access through a robust authentication and session management layer. With user registration, login, guest access, and access control mechanisms in place, the platform is ready to support the scanning and analysis features implemented in subsequent sprints.

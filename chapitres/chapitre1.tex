@@ -1,28 +1,28 @@
-\section{Introduction}
+﻿\section{Introduction}
 
-\justify This chapter focuses on the general context of the project. It presents the background of the work, the security challenges faced by modern web applications, the limitations of existing solutions, and the motivation behind the proposed system, \textbf{CyberScope}.
+\indent\justify This chapter focuses on the general context of the project. It presents the background of the work, the security challenges faced by modern web applications, the limitations of existing solutions, and the motivation behind the proposed system, \textbf{CyberScope}.
 
 \section{Presentation of the Host Organization}
 
-\justify Ernst \& Young (EY)~\cite{ey} is one of the world's leading professional services firms, recognized globally for its expertise in assurance, consulting, strategy, tax, and transaction services. Founded in 1989 through the merger of Ernst \& Whinney and Arthur Young, EY operates in more than 150 countries and employs hundreds of thousands of professionals worldwide.
+\indent\justify Ernst \& Young (EY)~\cite{ey} is one of the world's leading professional services firms, recognized globally for its expertise in assurance, consulting, strategy, tax, and transaction services. Founded in 1989 through the merger of Ernst \& Whinney and Arthur Young, EY operates in more than 150 countries and employs hundreds of thousands of professionals worldwide.
 
-In Tunisia, EY plays a key role in supporting organizations in their digital transformation and technological innovation. The firm assists both public and private institutions in addressing complex business challenges by providing tailored consulting services and advanced technical solutions.
+\indent In Tunisia, EY plays a key role in supporting organizations in their digital transformation and technological innovation. The firm assists both public and private institutions in addressing complex business challenges by providing tailored consulting services and advanced technical solutions.
 
-EY Tunisia offers a wide range of services, including IT consulting, cybersecurity, risk management, and digital innovation. In particular, the firm contributes to strengthening information systems security by identifying vulnerabilities and implementing robust protection mechanisms.
+\indent EY Tunisia offers a wide range of services, including IT consulting, cybersecurity, risk management, and digital innovation. In particular, the firm contributes to strengthening information systems security by identifying vulnerabilities and implementing robust protection mechanisms.
 
-Through its global network and local expertise, EY promotes best practices in cybersecurity and technological development. Its commitment to quality and innovation makes it an ideal environment for the development of advanced solutions such as automated web security auditing systems.
+\indent Through its global network and local expertise, EY promotes best practices in cybersecurity and technological development. Its commitment to quality and innovation makes it an ideal environment for the development of advanced solutions such as automated web security auditing systems.
 
 \subsection{EY at the International Level}
 
-At the international level, EY operates as a global professional services network that supports organizations across multiple industries. Its services cover assurance, consulting, tax, strategy, and transaction advisory. Through this worldwide presence, EY assists clients in improving their operational performance, managing risks, and adopting innovative technological solutions.
+\indent At the international level, EY operates as a global professional services network that supports organizations across multiple industries. Its services cover assurance, consulting, tax, strategy, and transaction advisory. Through this worldwide presence, EY assists clients in improving their operational performance, managing risks, and adopting innovative technological solutions.
 
-In the context of digital transformation, EY places strong emphasis on technology, data protection, governance, and cybersecurity. The firm helps organizations address emerging digital risks and adapt to increasingly complex regulatory and technological environments.
+\indent In the context of digital transformation, EY places strong emphasis on technology, data protection, governance, and cybersecurity. The firm helps organizations address emerging digital risks and adapt to increasingly complex regulatory and technological environments.
 
 \subsection{EY Tunisia and the Cybersecurity Division}
 
-EY Tunisia contributes to the digital transformation of Tunisian organizations by providing consulting and technology-oriented services. Its activities include IT consulting, risk management, cybersecurity, audit, and support for innovation projects.
+\indent EY Tunisia contributes to the digital transformation of Tunisian organizations by providing consulting and technology-oriented services. Its activities include IT consulting, risk management, cybersecurity, audit, and support for innovation projects.
 
-The cybersecurity division focuses on helping organizations identify weaknesses in their information systems, assess risks, and improve their security posture. This includes activities such as vulnerability assessment, security auditing, governance support, and the implementation of protection strategies. This professional context is directly aligned with the objective of this project, which aims to design an automated and intelligent web application security auditing system.
+\indent The cybersecurity division focuses on helping organizations identify weaknesses in their information systems, assess risks, and improve their security posture. This includes activities such as vulnerability assessment, security auditing, governance support, and the implementation of protection strategies. This professional context is directly aligned with the objective of this project, which aims to design an automated and intelligent web application security auditing system.
 
 \vspace{0.6cm}
 
@@ -39,31 +39,31 @@ The cybersecurity division focuses on helping organizations identify weaknesses 
 
 \section{Project Context and Problem Statement}
 
-\justify With the increasing reliance on web applications in critical domains such as finance, e-commerce, and healthcare, ensuring their security has become a major challenge. Modern applications are more dynamic and complex, which significantly increases their exposure to various cyber threats such as SQL injection, cross-site scripting, and authentication vulnerabilities.
+\indent\justify With the increasing reliance on web applications in critical domains such as finance, e-commerce, and healthcare, ensuring their security has become a major challenge. Modern applications are more dynamic and complex, which significantly increases their exposure to various cyber threats such as SQL injection, cross-site scripting, and authentication vulnerabilities.
 
-Despite the availability of several security tools, existing solutions often fail to effectively analyze modern web applications, especially those based on dynamic architectures. These tools may miss critical vulnerabilities, generate redundant results, or require significant manual intervention, which reduces their efficiency and reliability.
+\indent Despite the availability of several security tools, existing solutions often fail to effectively analyze modern web applications, especially those based on dynamic architectures. These tools may miss critical vulnerabilities, generate redundant results, or require significant manual intervention, which reduces their efficiency and reliability.
 
-In this context, the main problem addressed in this project is the lack of an intelligent and automated solution capable of efficiently auditing modern web applications while improving vulnerability detection accuracy and reducing false positives.
+\indent In this context, the main problem addressed in this project is the lack of an intelligent and automated solution capable of efficiently auditing modern web applications while improving vulnerability detection accuracy and reducing false positives.
 
-The objective of this project is therefore to design and develop \textbf{CyberScope}, an advanced web application security auditing system that enhances vulnerability detection through intelligent orchestration, automation, and improved analysis of security findings.
+\indent The objective of this project is therefore to design and develop \textbf{CyberScope}, an advanced web application security auditing system that enhances vulnerability detection through intelligent orchestration, automation, and improved analysis of security findings.
 
 \section{Overview of Web Application Security}
 
-\justify Web application security refers to the set of measures and practices implemented to protect web applications from vulnerabilities and cyber threats. As web applications become increasingly central to business operations and data management, ensuring their security is essential to preserve the confidentiality, integrity, and availability of information.
+\indent\justify Web application security refers to the set of measures and practices implemented to protect web applications from vulnerabilities and cyber threats. As web applications become increasingly central to business operations and data management, ensuring their security is essential to preserve the confidentiality, integrity, and availability of information.
 
-Modern web applications are exposed to a wide range of attacks that exploit weaknesses in their design, implementation, or configuration. These attacks may target input validation, authentication mechanisms, session management, or communication between client and server. As a result, a single vulnerability can compromise the entire system and lead to severe consequences such as data breaches, financial loss, or reputational damage.
+\indent Modern web applications are exposed to a wide range of attacks that exploit weaknesses in their design, implementation, or configuration. These attacks may target input validation, authentication mechanisms, session management, or communication between client and server. As a result, a single vulnerability can compromise the entire system and lead to severe consequences such as data breaches, financial loss, or reputational damage.
 
-To mitigate these risks, security must be integrated throughout the entire development lifecycle. This includes secure coding practices, regular vulnerability assessments, and the use of automated security tools capable of identifying potential weaknesses before they are exploited.
+\indent To mitigate these risks, security must be integrated throughout the entire development lifecycle. This includes secure coding practices, regular vulnerability assessments, and the use of automated security tools capable of identifying potential weaknesses before they are exploited.
 
-In this context, standards such as the OWASP Top 10 provide valuable guidance by identifying the most critical web application security risks~\cite{owasp}. These references help developers and security professionals prioritize their efforts and implement effective protection strategies.
+\indent In this context, standards such as the OWASP Top 10 provide valuable guidance by identifying the most critical web application security risks~\cite{owasp}. These references help developers and security professionals prioritize their efforts and implement effective protection strategies.
 
 \subsection{OWASP Top 10 and Modern Threat Landscape}
 
-The OWASP Top 10 is a widely recognized standard that identifies the most critical security risks affecting web applications~\cite{owasp}. It provides a prioritized list of vulnerabilities such as injection attacks, broken authentication, sensitive data exposure, and cross-site scripting.
+\indent The OWASP Top 10 is a widely recognized standard that identifies the most critical security risks affecting web applications~\cite{owasp}. It provides a prioritized list of vulnerabilities such as injection attacks, broken authentication, sensitive data exposure, and cross-site scripting.
 
-These vulnerabilities represent the most common attack vectors exploited by attackers in real-world scenarios. As web technologies evolve, the threat landscape continues to expand, with modern applications introducing new risks related to client-side execution, APIs, and complex system interactions.
+\indent These vulnerabilities represent the most common attack vectors exploited by attackers in real-world scenarios. As web technologies evolve, the threat landscape continues to expand, with modern applications introducing new risks related to client-side execution, APIs, and complex system interactions.
 
-By highlighting the most significant threats, the OWASP Top 10 helps developers and security professionals focus on the most impactful vulnerabilities and adopt effective mitigation strategies.
+\indent By highlighting the most significant threats, the OWASP Top 10 helps developers and security professionals focus on the most impactful vulnerabilities and adopt effective mitigation strategies.
 
 \vspace{0.4cm}
 
@@ -105,29 +105,29 @@ By highlighting the most significant threats, the OWASP Top 10 helps developers 
 
 \subsection{Statistics and Economic Impact of Web Vulnerabilities}
 
-The impact of web application vulnerabilities is not limited to technical compromise. Security incidents can also lead to financial losses, service disruption, legal consequences, and reputational damage. According to IBM's Cost of a Data Breach Report 2024, the global average cost of a data breach reached USD 4.88 million, representing a significant increase compared to the previous year~\cite{ibm_breach_2024}.
+\indent The impact of web application vulnerabilities is not limited to technical compromise. Security incidents can also lead to financial losses, service disruption, legal consequences, and reputational damage. According to IBM's Cost of a Data Breach Report 2024, the global average cost of a data breach reached USD 4.88 million, representing a significant increase compared to the previous year~\cite{ibm_breach_2024}.
 
-In addition, the Verizon Data Breach Investigations Report highlights the importance of vulnerability exploitation as a major attack vector in real-world incidents~\cite{verizon_dbir_2024}. This shows that unpatched weaknesses and exposed web services remain attractive targets for attackers.
+\indent In addition, the Verizon Data Breach Investigations Report highlights the importance of vulnerability exploitation as a major attack vector in real-world incidents~\cite{verizon_dbir_2024}. This shows that unpatched weaknesses and exposed web services remain attractive targets for attackers.
 
-These findings confirm the need for proactive and continuous web application security auditing. Automated solutions can help organizations identify vulnerabilities earlier, reduce remediation delays, and limit the potential impact of security incidents.
+\indent These findings confirm the need for proactive and continuous web application security auditing. Automated solutions can help organizations identify vulnerabilities earlier, reduce remediation delays, and limit the potential impact of security incidents.
 
 \subsection{Limitations of Traditional Vulnerability Scanners}
 
-Traditional vulnerability scanners are widely used to detect security flaws in web applications through automated analysis and predefined signatures. While these tools are effective for identifying known vulnerabilities, they present several limitations when applied to modern web environments.
+\indent Traditional vulnerability scanners are widely used to detect security flaws in web applications through automated analysis and predefined signatures. While these tools are effective for identifying known vulnerabilities, they present several limitations when applied to modern web environments.
 
-In particular, they often struggle to analyze dynamic applications, especially those based on client-side rendering and asynchronous communication. As a result, important attack surfaces may remain unexplored. Additionally, these tools may generate a high number of false positives and redundant findings, which complicates the analysis process and reduces their overall efficiency.
+\indent In particular, they often struggle to analyze dynamic applications, especially those based on client-side rendering and asynchronous communication. As a result, important attack surfaces may remain unexplored. Additionally, these tools may generate a high number of false positives and redundant findings, which complicates the analysis process and reduces their overall efficiency.
 
-These limitations highlight the need for more advanced and intelligent approaches to web application security auditing.
+\indent These limitations highlight the need for more advanced and intelligent approaches to web application security auditing.
 
 \section{Study of Existing Solutions}
 
-Several tools have been developed to identify vulnerabilities in web applications and assist security professionals in detecting potential threats. These tools provide different approaches to vulnerability scanning, ranging from simple automated checks to advanced interactive analysis. Among the most widely used solutions are Nikto, OWASP ZAP, and Burp Suite.
+\indent Several tools have been developed to identify vulnerabilities in web applications and assist security professionals in detecting potential threats. These tools provide different approaches to vulnerability scanning, ranging from simple automated checks to advanced interactive analysis. Among the most widely used solutions are Nikto, OWASP ZAP, and Burp Suite.
 
 \subsection{Nikto}
 
-Nikto is an open-source web server scanner designed to detect known vulnerabilities, outdated software, and misconfigurations in web servers~\cite{nikto}. It performs comprehensive checks against a large database of known issues and is commonly used for quick security assessments.
+\indent Nikto is an open-source web server scanner designed to detect known vulnerabilities, outdated software, and misconfigurations in web servers~\cite{nikto}. It performs comprehensive checks against a large database of known issues and is commonly used for quick security assessments.
 
-However, Nikto is limited to server-side analysis and does not effectively handle modern dynamic web applications, which reduces its applicability in complex environments.
+\indent However, Nikto is limited to server-side analysis and does not effectively handle modern dynamic web applications, which reduces its applicability in complex environments.
 
 \vspace{0.4cm}
 
@@ -144,9 +144,9 @@ However, Nikto is limited to server-side analysis and does not effectively handl
 
 \subsection{OWASP ZAP}
 
-OWASP ZAP is a widely used open-source security testing tool that provides automated scanning as well as manual testing capabilities~\cite{zap}. It is capable of detecting a variety of vulnerabilities such as injection flaws and security misconfigurations.
+\indent OWASP ZAP is a widely used open-source security testing tool that provides automated scanning as well as manual testing capabilities~\cite{zap}. It is capable of detecting a variety of vulnerabilities such as injection flaws and security misconfigurations.
 
-Despite its flexibility, ZAP may require proper configuration and user expertise to achieve optimal results, and it can produce a significant number of false positives in complex applications.
+\indent Despite its flexibility, ZAP may require proper configuration and user expertise to achieve optimal results, and it can produce a significant number of false positives in complex applications.
 
 \vspace{0.4cm}
 
@@ -163,9 +163,9 @@ Despite its flexibility, ZAP may require proper configuration and user expertise
 
 \subsection{Burp Suite}
 
-Burp Suite is a professional web security testing platform offering a comprehensive set of tools for vulnerability detection and exploitation~\cite{burp}. It allows detailed analysis of HTTP requests and responses and supports advanced manual testing techniques.
+\indent Burp Suite is a professional web security testing platform offering a comprehensive set of tools for vulnerability detection and exploitation~\cite{burp}. It allows detailed analysis of HTTP requests and responses and supports advanced manual testing techniques.
 
-While powerful, Burp Suite is more complex to use and often requires significant manual intervention, which can make the testing process time-consuming.
+\indent While powerful, Burp Suite is more complex to use and often requires significant manual intervention, which can make the testing process time-consuming.
 
 \vspace{0.4cm}
 
@@ -182,17 +182,17 @@ While powerful, Burp Suite is more complex to use and often requires significant
 
 \subsection{AI-Driven Security Testing Solutions}
 
-Recent security testing platforms have started integrating artificial intelligence and advanced automation in order to improve vulnerability detection, prioritization, and remediation guidance. Examples include solutions such as StackHawk, Detectify, and Snyk~\cite{stackhawk,detectify,snyk}.
+\indent Recent security testing platforms have started integrating artificial intelligence and advanced automation in order to improve vulnerability detection, prioritization, and remediation guidance. Examples include solutions such as StackHawk, Detectify, and Snyk~\cite{stackhawk,detectify,snyk}.
 
-StackHawk focuses on modern Dynamic Application Security Testing and integration into CI/CD pipelines, allowing development teams to detect vulnerabilities earlier in the software lifecycle. Detectify provides attack surface monitoring and application scanning capabilities, helping organizations continuously discover and assess exposed assets. Snyk focuses on identifying vulnerabilities in code, dependencies, containers, and infrastructure-as-code.
+\indent StackHawk focuses on modern Dynamic Application Security Testing and integration into CI/CD pipelines, allowing development teams to detect vulnerabilities earlier in the software lifecycle. Detectify provides attack surface monitoring and application scanning capabilities, helping organizations continuously discover and assess exposed assets. Snyk focuses on identifying vulnerabilities in code, dependencies, containers, and infrastructure-as-code.
 
-Although these solutions introduce valuable automation and intelligence, they do not fully address the specific objective of this project: building a local, customizable, multi-tool orchestration platform capable of combining dynamic crawling, result deduplication, AI-based interpretation, and professional reporting within a unified workflow.
+\indent Although these solutions introduce valuable automation and intelligence, they do not fully address the specific objective of this project: building a local, customizable, multi-tool orchestration platform capable of combining dynamic crawling, result deduplication, AI-based interpretation, and professional reporting within a unified workflow.
 
 \subsection{Comparative Analysis}
 
-To better evaluate the strengths and limitations of the studied tools, a comparative analysis is presented below. Although Nikto, OWASP ZAP, and Burp Suite are widely used in web application security testing, each of them addresses only part of the overall auditing process.
+\indent To better evaluate the strengths and limitations of the studied tools, a comparative analysis is presented below. Although Nikto, OWASP ZAP, and Burp Suite are widely used in web application security testing, each of them addresses only part of the overall auditing process.
 
-Nikto is well suited for rapid server-side checks, OWASP ZAP provides a balanced approach between automation and usability, and Burp Suite offers advanced manual testing capabilities. However, none of these tools fully combines intelligent automation, deep dynamic exploration, and effective reduction of noisy findings.
+\indent Nikto is well suited for rapid server-side checks, OWASP ZAP provides a balanced approach between automation and usability, and Burp Suite offers advanced manual testing capabilities. However, none of these tools fully combines intelligent automation, deep dynamic exploration, and effective reduction of noisy findings.
 
 \vspace{0.5cm}
 
@@ -230,13 +230,13 @@ Nikto is well suited for rapid server-side checks, OWASP ZAP provides a balanced
     \end{tabularx}
 \end{table}
 
-This comparison shows that existing tools provide useful but incomplete capabilities. Their limitations in terms of automation, adaptability, dynamic analysis, and contextual interpretation justify the need for a more integrated and intelligent solution such as \textbf{CyberScope}.
+\indent This comparison shows that existing tools provide useful but incomplete capabilities. Their limitations in terms of automation, adaptability, dynamic analysis, and contextual interpretation justify the need for a more integrated and intelligent solution such as \textbf{CyberScope}.
 
 \section{Critique of Existing Solutions}
 
-Although existing tools such as Nikto, OWASP ZAP, and Burp Suite provide valuable support for vulnerability detection, they still present several limitations when applied to modern web applications.
+\indent Although existing tools such as Nikto, OWASP ZAP, and Burp Suite provide valuable support for vulnerability detection, they still present several limitations when applied to modern web applications.
 
-These limitations are mainly related to the lack of support for dynamic applications, the generation of false positives, and the need for manual intervention. In addition, the absence of intelligent correlation between detected vulnerabilities reduces the clarity and efficiency of the analysis process.
+\indent These limitations are mainly related to the lack of support for dynamic applications, the generation of false positives, and the need for manual intervention. In addition, the absence of intelligent correlation between detected vulnerabilities reduces the clarity and efficiency of the analysis process.
 
 \vspace{0.5cm}
 
@@ -266,7 +266,7 @@ These limitations are mainly related to the lack of support for dynamic applicat
     \end{tabularx}
 \end{table}
 
-These limitations highlight the need for a more advanced solution capable of combining automation, accuracy, and adaptability.
+\indent These limitations highlight the need for a more advanced solution capable of combining automation, accuracy, and adaptability.
 
 
 
@@ -276,13 +276,13 @@ These limitations highlight the need for a more advanced solution capable of com
 
 
 
-To overcome the limitations identified in existing solutions, this project proposes \textbf{CyberScope}, an intelligent web application security auditing system.
+\indent To overcome the limitations identified in existing solutions, this project proposes \textbf{CyberScope}, an intelligent web application security auditing system.
 
-CyberScope is based on a unified architecture that integrates multiple security tools into a single automated pipeline. It introduces a browser-based crawling mechanism capable of exploring modern dynamic applications and interacting with client-side components.
+\indent CyberScope is based on a unified architecture that integrates multiple security tools into a single automated pipeline. It introduces a browser-based crawling mechanism capable of exploring modern dynamic applications and interacting with client-side components.
 
-In addition, the system incorporates an intelligent analysis layer responsible for normalizing, deduplicating, and prioritizing vulnerabilities. This significantly reduces noise and improves the relevance of the results.
+\indent In addition, the system incorporates an intelligent analysis layer responsible for normalizing, deduplicating, and prioritizing vulnerabilities. This significantly reduces noise and improves the relevance of the results.
 
-By combining automation, dynamic exploration, and intelligent processing, CyberScope aims to provide a more efficient and scalable approach to web application security auditing.
+\indent By combining automation, dynamic exploration, and intelligent processing, CyberScope aims to provide a more efficient and scalable approach to web application security auditing.
 
 \noindent Figure~\ref{fig:cyberscope-logo} presents the CyberScope system logo .
 
@@ -296,11 +296,11 @@ By combining automation, dynamic exploration, and intelligent processing, CyberS
 
 \subsection{Vision and Objectives}
 
-The vision of \textbf{CyberScope} is to provide an enterprise-oriented web application security auditing platform that helps security analysts detect, understand, and prioritize vulnerabilities more efficiently. To realize this vision, the platform automates the coordinated execution of multiple open-source security tools within a unified workflow, improves coverage of modern dynamic applications through browser-driven exploration, and reduces duplicated or noisy findings via normalization and deduplication. An AI-assisted analysis layer produces clearer vulnerability interpretations and risk prioritization, and results are delivered through a professional dashboard with automated, structured audit reports for stakeholders.
+\indent The vision of \textbf{CyberScope} is to provide an enterprise-oriented web application security auditing platform that helps security analysts detect, understand, and prioritize vulnerabilities more efficiently. To realize this vision, the platform automates the coordinated execution of multiple open-source security tools within a unified workflow, improves coverage of modern dynamic applications through browser-driven exploration, and reduces duplicated or noisy findings via normalization and deduplication. An AI-assisted analysis layer produces clearer vulnerability interpretations and risk prioritization, and results are delivered through a professional dashboard with automated, structured audit reports for stakeholders.
 
 \subsection{Contributions and Added Value Compared to Existing Solutions}
 
-CyberScope does not aim to replace existing scanners. Instead, it acts as an intelligent orchestration and analysis layer that enhances their effectiveness by combining their outputs and presenting them in a more structured and actionable form.
+\indent CyberScope does not aim to replace existing scanners. Instead, it acts as an intelligent orchestration and analysis layer that enhances their effectiveness by combining their outputs and presenting them in a more structured and actionable form.
 
 \vspace{0.5cm}
 \noindent Table~\ref{tab:cyberscope-value} highlights the key contributions of CyberScope compared to existing solutions, demonstrating added value through integrated orchestration, comprehensive dynamic analysis, intelligent result normalization, and AI-assisted interpretation.
@@ -332,6 +332,6 @@ CyberScope does not aim to replace existing scanners. Instead, it acts as an int
 
 \section{Conclusion}
 
-This chapter introduced the general context of the project by highlighting the importance of web application security and the challenges posed by modern dynamic applications. It also presented a study of existing solutions and identified their main limitations.
+\indent This chapter introduced the general context of the project by highlighting the importance of web application security and the challenges posed by modern dynamic applications. It also presented a study of existing solutions and identified their main limitations.
 
-Based on this analysis, the need for a more advanced and intelligent approach was established, leading to the proposal of \textbf{CyberScope}. The next chapter will focus on the analysis of the system requirements and the initialization of the Scrum process.
+\indent Based on this analysis, the need for a more advanced and intelligent approach was established, leading to the proposal of \textbf{CyberScope}. The next chapter will focus on the analysis of the system requirements and the initialization of the Scrum process.
