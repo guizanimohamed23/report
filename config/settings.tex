@@ -26,7 +26,7 @@
 % RULE: Table captions should be placed ABOVE the table
 % RULE: Figure captions should be placed BELOW the figure
 \captionsetup{
-    font=small,
+    font=normalsize,
     labelfont=bf,
     justification=centering
 }
@@ -122,6 +122,14 @@
 \fancyfoot[C]{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
+% Ensure pages using the default "plain" style (e.g., first TOC page)
+% keep the same bottom rule and page number formatting.
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyfoot[C]{\thepage}
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0.4pt}
+}
 
 % -------------------- CHAPTER MARK --------------------
 \renewcommand{\chaptermark}[1]{\markboth{Chapter \thechapter.\ #1}{}}
@@ -136,4 +144,7 @@
 
 \titlespacing*{\chapter}{0pt}{-20pt}{10pt}
 \titlespacing*{\section}{0pt}{8pt}{4pt}
-\titlespacing*{\subsection}{0pt}{6pt}{3pt}
+% Indent subsection headings (chapter.section.subsection, e.g., 1.4.2)
+\titlespacing*{\subsection}{1.0cm}{6pt}{3pt}
+% Indent subsubsection headings to visually group them under their parent sections
+\titlespacing*{\subsubsection}{1.0cm}{6pt}{3pt}

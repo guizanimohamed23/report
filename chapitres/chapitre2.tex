@@ -135,7 +135,7 @@ A traditional sequential development approach would make it difficult to validat
 \indent The \textbf{Guest User} is a secondary actor who interacts with the platform without establishing a persistent account. This actor can access the system through a temporary guest session to evaluate the platform's capabilities and explore basic features, enabling quick evaluation without registration overhead.
 
 \indent The \textbf{System} acts as the backend orchestrator and automated processor. This actor performs critical operations including tool integration and resolution, session management, scan execution and pipeline orchestration, output normalization and enrichment, vulnerability matching, and AI-driven attack graph generation. The System ensures reliable, scalable, and secure operation of all automated processes.
-
+\break
 \section{System Overview}
 
 \indent\justify CyberScope is an intelligent web application security auditing platform designed to automate vulnerability detection and analysis. It integrates multiple security tools into a unified pipeline and provides advanced features such as dynamic crawling, result aggregation, and AI-driven interpretation.
@@ -244,7 +244,7 @@ A traditional sequential development approach would make it difficult to validat
 
 
 \clearpage
-\subsection{Global Class Diagram}
+\section{Global Class Diagram}
 
 
 \vspace{0.3cm}
@@ -281,7 +281,6 @@ A traditional sequential development approach would make it difficult to validat
     \vspace{0.2cm}
     \begin{minipage}{0.9\textwidth}
         \centering
-        \footnotesize Lightweight, extensible editor used for coding, debugging and workspace management.
     \end{minipage}
 \end{figure}
 \noindent Figure~\ref{fig:git-logo} represents Git, the distributed version control system used for managing source code, tracking development history, and coordinating collaborative contributions throughout the project lifecycle.
@@ -295,7 +294,6 @@ A traditional sequential development approach would make it difficult to validat
     \vspace{0.2cm}
     \begin{minipage}{0.9\textwidth}
         \centering
-        \footnotesize Source control system used to track changes and manage project history.
     \end{minipage}
 \end{figure}
 
@@ -310,7 +308,6 @@ A traditional sequential development approach would make it difficult to validat
     \vspace{0.2cm}
     \begin{minipage}{0.9\textwidth}
         \centering
-        \footnotesize Browser used for manual testing, dynamic debugging and DOM/network inspection.
     \end{minipage}
 \end{figure}
 
@@ -326,7 +323,6 @@ A traditional sequential development approach would make it difficult to validat
     \vspace{0.2cm}
     \begin{minipage}{0.9\textwidth}
         \centering
-        \footnotesize Diagramming tool used to design system architecture and UML diagrams.
     \end{minipage}
 \end{figure}
 
@@ -341,7 +337,6 @@ A traditional sequential development approach would make it difficult to validat
     \vspace{0.2cm}
     \begin{minipage}{0.9\textwidth}
         \centering
-        \footnotesize Online LaTeX editor used for collaborative editing and compiling documentation.
     \end{minipage}
 \end{figure}
 
@@ -351,8 +346,7 @@ A traditional sequential development approach would make it difficult to validat
 \indent The software stack is organized by layer; the following items present the main technologies with a short description for each.
 
 \vspace{0.3cm}
-\noindent
-\textbf{Backend}
+\noindent\textbullet\ \textbf{Backend}
 
 \vspace{0.2cm}
 
@@ -369,7 +363,6 @@ A traditional sequential development approach would make it difficult to validat
     \vspace{0.2cm}
     \begin{minipage}{0.9\textwidth}
         \centering
-        \footnotesize JavaScript runtime used as the backend execution environment.
     \end{minipage}
 \end{figure}
 
@@ -387,7 +380,6 @@ A traditional sequential development approach would make it difficult to validat
     \vspace{0.2cm}
     \begin{minipage}{0.9\textwidth}
         \centering
-        \footnotesize Minimal web framework used to build the RESTful API and routing logic.
     \end{minipage}
 \end{figure}
 
@@ -404,7 +396,6 @@ A traditional sequential development approach would make it difficult to validat
     \vspace{0.2cm}
     \begin{minipage}{0.9\textwidth}
         \centering
-        \footnotesize ORM used to manage database schema and interact with PostgreSQL.
     \end{minipage}
 \end{figure}
 
@@ -422,13 +413,12 @@ A traditional sequential development approach would make it difficult to validat
     \vspace{0.2cm}
     \begin{minipage}{0.9\textwidth}
         \centering
-        \footnotesize Relational database used to persist scans, users and results.
     \end{minipage}
 \end{figure}
 
 \vspace{0.4cm}
-\noindent
-\textbf{Frontend}
+\noindent\textbullet\ \textbf{Frontend}
+\vspace{0.15cm}
 \noindent Figure~\ref{fig:react-logo} represents React, the JavaScript library used to build the interactive CyberScope frontend dashboard with reusable components, state management, and dynamic user interfaces.
 
 \vspace{0.2cm}
@@ -440,7 +430,6 @@ A traditional sequential development approach would make it difficult to validat
     \vspace{0.2cm}
     \begin{minipage}{0.9\textwidth}
         \centering
-        \footnotesize Library used to build the interactive dashboard and UI components.
     \end{minipage}
 \end{figure}
 
@@ -459,7 +448,6 @@ A traditional sequential development approach would make it difficult to validat
     \vspace{0.2cm}
     \begin{minipage}{0.9\textwidth}
         \centering
-        \footnotesize Development server and build tool providing fast HMR.
     \end{minipage}
 \end{figure}
 
@@ -477,29 +465,11 @@ A traditional sequential development approach would make it difficult to validat
     \vspace{0.2cm}
     \begin{minipage}{0.9\textwidth}
         \centering
-        \footnotesize Typed superset of JavaScript used to improve code quality and catch errors early.
     \end{minipage}
 \end{figure}
 
 \vspace{0.4cm}
-\noindent
-\textbf{Scanning \& AI Tools} 
-\hspace{10cm}
-\break
-\noindent Figure~\ref{fig:python-logo} shows Python, the programming language used to develop the scanning orchestration engine, tool integration scripts, and auxiliary processing utilities in CyberScope.
-
-\vspace{0.2cm}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=2.2cm]{uploads/logos/python.png}
-    \caption{Python}
-    \label{fig:python-logo}
-    \vspace{0.2cm}
-    \begin{minipage}{0.9\textwidth}
-        \centering
-        \footnotesize Used for the scanning engine and glue code to integrate external tools.
-    \end{minipage}
-\end{figure}
+\noindent\textbullet\ \textbf{Scanning \& AI Tools}
 
 \noindent Figure~\ref{fig:ollama-logo} shows Ollama, the local AI engine used to assist in analysis and prompt generation within CyberScope.
 
@@ -512,7 +482,6 @@ A traditional sequential development approach would make it difficult to validat
     \vspace{0.2cm}
     \begin{minipage}{0.9\textwidth}
         \centering
-        \footnotesize Local AI engine used to assist in analysis and prompt generation.
     \end{minipage}
 \end{figure}
 \noindent Figure~\ref{fig:hexstrike-logo} shows HexStrike AI, the orchestration layer for automated execution of multiple security tools in CyberScope.
@@ -526,7 +495,6 @@ A traditional sequential development approach would make it difficult to validat
     \vspace{0.2cm}
     \begin{minipage}{0.9\textwidth}
         \centering
-        \footnotesize Orchestration layer for automated execution of multiple security tools.
     \end{minipage}
 \end{figure}
 
