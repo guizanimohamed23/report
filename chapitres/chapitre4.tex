@@ -1,16 +1,18 @@
 ﻿\section{Introduction}
 
-\indent\justify This sprint focuses on the scanning pipeline and on the vulnerability processing features of the HexStrike platform. The goal of this iteration is to implement reliable scan orchestration, normalize heterogeneous tool outputs into a unified schema, match findings against the vulnerability catalog, and persist results for later analysis and reporting.
+\justifying
+This sprint focuses on the scanning pipeline and on the vulnerability processing features of the HexStrike platform. The goal of this iteration is to implement reliable scan orchestration, normalize heterogeneous tool outputs into a unified schema, match findings against the vulnerability catalog, and persist results for later analysis and reporting.
 
-\indent In practice, this sprint covers scan submission, queueing and scheduling, worker orchestration, normalization, vulnerability matching, result persistence, and the user interfaces to submit and view scans.
+In practice, this sprint covers scan submission, queueing and scheduling, worker orchestration, normalization, vulnerability matching, result persistence, and the user interfaces to submit and view scans.
 
 \subsection{Sprint Purpose}
 
-\indent\justify The purpose of this sprint is to build a reliable and scalable scanning infrastructure that transforms raw target submissions into actionable vulnerability intelligence. Concretely, the sprint delivers a robust queue and worker system for tool orchestration, a normalization pipeline that unifies outputs across heterogeneous security tools, a matching engine that correlates findings with known vulnerabilities, and a user interface for scan management and result analysis. This foundation enables efficient vulnerability detection and establishes the data pipeline required for advanced attack graph generation in subsequent sprints.
+\justifying
+The purpose of this sprint is to build a reliable and scalable scanning infrastructure that transforms raw target submissions into actionable vulnerability intelligence. Concretely, the sprint delivers a robust queue and worker system for tool orchestration, a normalization pipeline that unifies outputs across heterogeneous security tools, a matching engine that correlates findings with known vulnerabilities, and a user interface for scan management and result analysis. This foundation enables efficient vulnerability detection and establishes the data pipeline required for advanced attack graph generation in subsequent sprints.
 
 \section{Sprint Backlog}
 
-\indent The backlog for this sprint contains the following user stories:
+The backlog for this sprint contains the following user stories:
 
 \begin{table}[H]
     \centering
@@ -39,7 +41,8 @@
 
 \section{Requirements Analysis}
 
-\indent\justify The requirements analysis for Sprint 2 covers the scanning pipeline, tool orchestration, and result processing mechanisms.
+\justifying
+The requirements analysis for Sprint 2 covers the scanning pipeline, tool orchestration, and result processing mechanisms.
 
 \subsection{Use Case Diagram}
 
@@ -56,7 +59,7 @@
 
 \subsection{Use Case Description}
 
-\indent The main use cases of this sprint are summarized in the following tables.
+The main use cases of this sprint are summarized in the following tables.
 
 \begin{table}[H]
     \centering
@@ -68,13 +71,13 @@
         \hline
         \textbf{Name} & Submit Scan Target \\\hline
         \textbf{ID} & UC-S2-01 \\\hline
-        \textbf{Actors} & User (Authenticated) \\\hline
-        \textbf{Description} & This use case enables an authenticated user to initiate a security scan by providing a target URL and optional parameters. The system validates the input, creates a Scan job record, enqueues it for processing, and returns a unique job identifier to the user for tracking purposes. \\\hline
-        \textbf{Precondition} & The user is authenticated with a valid session token. The scan submission endpoint is operational and the queue service is accessible. Network connectivity to target validation services is available. \\\hline
-        \textbf{Nominal Scenario} & 1. User navigates to the Scanner page. 2. User enters a target URL and optionally selects scan parameters (tools, depth, timeout). 3. User initiates the scan submission. 4. System validates the URL format and accessibility. 5. System checks target against blacklist/whitelist policies. 6. System creates a Scan record in the database with metadata. 7. System enqueues the job to the scan queue. 8. System generates a unique job identifier. 9. System returns the job ID and redirect user to scan history or progress page. \\\hline
-        \textbf{Exception Scenario} & 1. Invalid URL format: System displays validation error and prompts for correction. 2. Target unreachable: System validates after submission and notifies user of failure. 3. Target blacklisted: System rejects the submission with a policy violation message. 4. Queue service unavailable: System logs the error and displays a retry message. 5. Database error: System logs error and displays a generic failure message. 6. Rate limit exceeded: System informs user that too many scans are queued and suggests waiting. \\\hline
-        \textbf{Postcondition} & A Scan job is created in the database with status ``pending'', the job is enqueued for worker processing, and the user receives a job identifier for tracking. \\\hline
-        \textbf{Logical Constraints} & URLs must be validated for format and accessibility. Blacklist/whitelist policies must be enforced. Rate limiting must be applied per user. Job identifiers must be globally unique. Queue must maintain FIFO ordering. \\\hline
+        \textbf{Actors} & Authenticated User \\\hline
+        \textbf{Description} & An authenticated user submits a target URL (and optional parameters); the system validates the input, creates a scan job, enqueues it, and returns a job identifier for tracking. \\\hline
+        \textbf{Precondition} & User is authenticated and the submission endpoint and queue service are available. \\\hline
+        \textbf{Nominal Scenario} & 1. User enters target URL and parameters. 2. System validates the target and policies. 3. System creates a scan record, enqueues the job, and returns a unique job ID. \\\hline
+        \textbf{Exception Scenario} & 1. Invalid target or policy violation: show validation/policy error. 2. Queue or DB error: log and show retry/service-unavailable message. 3. Rate limit exceeded: inform user to wait. \\\hline
+        \textbf{Postcondition} & Scan job exists with status pending and the user has a job identifier to monitor progress. \\\hline
+        \textbf{Logical Constraints} & Enforce URL validation, blacklist/whitelist policies, rate-limiting, and unique job identifiers. \\\hline
     \end{tabularx}
 \end{table}
 
@@ -92,13 +95,13 @@
         \hline
         \textbf{Name} & View Scan History \\\hline
         \textbf{ID} & UC-S2-02 \\\hline
-        \textbf{Actors} & User (Authenticated) \\\hline
-        \textbf{Description} & This use case allows an authenticated user to retrieve and review a list of all scans they have submitted. The user can filter, sort, and drill down into individual scan records to inspect metadata, execution status, and aggregated results. \\\hline
-        \textbf{Precondition} & The user is authenticated with a valid session token. Scan history data exists for the user. The database is accessible. \\\hline
-        \textbf{Nominal Scenario} & 1. User navigates to the Scan History page. 2. System retrieves all scans associated with the authenticated user from the database. 3. System displays a table of scans with columns: scan date, target, status, vulnerability count, duration. 4. User optionally applies filters (date range, target, status). 5. User optionally sorts by column. 6. User clicks on a scan to view detailed results. 7. System retrieves scan metadata and results from the database. 8. System displays scan details page with vulnerability list. \\\hline
-        \textbf{Exception Scenario} & 1. No scan history exists: System displays a message indicating no scans have been run. 2. Database query timeout: System displays an error and suggests refreshing. 3. User lacks permission: System displays an access denied message. 4. Scan data corrupted: System logs error and displays a retry message. \\\hline
-        \textbf{Postcondition} & User can view a paginated list of their scans, filter and sort as needed, and navigate to individual scan details for further inspection. \\\hline
-        \textbf{Logical Constraints} & Users can only view their own scans. Historical scans must be retained with timestamps. Pagination must be implemented for large datasets. Scan status values must be consistent. \\\hline
+        \textbf{Actors} & Authenticated User \\\hline
+        \textbf{Description} & Authenticated users retrieve a paginated list of their scan jobs to review statuses and access individual results. \\\hline
+        \textbf{Precondition} & User is authenticated and scan history data exists. \\\hline
+        \textbf{Nominal Scenario} & 1. User opens Scan History. 2. System returns paginated scan records. 3. User filters/sorts and selects a scan to view details. \\\hline
+        \textbf{Exception Scenario} & 1. No scans: display empty-state message. 2. DB error: show retry/service-unavailable notice. 3. Permission issue: show access denied. \\\hline
+        \textbf{Postcondition} & User can browse, filter, and access details of their scans. \\\hline
+        \textbf{Logical Constraints} & Users may only access their own scans; implement pagination and consistent status values. \\\hline
     \end{tabularx}
 \end{table}
 
@@ -112,13 +115,13 @@
         \hline
         \textbf{Name} & View Scan Results \\\hline
         \textbf{ID} & UC-S2-03 \\\hline
-        \textbf{Actors} & User (Authenticated) \\\hline
-        \textbf{Description} & This use case enables an authenticated user to inspect detailed results from a completed scan, including metadata, discovered vulnerabilities, affected endpoints, and remediation guidance. The user can filter vulnerabilities by severity, search for specific issues, and drill down into details. \\\hline
-        \textbf{Precondition} & The user is authenticated. A completed scan exists and is associated with the user. Scan results have been normalized and persisted in the database. \\\hline
-        \textbf{Nominal Scenario} & 1. User selects a completed scan from history. 2. System retrieves scan metadata (target URL, scan date, duration, tool configuration). 3. System displays scan overview with vulnerability summary statistics. 4. System retrieves normalized vulnerability records from the database. 5. System displays a sortable, filterable list of vulnerabilities with: CVE/reference, severity level, affected endpoint/parameter, discovery method, remediation notes. 6. User clicks on a vulnerability to expand details. 7. System displays full vulnerability context, including affected paths, request/response examples, and detailed remediation steps. \\\hline
-        \textbf{Exception Scenario} & 1. Scan in progress: System displays a loading indicator or status message. 2. Scan failed: System displays an error message and retry options. 3. Results not yet persisted: System displays a message that results are being processed. 4. User lacks permission: System displays access denied message. 5. Database error: System logs error and displays a retry message. \\\hline
-        \textbf{Postcondition} & User views detailed scan results, can filter and search vulnerabilities, and can examine remediation guidance for each finding. Results are clearly organized by severity and endpoint. \\\hline
-        \textbf{Logical Constraints} & Vulnerability data must be normalized across all tools. Results must be sorted/filterable by severity, endpoint, CVE. Users can only view their own scan results. Remediation notes must be clear and actionable. \\\hline
+        \textbf{Actors} & Authenticated User \\\hline
+        \textbf{Description} & User inspects normalized results of a completed scan, with sortable and filterable vulnerability listings and detailed context for each finding. \\\hline
+        \textbf{Precondition} & User is authenticated and a completed, persisted scan exists. \\\hline
+        \textbf{Nominal Scenario} & 1. User opens a completed scan. 2. System displays overview and normalized vulnerability list. 3. User filters/sorts and opens vulnerability details. \\\hline
+        \textbf{Exception Scenario} & 1. Scan incomplete: show loading/status. 2. Scan failed or data missing: show error and retry. 3. Permission or DB errors: show access denied or service-unavailable notice. \\\hline
+        \textbf{Postcondition} & User can review vulnerabilities with contextual details and remediation guidance. \\\hline
+        \textbf{Logical Constraints} & Normalization across tools, read access limited to owners, and consistent severity/status values. \\\hline
     \end{tabularx}
 \end{table}
 
@@ -132,21 +135,21 @@
         \hline
         \textbf{Name} & Export Scan Report \\\hline
         \textbf{ID} & UC-S2-04 \\\hline
-        \textbf{Actors} & User (Authenticated) \\\hline
-        \textbf{Description} & This use case enables an authenticated user to export a completed scan report in multiple formats (PDF, CSV, JSON). The exported report includes comprehensive scan metadata, vulnerability summaries, detailed findings, affected endpoints, and remediation guidance. The user can download the file or arrange email delivery. \\\hline
-        \textbf{Precondition} & The user is authenticated. A completed scan exists and is owned by the user. Scan results are fully persisted in the database. \\\hline
-        \textbf{Nominal Scenario} & 1. User selects a completed scan from history. 2. User clicks ``Export Report'' button. 3. System displays format selection dialog (PDF, CSV, JSON). 4. User selects desired format. 5. System retrieves scan data, metadata, and all normalized vulnerabilities. 6. System generates formatted report: PDF includes styled tables and charts, CSV includes tabular vulnerability data, JSON includes full structured data. 7. System writes file to temporary storage or initiates download. 8. System triggers client-side download or displays email delivery option. 9. System logs the export operation for audit purposes. \\\hline
-        \textbf{Exception Scenario} & 1. Scan data incomplete: System displays a message that the report cannot be generated and suggests waiting. 2. Report generation timeout: System displays error and offers retry. 3. File system error: System logs error and displays a generic failure message. 4. User lacks permission: System displays access denied message. 5. Export service unavailable: System displays a retry message. \\\hline
-        \textbf{Postcondition} & An export file is generated in the selected format and made available to the user for download or email delivery. Export operation is logged for audit and compliance purposes. \\\hline
-        \textbf{Logical Constraints} & Multiple export formats must be supported. Exported reports must include all scan metadata and findings. File generation must complete within a timeout period. Export operations must be auditable and logged with timestamp and user ID. \\\hline
+        \textbf{Actors} & Authenticated User \\\hline
+        \textbf{Description} & User exports a completed scan in a chosen format (PDF/CSV/JSON). The report contains scan metadata and normalized findings and is prepared for download or delivery. \\\hline
+        \textbf{Precondition} & User is authenticated and a completed scan with persisted results exists. \\\hline
+        \textbf{Nominal Scenario} & 1. User selects scan and chooses export format. 2. System generates the report and provides a download or delivery option. 3. System logs the export action. \\\hline
+        \textbf{Exception Scenario} & 1. Incomplete scan data: show wait/message. 2. Generation timeout or storage error: show retry/service-unavailable. 3. Permission error: show access denied. \\\hline
+        \textbf{Postcondition} & Export file available to user; operation logged for audit. \\\hline
+        \textbf{Logical Constraints} & Support required formats, ensure generation within timeout, and log exports with user and timestamp. \\\hline
     \end{tabularx}
 \end{table}
 
 \section{Design}
 
-\indent \subsection{Class Diagram}
+\subsection{Class Diagram}
 
-\indent The principal components include the API, the queue, worker processes, the normalizer and matcher services, and the persistence layer. Figure~\ref{fig:sprint4-class-diagram} presents the class diagram showing the data models and service classes organized around the scanning pipeline architecture.
+The principal components include the API, the queue, worker processes, the normalizer and matcher services, and the persistence layer. Figure~\ref{fig:sprint4-class-diagram} presents the class diagram showing the data models and service classes organized around the scanning pipeline architecture.
 
 \begin{figure}[H]
     \centering
@@ -157,7 +160,7 @@
 
 \subsection{Scan Workflow}
 
-\indent The scan workflow describes the end-to-end processing of a submitted target: submission, queueing, worker execution of tools, normalization, matching, and persistence. Figure~\ref{fig:scan-workflow} provides an overview of this workflow, illustrating the sequence and components involved in transforming a target URL submission into normalized and matched vulnerability findings.
+The scan workflow describes the end-to-end processing of a submitted target: submission, queueing, worker execution of tools, normalization, matching, and persistence. Figure~\ref{fig:scan-workflow} provides an overview of this workflow, illustrating the sequence and components involved in transforming a target URL submission into normalized and matched vulnerability findings.
 
 % Inline scan workflow to avoid float page breaks
 \begin{center}
@@ -168,7 +171,7 @@
 
 \subsection{Sequence Diagram}
 
-\indent Key sequences include submission-to-persistence and normalization-to-matching. Figure~\ref{fig:sprint4-sequence-diagram} illustrates the critical interactions between client, API, queue, worker, normalizer, matcher, and database, showing how scan jobs progress through each processing stage.
+Key sequences include submission-to-persistence and normalization-to-matching. Figure~\ref{fig:sprint4-sequence-diagram} illustrates the critical interactions between client, API, queue, worker, normalizer, matcher, and database, showing how scan jobs progress through each processing stage.
 
 % Inline sequence diagram to keep it with the workflow and avoid large gaps
 \begin{center}
@@ -179,7 +182,7 @@
 
 \section{Implementation}
 
-\indent In this sprint, we present the interfaces developed for Sprint 2. The implementation includes the scanner submission interface, scan history with filtering options, and detailed scan results view. The following figures illustrate the application interfaces and enable users to submit scans, track their progress, and analyze discovered vulnerabilities:
+In this sprint, we present the interfaces developed for Sprint 2. The implementation includes the scanner submission interface, scan history with filtering options, and detailed scan results view. The following figures illustrate the application interfaces and enable users to submit scans, track their progress, and analyze discovered vulnerabilities:
 
 \begin{figure}[H]
     \centering
@@ -219,4 +222,4 @@
 
 \section{Conclusion}
 
-\indent This sprint builds the core scan processing pipeline and the infrastructure to normalize and match findings. With results persisted and accessible through the UI, future sprints can focus on reporting, enrichment, and advanced correlation features.
+This sprint builds the core scan processing pipeline and the infrastructure to normalize and match findings. With results persisted and accessible through the UI, future sprints can focus on reporting, enrichment, and advanced correlation features.

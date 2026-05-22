@@ -68,12 +68,12 @@
         \textbf{Name} & User Registration \\\hline
         \textbf{ID} & UC-S1-01 \\\hline
         \textbf{Actors} & User (Visitor) \\\hline
-        \textbf{Description} & This use case enables a new visitor to create a user account on the platform by providing personal information and credentials. The system validates the input data, applies security measures such as password hashing, stores the account in the database, and initiates an authenticated session. \\\hline
-        \textbf{Precondition} & The visitor is not currently authenticated and is accessing the registration form on the platform. \\\hline
-        \textbf{Nominal Scenario} & 1. Visitor navigates to the registration page. 2. Visitor enters full name, email address, and password. 3. System validates the input format (email uniqueness, password strength). 4. System hashes the password using bcrypt or similar. 5. System stores the user record in the database. 6. System generates a JWT token. 7. System establishes an authenticated session and redirects to the dashboard. \\\hline
-        \textbf{Exception Scenario} & 1. Email already registered: System displays error and prompts for a different email. 2. Weak password: System rejects and provides feedback on password requirements. 3. Invalid email format: System displays validation error. 4. Database error: System logs the error and returns a generic error message to the user. \\\hline
-        \textbf{Postcondition} & A new user account is created in the system, an authenticated session is established, and the visitor is now a registered User with access to protected pages. \\\hline
-        \textbf{Logical Constraints} & Password must meet security requirements (length, complexity). Email must be unique in the database. Session tokens must be cryptographically secure. \\\hline
+        \textbf{Description} & This use case allows a visitor to create an account by providing the required personal information and credentials. The system validates the input, stores the account securely, and creates an authenticated session. \\\hline
+        \textbf{Precondition} & The visitor is not authenticated and is on the registration page. \\\hline
+        \textbf{Nominal Scenario} & 1. Visitor opens the registration page. 2. Visitor enters name, email, and password. 3. System validates the input. 4. System hashes and stores the password. 5. System creates the account and issues a JWT token. 6. System redirects the user to the dashboard. \\\hline
+        \textbf{Exception Scenario} & 1. Email already exists: System shows an error. 2. Weak password: System asks for a stronger password. 3. Invalid email: System displays a validation message. 4. Database error: System returns a generic failure message. \\\hline
+        \textbf{Postcondition} & The account is created and the visitor becomes an authenticated user. \\\hline
+        \textbf{Logical Constraints} & Passwords must satisfy security rules. Emails must be unique. Session tokens must be secure. \\\hline
     \end{tabularx}
 \end{table}
 
@@ -87,13 +87,13 @@
         \hline
         \textbf{Name} & User Login \\\hline
         \textbf{ID} & UC-S1-02 \\\hline
-        \textbf{Actors} & User (Registered account holder) \\\hline
-        \textbf{Description} & This use case allows a registered user to authenticate and gain access to the platform. The user provides credentials, the system validates them against stored records, generates a signed JWT token, and establishes an authenticated session. \\\hline
-        \textbf{Precondition} & The user has a registered account in the system and is not currently authenticated. The login endpoint is available and functioning. \\\hline
-        \textbf{Nominal Scenario} & 1. User navigates to the login page. 2. User enters registered email and password. 3. System validates the format of provided credentials. 4. System retrieves the user record from the database. 5. System compares the provided password hash with the stored hash. 6. System generates a signed JWT token with user identity and expiration. 7. System stores the token on the client side (localStorage or HttpOnly cookie). 8. System redirects to the dashboard. \\\hline
-        \textbf{Exception Scenario} & 1. Email not found: System displays a generic authentication error message (for security). 2. Password incorrect: System displays authentication error and increments failed attempt counter. 3. Account locked: After N failed attempts, system temporarily locks the account and displays a lockout message. 4. Token generation error: System logs the error and displays a retry message. 5. Database unavailable: System displays a service unavailable message. \\\hline
-        \textbf{Postcondition} & User is authenticated, a valid JWT session token is active, and the user can access protected pages and features of the platform. \\\hline
-        \textbf{Logical Constraints} & Login attempts must be rate-limited to prevent brute-force attacks. JWT tokens must have an expiration time. Failed login attempts must be logged for security auditing. \\\hline
+        \textbf{Actors} & Registered User \\\hline
+        \textbf{Description} & Registered users authenticate with their credentials; the system validates them and establishes an authenticated session using a signed JWT. \\\hline
+        \textbf{Precondition} & User has an existing account and the login endpoint is available. \\\hline
+        \textbf{Nominal Scenario} & 1. User submits email and password. 2. System validates credentials and issues a signed JWT. 3. Client stores token and redirects to dashboard. \\\hline
+        \textbf{Exception Scenario} & 1. Invalid credentials: display authentication error. 2. Repeated failures: account lockout. 3. Service/database error: show retry or service-unavailable message. \\\hline
+        \textbf{Postcondition} & User is authenticated and can access protected features; session token is active. \\\hline
+        \textbf{Logical Constraints} & Rate-limiting, secure token storage, token expiration and revocation policies. \\\hline
     \end{tabularx}
 \end{table}
 
@@ -107,13 +107,13 @@
         \hline
         \textbf{Name} & Guest Session Initialization \\\hline
         \textbf{ID} & UC-S1-03 \\\hline
-        \textbf{Actors} & Guest User (Visitor) \\\hline
-        \textbf{Description} & This use case enables a visitor to access a limited version of the platform without creating a persistent account. The system generates a temporary session token with restricted permissions, allowing the guest to explore platform features with constraints on data persistence and history access. \\\hline
-        \textbf{Precondition} & The visitor is not registered, not authenticated, and is on the login or home page. The guest session service is available. \\\hline
-        \textbf{Nominal Scenario} & 1. Visitor clicks ``Guest Access'' or ``Try Platform'' button. 2. System generates a temporary guest token with limited permissions (read-only, no persistence). 3. System sets an expiration time (e.g., 24 hours) on the guest session. 4. System stores the guest token on the client side. 5. System establishes a guest session context. 6. System redirects to the dashboard with guest-specific UI limitations (e.g., disabled scan history, disabled exports). \\\hline
-        \textbf{Exception Scenario} & 1. Guest session limit reached: System informs the user that guest sessions are temporarily unavailable and suggests registration. 2. Token generation error: System logs the error and displays a retry message. 3. Session store unavailable: System displays a service unavailable message. \\\hline
-        \textbf{Postcondition} & A temporary guest session is established, a guest token is stored on the client, and the user can access limited platform features with a constrained interface. Guest scan history and persistent data storage are disabled. \\\hline
-        \textbf{Logical Constraints} & Guest sessions must have a defined expiration period. Guest tokens must have limited permissions (read-only access, no scan creation). Guest sessions must not persist data across sessions. Concurrent guest sessions may be rate-limited per IP address. \\\hline
+        \textbf{Actors} & Guest User \\\hline
+        \textbf{Description} & A visitor can start a temporary, limited session without registering. The system issues a short-lived guest token with restricted permissions. \\\hline
+        \textbf{Precondition} & Visitor is unauthenticated and the guest service is available. \\\hline
+        \textbf{Nominal Scenario} & 1. Visitor requests guest access. 2. System issues a temporary guest token with limited permissions and expiry. 3. Client stores token and enters a restricted session. \\\hline
+        \textbf{Exception Scenario} & 1. Guest quota reached: show availability message. 2. Token/store error: show retry or service-unavailable notice. \\\hline
+        \textbf{Postcondition} & Temporary guest session active with constrained features; no persistent data created. \\\hline
+        \textbf{Logical Constraints} & Enforce token expiry, limited permissions, and rate-limiting for guest access. \\\hline
     \end{tabularx}
 \end{table}
 

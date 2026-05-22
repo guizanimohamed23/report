@@ -1,22 +1,22 @@
 ﻿\section{Introduction}
 
-\indent\justify This chapter presents the analysis and specification of the \textbf{CyberScope} system. It introduces the adopted development methodology, identifies the main stakeholders, presents the development environment, and defines both functional and non-functional requirements. It also presents the use case diagram, the textual description of the main use cases, and the organization of the project through the product backlog and sprint planning.
+\justifying
+This chapter presents the analysis and specification of the \textbf{CyberScope} system. It introduces the adopted development methodology, identifies the main stakeholders, presents the development environment, and defines both functional and non-functional requirements. It also presents the use case diagram, the textual description of the main use cases, and the organization of the project through the product backlog and sprint planning.
 
 \section{Adopted Development Methodology}
 
-\indent\justify To ensure a flexible and progressive development process, the Scrum methodology was adopted for the realization of \textbf{CyberScope}. Scrum is an agile framework based on iterative development, incremental delivery, continuous feedback, and adaptation to evolving requirements.
+\justifying
+To ensure a flexible and progressive development process, the Scrum methodology was adopted for the realization of \textbf{CyberScope}. Scrum is an agile framework based on iterative development, incremental delivery, continuous feedback, and adaptation to evolving requirements.
 
+{\titlespacing*{\subsection}{1.0cm}{6pt}{3pt}
 \subsection{Justification of the Choice of Scrum}
+}
 
-\indent\justify The choice of Scrum is justified by the nature of the CyberScope project, which involves several heterogeneous components such as a frontend dashboard, a backend API, a Python-based scanning engine, external security tools, and AI-based analysis modules.
+\justifying
+The choice of Scrum is justified by the nature of the CyberScope project, which involves several heterogeneous components such as a frontend dashboard, a backend API, a Python-based scanning engine, external security tools, and AI-based analysis modules.
 
-\indent A traditional sequential development approach would make it difficult to validate each component progressively. Scrum allows the project to be divided into smaller increments, making it possible to test, validate, and improve each part of the system throughout development.
+A traditional sequential development approach would make it difficult to validate each component progressively. Scrum allows the project to be divided into smaller increments, making it possible to test, validate, and improve each part of the system throughout development.
 
-\subsection{Adaptation of Scrum to an Individual Project}
-
-\indent\justify Although Scrum is typically applied in team-based environments, it was adapted to the context of an individual end-of-studies project. The student assumed multiple roles simultaneously, including development, planning, and coordination.
-
-\indent The academic and professional supervisors contributed as stakeholders by validating the objectives, monitoring progress, and providing feedback. This adaptation preserved the benefits of Scrum while accommodating the constraints of a single-developer project.
 \noindent Figure~\ref{fig:scrum-cyberscope} illustrates the Scrum development process adapted to the CyberScope project, showing the iterative sprint cycles, ceremonies, and feedback loops that guided the development of all three project sprints.
 
 \begin{figure}[H]
@@ -54,11 +54,11 @@
 
 \subsection{Backlog estimation methods}
 
-\indent\justify For faster, higher-level estimates during roadmap planning we applied the T-shirt sizing method (XS, S, M, L, XL). This method groups user stories by relative size classes rather than numeric points, allowing quick comparison of complexity and effort across items. The T-shirt sizing scale we used is illustrated in Figure~\ref{fig:tshirt-sizing}.
+\indent\justify To support roadmap planning, user stories were estimated using the T-shirt sizing approach, with categories ranging from XS to XL. Instead of assigning numerical points, this method focuses on relative effort, which makes it easier to compare complexity across items at a glance. The sizing scale adopted for this project is shown in Figure~\ref{fig:tshirt-sizing}.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{uploads/images/tshirt.jpg}
+    \includegraphics[width=0.6\textwidth]{uploads/images/tshirt (1).jpg}
     \caption{T-shirt sizing method (XS--XL) used for coarse estimates}
     \label{fig:tshirt-sizing}
 \end{figure}
