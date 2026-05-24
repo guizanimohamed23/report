@@ -1,3 +1,10 @@
 \renewcommand{\bibname}{References}
+% Tweak spacing for the References page to increase vertical gaps
+\begingroup
+\setlength{\parskip}{6pt}
+\renewcommand{\baselinestretch}{1.10}\selectfont
 \bibliographystyle{ieeetr}
+% Force inclusion of project-related references that are not \cite'd in text
+\nocite{nmap,ollama,reactflow,jwt,chromium,hexstrike,sqlmap,nuclei,nikto,owasp,zap,burp,stackhawk,detectify,snyk,ibm_breach_2024,verizon_dbir_2024,prisma,vite,react,typescript}
 \bibliography{references}
+\endgroup

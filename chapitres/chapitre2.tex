@@ -15,9 +15,7 @@ To ensure a flexible and progressive development process, the Scrum methodology 
 \justifying
 The choice of Scrum is justified by the nature of the CyberScope project, which involves several heterogeneous components such as a frontend dashboard, a backend API, a Python-based scanning engine, external security tools, and AI-based analysis modules.
 
-A traditional sequential development approach would make it difficult to validate each component progressively. Scrum allows the project to be divided into smaller increments, making it possible to test, validate, and improve each part of the system throughout development.
-
-\noindent Figure~\ref{fig:scrum-cyberscope} illustrates the Scrum development process adapted to the CyberScope project, showing the iterative sprint cycles, ceremonies, and feedback loops that guided the development of all three project sprints.
+A traditional sequential development approach would make it difficult to validate each component progressively. Scrum allows the project to be divided into smaller increments, making it possible to test, validate, and improve each part of the system throughout development; this iterative approach is illustrated in Figure~\ref{fig:scrum-cyberscope}, which shows the sprint cycles, ceremonies, and feedback loops that guided the three project sprints.
 
 \begin{figure}[H]
     \centering
@@ -30,9 +28,7 @@ A traditional sequential development approach would make it difficult to validat
 
 \vspace{0.4cm}
 
-\indent CyberScope is organized into three iterative sprints, each with distinct objectives and deliverables.     Each sprint delivers a cohesive set of user stories that align with its main objective. 
- \indent Table~\ref{tab:sprint-organization} presents the sprint timeline and main goals, showing how the project progresses from backend infrastructure through tool integration to advanced attack graph generation over a 12-week development cycle.
-\indent Table~\ref{tab:product-backlog} consolidates all seventeen user stories across the three sprints, with each story categorized by type, associated priority level, and sprint assignment. This backlog provides a comprehensive view of the system's functional requirements and guides development efforts from inception through delivery.
+\indent CyberScope is organized into three iterative sprints, each with distinct objectives and deliverables; each sprint delivers a cohesive set of user stories aligned with its main objective. Table~\ref{tab:sprint-organization} presents the sprint timeline and main goals, showing progress from backend infrastructure through tool integration to attack graph generation over a 12-week development cycle.
 \begin{table}[H]
     \centering
     \caption{Sprint Organization of CyberScope}
@@ -54,7 +50,7 @@ A traditional sequential development approach would make it difficult to validat
 
 \subsection{Backlog estimation methods}
 
-\indent\justify To support roadmap planning, user stories were estimated using the T-shirt sizing approach, with categories ranging from XS to XL. Instead of assigning numerical points, this method focuses on relative effort, which makes it easier to compare complexity across items at a glance. The sizing scale adopted for this project is shown in Figure~\ref{fig:tshirt-sizing}.
+User stories were estimated using a T‑shirt sizing approach (XS–XL) that favors relative effort over numeric points. This simplifies comparisons of complexity across backlog items; the adopted sizing scale is shown in Figure~\ref{fig:tshirt-sizing}.
 
 \begin{figure}[H]
     \centering
@@ -65,7 +61,7 @@ A traditional sequential development approach would make it difficult to validat
  
 \subsection{Product Backlog}
 
-\indent\justify The product backlog consolidates all identified user stories, features, and technical tasks prioritized for implementation. Table~\ref{tab:product-backlog} lists the backlog items with their assigned sprint, category, and priority, providing a roadmap for development and release planning.
+\indent\justifying The product backlog consolidates all identified user stories, features, and technical tasks prioritized for implementation. Table~\ref{tab:product-backlog} lists the backlog items with their assigned sprint, category, and priority, providing a roadmap for development and release planning.
 
 
     {\small
@@ -134,11 +130,11 @@ A traditional sequential development approach would make it difficult to validat
 
 \indent The \textbf{Guest User} is a secondary actor who interacts with the platform without establishing a persistent account. This actor can access the system through a temporary guest session to evaluate the platform's capabilities and explore basic features, enabling quick evaluation without registration overhead.
 
-\indent The \textbf{System} acts as the backend orchestrator and automated processor. This actor performs critical operations including tool integration and resolution, session management, scan execution and pipeline orchestration, output normalization and enrichment, vulnerability matching, and AI-driven attack graph generation. The System ensures reliable, scalable, and secure operation of all automated processes.
+\indent The \textbf{System} acts as the backend orchestrator and automated processor.This actor performs critical operations including tool integration and resolution, session management, scan execution and pipeline orchestration, output normalization and enrichment, vulnerability matching, and AI-driven attack graph generation.The System ensures reliable, scalable, and secure operation of all automated processes.
 \break
 \section{System Overview}
 
-\indent\justify CyberScope is an intelligent web application security auditing platform designed to automate vulnerability detection and analysis. It integrates multiple security tools into a unified pipeline and provides advanced features such as dynamic crawling, result aggregation, and AI-driven interpretation.
+\indent\justifying CyberScope is an intelligent web application security auditing platform designed to automate vulnerability detection and analysis. It integrates multiple security tools into a unified pipeline and provides advanced features such as dynamic crawling, result aggregation, and AI-driven interpretation.
 
 \indent The system is composed of three main components:
 
@@ -150,7 +146,7 @@ A traditional sequential development approach would make it difficult to validat
 
 \section{Functional Requirements}
 
-\indent\justify The functional requirements define the core services provided by CyberScope. These functionalities describe how the system interacts with users and how it performs automated security analysis, from scan initiation to result reporting.
+\indent\justifying The functional requirements define the core services provided by CyberScope. These functionalities describe how the system interacts with users and how it performs automated security analysis, from scan initiation to result reporting.
 
 \subsection{Scan Initiation and Target Submission}
 
@@ -232,8 +228,7 @@ A traditional sequential development approach would make it difficult to validat
 
 \section{Global Use Case Diagram}
 
-\indent The use case diagram illustrates the main interactions between the user and the CyberScope system.
-\noindent Figure~\ref{fig:global-usecase} illustrates the main actors (User, Guest User, and System) and their interactions with the CyberScope platform, showing the primary use case flows for authentication, scanning, and attack scenario generation.
+\indent The use case diagram illustrates the main interactions between the user and the CyberScope system; Figure~\ref{fig:global-usecase} shows the main actors (User, Guest User, and System) and the primary use case flows for authentication, scanning, and attack scenario generation.
 
 \begin{figure}[H]
     \centering
@@ -265,11 +260,8 @@ A traditional sequential development approach would make it difficult to validat
 
 \subsection{Material Environment}
 
-\indent Development work was performed on a Windows workstation using the following primary tools:
+\indent Development work was performed on a Windows workstation using the following primary tools; Figure~\ref{fig:vscode-logo} shows Visual Studio Code, the primary development environment used for writing frontend and backend code, providing advanced features for debugging and extension management.
 
-\vspace{0.3cm}
-
-\noindent Figure~\ref{fig:vscode-logo} shows Visual Studio Code, the primary development environment used for writing frontend and backend code, providing advanced features for debugging and extension management.
 
 \vspace{0.3cm}
 
@@ -283,7 +275,7 @@ A traditional sequential development approach would make it difficult to validat
         \centering
     \end{minipage}
 \end{figure}
-\noindent Figure~\ref{fig:git-logo} represents Git, the distributed version control system used for managing source code, tracking development history, and coordinating collaborative contributions throughout the project lifecycle.
+\indent Figure~\ref{fig:git-logo} represents Git, the distributed version control system used for managing source code, tracking development history, and coordinating collaborative contributions throughout the project lifecycle.
 
 \vspace{0.3cm}
 \begin{figure}[H]
@@ -297,7 +289,7 @@ A traditional sequential development approach would make it difficult to validat
     \end{minipage}
 \end{figure}
 
-\noindent Figure~\ref{fig:chromium-logo} shows the Chromium/Google Chrome browser, used for manual functional testing, dynamic content verification, and network analysis of the CyberScope frontend during development.
+\indent Figure~\ref{fig:chromium-logo} shows the Chromium/Google Chrome browser, used for manual functional testing, dynamic content verification, and network analysis of the CyberScope frontend during development.
 
 \vspace{0.3cm}
 \begin{figure}[H]
@@ -311,7 +303,7 @@ A traditional sequential development approach would make it difficult to validat
     \end{minipage}
 \end{figure}
 
-\noindent Figure~\ref{fig:drawio-logo} represents diagrams.net (draw.io), the diagramming tool used to create all architectural diagrams, use case diagrams, class diagrams, and sequence diagrams throughout the documentation.
+\indent Figure~\ref{fig:drawio-logo} represents diagrams.net (draw.io), the diagramming tool used to create all architectural diagrams, use case diagrams, class diagrams, and sequence diagrams throughout the documentation.
 
 \vspace{0.3cm}
 \begin{figure}[H]
@@ -326,7 +318,7 @@ A traditional sequential development approach would make it difficult to validat
     \end{minipage}
 \end{figure}
 
-\noindent Figure~\ref{fig:overleaf-logo} shows Overleaf, the online collaborative LaTeX editor used for writing, editing, and compiling the project documentation and technical report.
+\indent Figure~\ref{fig:overleaf-logo} shows Overleaf, the online collaborative LaTeX editor used for writing, editing, and compiling the project documentation and technical report.
 
 \vspace{0.3cm}
 \begin{figure}[H]
@@ -350,10 +342,9 @@ A traditional sequential development approach would make it difficult to validat
 
 \vspace{0.2cm}
 
-\noindent Figure~\ref{fig:node-logo} represents Node.js, the JavaScript runtime environment providing the execution platform for the CyberScope backend server and all related processes.
+\indent Figure~\ref{fig:node-logo} represents Node.js, the JavaScript runtime environment providing the execution platform for the CyberScope backend server and all related processes.
 
 \vspace{0.3cm}
-\noindent Figure~\ref{fig:express-logo} shows Express.js, the lightweight web framework used to define all RESTful API endpoints, routing logic, and middleware components in the CyberScope backend.
 
 \begin{figure}[H]
     \centering
@@ -368,7 +359,7 @@ A traditional sequential development approach would make it difficult to validat
 
 \vspace{0.3cm}
 
-\noindent Figure~\ref{fig:prisma-logo} represents Prisma, the Object-Relational Mapping tool providing type-safe database access, migrations, and schema management for the PostgreSQL database.
+\indent Figure~\ref{fig:express-logo} shows Express.js, the lightweight web framework used to define all RESTful API endpoints, routing logic, and middleware components in the CyberScope backend.
 
 \vspace{0.3cm}
 
@@ -387,6 +378,7 @@ A traditional sequential development approach would make it difficult to validat
 
 
 \vspace{0.3cm}
+\indent Figure~\ref{fig:prisma-logo} shows Prisma, the Object-Relational Mapping tool providing type-safe database access, migrations, and schema management for the PostgreSQL database.
 
 \begin{figure}[H]
     \centering
@@ -401,7 +393,7 @@ A traditional sequential development approach would make it difficult to validat
 
 \vspace{0.3cm}
 
-\noindent Figure~\ref{fig:postgresql-logo} shows PostgreSQL, the robust relational database management system used to persistently store user data, scan jobs, vulnerabilities, and analysis results.
+\indent Figure~\ref{fig:postgresql-logo} shows PostgreSQL, the robust relational database management system used to persistently store user data, scan jobs, vulnerabilities, and analysis results.
 
 \vspace{0.3cm}
 
@@ -417,9 +409,10 @@ A traditional sequential development approach would make it difficult to validat
 \end{figure}
 
 \vspace{0.4cm}
-\noindent\textbullet\ \textbf{Frontend}
+\noindent\textbullet\ \textbf{Frontend} \\
 \vspace{0.15cm}
-\noindent Figure~\ref{fig:react-logo} represents React, the JavaScript library used to build the interactive CyberScope frontend dashboard with reusable components, state management, and dynamic user interfaces.
+
+\indent Figure~\ref{fig:react-logo} represents React, the JavaScript library used to build the interactive CyberScope frontend dashboard with reusable components, state management, and dynamic user interfaces.
 
 \vspace{0.2cm}
 \begin{figure}[H]
@@ -436,7 +429,7 @@ A traditional sequential development approach would make it difficult to validat
 
 \vspace{0.3cm}
 
-\noindent Figure~\ref{fig:vite-logo} shows Vite, the modern frontend build tool and development server used to provide fast hot module replacement and optimized production builds for the React frontend.
+\indent Figure~\ref{fig:vite-logo} shows Vite, the modern frontend build tool and development server used to provide fast hot module replacement and optimized production builds for the React frontend.
 
 \vspace{0.3cm}
 
@@ -453,7 +446,7 @@ A traditional sequential development approach would make it difficult to validat
 
 \vspace{0.3cm}
 
-\noindent Figure~\ref{fig:typescript-logo} represents TypeScript, the typed superset of JavaScript used throughout both frontend and backend development to provide static type checking and improved code quality.
+\indent Figure~\ref{fig:typescript-logo} represents TypeScript, the typed superset of JavaScript used throughout both frontend and backend development to provide static type checking and improved code quality.
 
 \vspace{0.3cm}
 
@@ -471,7 +464,7 @@ A traditional sequential development approach would make it difficult to validat
 \vspace{0.4cm}
 \noindent\textbullet\ \textbf{Scanning \& AI Tools}
 
-\noindent Figure~\ref{fig:ollama-logo} shows Ollama, the local AI engine used to assist in analysis and prompt generation within CyberScope.
+\indent Figure~\ref{fig:ollama-logo} shows Ollama, the local AI engine used to assist in analysis and prompt generation within CyberScope.
 
 \vspace{0.3cm}
 \begin{figure}[H]
@@ -484,7 +477,7 @@ A traditional sequential development approach would make it difficult to validat
         \centering
     \end{minipage}
 \end{figure}
-\noindent Figure~\ref{fig:hexstrike-logo} shows HexStrike AI, the orchestration layer for automated execution of multiple security tools in CyberScope.
+\indent Figure~\ref{fig:hexstrike-logo} shows HexStrike AI, the orchestration layer for automated execution of multiple security tools in CyberScope.
 
 \vspace{0.3cm}
 \begin{figure}[H]
